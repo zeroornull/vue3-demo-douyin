@@ -1,0 +1,10 @@
+$ bun run check
+started_at=2026-08-30T19:06:41+08:00
+$ run-s format:check lint type-check test:unit:run build-only
+$ prettier --check --experimental-cli .
+Checking formatting...
+[warn] src/features/shop/data/goods.fixture.json
+[warn] Code style issues found in 1 file. Run Prettier with --write to fix.
+error: script "format:check" exited with code 1
+ERROR: "format:check" exited with 1.
+error: script "check" exited with code 1

@@ -1,0 +1,6 @@
+$ bun run migration:round2:collect
+started_at=2026-08-30T19:22:50+08:00
+$ bun run scripts/round-2/collect-round.ts
+Round-2 summary written to docs/round-2/generated/summary.json
+exit_code=0
+finished_at=2026-08-30T19:22:50+08:00

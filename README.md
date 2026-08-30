@@ -10,9 +10,9 @@
 
 - 第 0 轮“旧项目行为基线”已执行完成。
 - 第 1 轮“Bun + Vue TypeScript 官方骨架”已执行完成。
-- 两轮产物均按要求保持未提交。
-- 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)。
-- 下一实施轮次：第 2 轮严格 TypeScript 迁移通道。
+- 第 2 轮“严格 TypeScript 迁移通道与 Shop 样板”已执行完成，保持未提交。
+- 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)、[`docs/round-2/README.md`](docs/round-2/README.md)。
+- 下一实施轮次：第 3 轮核心基础设施。
 
 ## 从这里开始
 

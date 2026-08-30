@@ -21,6 +21,8 @@
     "lint:eslint:fix": "eslint . --fix",
     "format": "prettier --write --experimental-cli .",
     "format:check": "prettier --check --experimental-cli .",
+    "migration:shop:import": "bun run scripts/round-2/import-shop-fixture.ts",
+    "migration:round2:collect": "bun run scripts/round-2/collect-round.ts",
     "check": "run-s format:check lint type-check test:unit:run build-only"
   },
   "dependencies": {

@@ -1,4 +1,13 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+function captureRuntimeErrors(page: Page) {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text())
+  })
+  return errors
+}
 
 test('shows the migration baseline at the root route', async ({ page }) => {
   await page.goto('/')
@@ -18,4 +27,69 @@ test('renders an explicit not-found route', async ({ page }) => {
   await page.goto('/not-yet-migrated')
   await expect(page.getByRole('heading', { name: '这个页面还没有迁移。' })).toBeVisible()
   await expect(page.getByRole('link', { name: '返回迁移概览' })).toHaveAttribute('href', '/')
+})
+
+test('navigates from the typed Shop list to a stable detail URL', async ({ page }) => {
+  const errors = captureRuntimeErrors(page)
+  await page.goto('/shop')
+
+  const products = page.locator('.product-card')
+  await expect(products).toHaveCount(6)
+  await expect(page.locator('.product-card img')).toHaveCount(6)
+  await expect
+    .poll(() =>
+      page
+        .locator('.product-card img')
+        .evaluateAll((images) =>
+          images.every(
+            (image) =>
+              image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+          ),
+        ),
+    )
+    .toBe(true)
+  await products.first().click()
+
+  await expect(page).toHaveURL(/\/shop\/detail\/g6$/)
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('小米电视6')
+  expect(errors).toEqual([])
+})
+
+test('loads and reloads a Shop detail deep link without routeData', async ({ page }) => {
+  const errors = captureRuntimeErrors(page)
+  await page.goto('/shop/detail/g6')
+
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('小米电视6')
+  await expect(page.getByText('ID g6')).toBeVisible()
+  await expect(page.locator('.detail-gallery img')).toHaveCount(5)
+  await expect
+    .poll(() =>
+      page
+        .locator('.detail-gallery img')
+        .evaluateAll((images) =>
+          images.every(
+            (image) =>
+              image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+          ),
+        ),
+    )
+    .toBe(true)
+  await page.reload()
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('小米电视6')
+  expect(errors).toEqual([])
+})
+
+test('distinguishes an invalid product ID from runtime failure', async ({ page }) => {
+  const errors = captureRuntimeErrors(page)
+  await page.goto('/shop/detail/not-valid')
+
+  await expect(page.getByTestId('product-not-found')).toContainText('商品不存在')
+  expect(errors).toEqual([])
+})
+
+test('redirects the legacy detail path that has no product ID', async ({ page }) => {
+  await page.goto('/shop/detail')
+
+  await expect(page).toHaveURL(/\/shop$/)
+  await expect(page.getByRole('heading', { name: '商品样板' })).toBeVisible()
 })

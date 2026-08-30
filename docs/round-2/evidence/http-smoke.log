@@ -1,0 +1,49 @@
+### GET /shop
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/html
+Cache-Control: no-cache
+Etag: W/"2e7-08Rzr4rVi7xVIe6I2QcpINGiXBM"
+Date: Sun, 30 Aug 2026 11:08:20 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 743
+
+body_bytes=743
+### GET /shop/detail
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/html
+Cache-Control: no-cache
+Etag: W/"2e7-08Rzr4rVi7xVIe6I2QcpINGiXBM"
+Date: Sun, 30 Aug 2026 11:08:20 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 743
+
+body_bytes=743
+### GET /shop/detail/g6
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/html
+Cache-Control: no-cache
+Etag: W/"2e7-08Rzr4rVi7xVIe6I2QcpINGiXBM"
+Date: Sun, 30 Aug 2026 11:08:20 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 743
+
+body_bytes=743
+### GET /shop/detail/not-valid
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/html
+Cache-Control: no-cache
+Etag: W/"2e7-08Rzr4rVi7xVIe6I2QcpINGiXBM"
+Date: Sun, 30 Aug 2026 11:08:20 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 743
+
+body_bytes=743
+exit_code=0

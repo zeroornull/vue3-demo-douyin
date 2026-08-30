@@ -10,8 +10,8 @@ describe('useMigrationStore', () => {
   it('describes the verified migration boundary', () => {
     const store = useMigrationStore()
 
-    expect(store.completed).toEqual([0, 1])
-    expect(store.nextRound).toBe(2)
-    expect(store.summary).toContain('第 1 轮已完成')
+    expect(store.completed).toEqual([0, 1, 2])
+    expect(store.nextRound).toBe(3)
+    expect(store.summary).toContain('第 2 轮已完成')
   })
 })

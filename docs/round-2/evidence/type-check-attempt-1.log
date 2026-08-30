@@ -1,0 +1,5 @@
+$ bun run type-check
+started_at=2026-08-30T19:02:58+08:00
+$ vue-tsc --build
+exit_code=0
+finished_at=2026-08-30T19:03:03+08:00

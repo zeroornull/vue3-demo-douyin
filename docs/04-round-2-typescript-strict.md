@@ -1,5 +1,7 @@
 # 第 2 轮：TypeScript 严格化
 
+> 执行状态：已完成。验收结果见 [`round-2/README.md`](round-2/README.md)。
+
 ## 1. 本轮目标
 
 建立一套可持续的类型迁移规则。目标不是把 `.js` 批量改名成 `.ts`，而是让编译器能够在 API、Store、路由、事件、组件 props/emits 和环境变量边界发现真实错误。

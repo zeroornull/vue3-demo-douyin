@@ -1,0 +1,16 @@
+$ bun run check
+started_at=2026-08-30T19:03:14+08:00
+$ run-s format:check lint type-check test:unit:run build-only
+$ prettier --check --experimental-cli .
+Checking formatting...
+All matched files use Prettier code style!
+$ run-s lint:oxlint lint:eslint
+$ oxlint .
+src/features/shop/__tests__/fixture-shop-gateway.spec.ts:11:7: error vitest(no-conditional-expect): Unexpected conditional expect help: Avoid calling `expect` conditionally
+error: script "lint:oxlint" exited with code 1
+ERROR: "lint:oxlint" exited with 1.
+error: script "lint" exited with code 1
+ERROR: "lint" exited with 1.
+error: script "check" exited with code 1
+exit_code=1
+finished_at=2026-08-30T19:03:15+08:00
