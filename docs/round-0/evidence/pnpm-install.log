@@ -1,0 +1,8 @@
+$ cd legacy && HUSKY=0 pnpm install --frozen-lockfile (temporary allowBuilds: esbuild/vue-demi=true, core-js=false)
+started_at=2026-08-30T16:52:20+08:00
+Already up to date
+Done in 1s using pnpm v11.21.0
+package_json_unchanged=true
+pnpm_lock_unchanged=true
+exit_code=0
+finished_at=2026-08-30T16:52:21+08:00

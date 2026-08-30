@@ -1,0 +1,24 @@
+$ bun run check
+started_at=2026-08-30T17:46:49+08:00
+$ run-s format:check lint type-check test:unit:run build-only
+$ prettier --check --experimental-cli .
+Checking formatting...
+All matched files use Prettier code style!
+$ run-s "lint:*"
+$ oxlint .
+$ eslint . --cache
+
+/home/pax/Project/github/douyin/scripts/round-0/capture-browser-baseline.cjs
+  1:30  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:21  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  3:22  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+✖ 3 problems (3 errors, 0 warnings)
+
+error: script "lint:eslint" exited with code 1
+ERROR: "lint:eslint" exited with 1.
+error: script "lint" exited with code 1
+ERROR: "lint" exited with 1.
+error: script "check" exited with code 1
+exit_code=1
+finished_at=2026-08-30T17:46:53+08:00

@@ -1,5 +1,7 @@
 # 第 1 轮：Bun 与官方 Vue TypeScript 骨架
 
+> 执行状态：已完成。验收结果见 [`round-1/README.md`](round-1/README.md)。
+
 ## 1. 本轮目标
 
 建立一个**没有旧业务代码**的现代基座，证明 Bun、Vue、Vite、TypeScript、lint 和测试工具能够作为一个兼容整体工作。只有这个基座全绿后，才允许迁移公共能力和页面。

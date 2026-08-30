@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-08-30T09:12:04.488Z",
+  "apiEndpointCount": 15,
+  "mockEndpointCount": 14,
+  "apiEndpoints": [
+    {
+      "functionName": "userinfo",
+      "method": "GET",
+      "url": "/user/userinfo",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 3
+    },
+    {
+      "functionName": "userVideoList",
+      "method": "GET",
+      "url": "/user/video_list",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 7
+    },
+    {
+      "functionName": "panel",
+      "method": "GET",
+      "url": "/user/panel",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 11
+    },
+    {
+      "functionName": "friends",
+      "method": "GET",
+      "url": "/user/friends",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 15
+    },
+    {
+      "functionName": "userCollect",
+      "method": "GET",
+      "url": "/user/collect",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 19
+    },
+    {
+      "functionName": "recommendedPost",
+      "method": "GET",
+      "url": "/post/recommended",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 23
+    },
+    {
+      "functionName": "recommendedShop",
+      "method": "GET",
+      "url": "/shop/recommended",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/user.ts",
+      "sourceLine": 27
+    },
+    {
+      "functionName": "historyOther",
+      "method": "GET",
+      "url": "/video/historyOther",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 3
+    },
+    {
+      "functionName": "historyVideo",
+      "method": "GET",
+      "url": "/video/history",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 7
+    },
+    {
+      "functionName": "recommendedVideo",
+      "method": "GET",
+      "url": "/video/recommended",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 11
+    },
+    {
+      "functionName": "recommendedLongVideo",
+      "method": "GET",
+      "url": "/video/long/recommended/",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 15
+    },
+    {
+      "functionName": "myVideo",
+      "method": "GET",
+      "url": "/video/my",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 19
+    },
+    {
+      "functionName": "privateVideo",
+      "method": "GET",
+      "url": "/video/private",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 23
+    },
+    {
+      "functionName": "likeVideo",
+      "method": "GET",
+      "url": "/video/like",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 27
+    },
+    {
+      "functionName": "videoComments",
+      "method": "GET",
+      "url": "/video/comments",
+      "params": [
+        "params",
+        "data"
+      ],
+      "source": "legacy/src/api/videos.ts",
+      "sourceLine": 31
+    }
+  ],
+  "mockEndpoints": [
+    {
+      "method": "GET",
+      "matcher": "/video\\/recommended/",
+      "sourceLine": 136
+    },
+    {
+      "method": "GET",
+      "matcher": "/video\\/long\\/recommended/",
+      "sourceLine": 151
+    },
+    {
+      "method": "GET",
+      "matcher": "/video\\/comments/",
+      "sourceLine": 166
+    },
+    {
+      "method": "GET",
+      "matcher": "/video\\/private/",
+      "sourceLine": 197
+    },
+    {
+      "method": "GET",
+      "matcher": "/video\\/like/",
+      "sourceLine": 212
+    },
+    {
+      "method": "GET",
+      "matcher": "/video\\/my/",
+      "sourceLine": 227
+    },
+    {
+      "method": "GET",
+      "matcher": "/video\\/history/",
+      "sourceLine": 260
+    },
+    {
+      "method": "GET",
+      "matcher": "/user\\/collect/",
+      "sourceLine": 275
+    },
+    {
+      "method": "GET",
+      "matcher": "/user\\/video_list/",
+      "sourceLine": 295
+    },
+    {
+      "method": "GET",
+      "matcher": "/user\\/panel/",
+      "sourceLine": 305
+    },
+    {
+      "method": "GET",
+      "matcher": "/user\\/friends/",
+      "sourceLine": 317
+    },
+    {
+      "method": "GET",
+      "matcher": "/historyOther/",
+      "sourceLine": 323
+    },
+    {
+      "method": "GET",
+      "matcher": "/post\\/recommended/",
+      "sourceLine": 339
+    },
+    {
+      "method": "GET",
+      "matcher": "/shop\\/recommended/",
+      "sourceLine": 360
+    }
+  ]
+}

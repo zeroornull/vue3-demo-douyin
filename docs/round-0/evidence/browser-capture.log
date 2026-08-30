@@ -1,0 +1,20 @@
+$ NODE_PATH=/tmp/douyin-round0-tools/node_modules node scripts/round-0/capture-browser-baseline.cjs
+started_at=2026-08-30T17:04:19+08:00
+Capturing home-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=5
+Capturing search-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing shop-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing shop-detail-mobile... status=200 consoleErrors=1 pageErrors=3 requestFailures=0
+Capturing shop-to-detail-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing message-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing chat-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing message-to-chat-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing profile-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing edit-profile-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing profile-to-edit-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing login-mobile... status=200 consoleErrors=0 pageErrors=0 requestFailures=0
+Capturing video-detail-mobile... status=200 consoleErrors=1 pageErrors=2 requestFailures=0
+Capturing home-narrow... status=200 consoleErrors=0 pageErrors=0 requestFailures=5
+Capturing home-desktop... status=200 consoleErrors=0 pageErrors=0 requestFailures=6
+Browser baseline written to /home/pax/Project/github/douyin/docs/round-0/generated/browser-smoke.json
+exit_code=0
+finished_at=2026-08-30T17:05:41+08:00

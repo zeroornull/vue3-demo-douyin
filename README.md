@@ -6,6 +6,14 @@
 当前阶段不包含新应用实现。迁移应按文档中的轮次推进，每一轮都必须通过自己的
 验收门禁后才能进入下一轮，避免一次性升级运行时、框架、类型系统和业务代码。
 
+## 当前进度
+
+- 第 0 轮“旧项目行为基线”已执行完成。
+- 第 1 轮“Bun + Vue TypeScript 官方骨架”已执行完成。
+- 两轮产物均按要求保持未提交。
+- 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)。
+- 下一实施轮次：第 2 轮严格 TypeScript 迁移通道。
+
 ## 从这里开始
 
 1. 阅读 [`docs/README.md`](docs/README.md) 了解文档地图与基本原则。

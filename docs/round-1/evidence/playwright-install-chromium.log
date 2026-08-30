@@ -1,0 +1,4 @@
+$ bunx playwright install chromium
+started_at=2026-08-30T17:54:11+08:00
+exit_code=0
+finished_at=2026-08-30T17:54:11+08:00

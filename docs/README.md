@@ -1,7 +1,7 @@
 # Bun + TypeScript + Vue 迁移与学习文档
 
 > 版本核对日期：2026-08-30（Asia/Shanghai）
-> 文档状态：迁移实施前基线
+> 文档状态：第 0、1 轮已完成，第 2 轮尚未开始
 > 目标：用 Bun 管理依赖和运行脚本，以 TypeScript 严格模式重建应用，并迁移到当前稳定 Vue 生态。
 
 ## 1. 文档地图
@@ -19,6 +19,19 @@
 | 8 | [学习路线](08-learning-path.md) | 按迁移任务学习 Bun、TS、Vue 与测试 | 能解释设计，不只是复制命令 |
 | 9 | [命令、清单与排错](09-command-reference.md) | 提供日常命令、验收模板和常见故障处理 | 每轮均可复用同一套证据格式 |
 | 10 | [依赖策略与来源](10-dependency-policy.md) | 解释“最新”含义、兼容矩阵、升级规则与来源 | 依赖升级可复现且不盲追版本 |
+
+## 当前执行产物
+
+- [第 0 轮验收报告](round-0/README.md)
+- [旧项目运行、类型、构建和浏览器证据](round-0/runtime.md)
+- [65 条旧路由清单](round-0/routes.md)
+- [API、Mock 与 fixture 契约](round-0/contracts.md)
+- [全局副作用清单](round-0/global-side-effects.md)
+- [2,081 个静态资源的可提交摘要](round-0/resources.md)
+- [第 1 轮 Bun + Vue TypeScript 基座验收报告](round-1/README.md)
+- [第 1 轮依赖解析与锁文件](round-1/dependency-resolution.md)
+- [第 1 轮应用壳与架构](round-1/architecture.md)
+- [第 1 轮完整验证证据](round-1/verification.md)
 
 ## 2. 必须遵守的迁移原则
 

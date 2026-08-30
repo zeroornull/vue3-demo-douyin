@@ -1,0 +1,5 @@
+$ bun run scripts/round-1/collect-round.ts
+started_at=2026-08-30T17:57:48+08:00
+Round-1 summary written to docs/round-1/generated/summary.json
+exit_code=0
+finished_at=2026-08-30T17:57:48+08:00

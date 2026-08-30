@@ -1,0 +1,13 @@
+$ bun run format
+started_at=2026-08-30T17:46:38+08:00
+$ prettier --write --experimental-cli .
+index.html
+playwright.config.ts
+scripts/round-0/capture-browser-baseline.cjs
+scripts/round-0/collect-baseline.ts
+scripts/round-0/render-report.ts
+src/assets/main.css
+src/views/MigrationHomeView.vue
+vite.config.ts
+exit_code=0
+finished_at=2026-08-30T17:46:39+08:00

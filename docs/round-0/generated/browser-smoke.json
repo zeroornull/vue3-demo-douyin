@@ -1,0 +1,1182 @@
+{
+  "generatedAt": "2026-08-30T09:05:40.996Z",
+  "baseUrl": "http://127.0.0.1:4173",
+  "browser": "Google Chrome via Playwright 1.62.1",
+  "total": 15,
+  "successfulDocuments": 15,
+  "navigationFailures": 0,
+  "actionFailures": 0,
+  "casesWithConsoleErrors": 2,
+  "casesWithPageErrors": 2,
+  "casesWithRequestFailures": 3,
+  "results": [
+    {
+      "id": "home-mobile",
+      "path": "/home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:20.605Z",
+      "finishedAt": "2026-08-30T09:04:25.767Z",
+      "url": "http://127.0.0.1:4173/home",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/home-mobile.png",
+      "pageState": {
+        "bodyTextSample": "下午好\n扫一扫\n常用小程序\n全部\n今日头条\n西瓜视频\n最近常看\n全部\n随机名字\n随机名字\n随机名字\n随机名字\n随机名字\n随机名字\n常用功能\n我的钱包\n券包\n小程序\n观看历史\n内容偏好\n离线模式\n设置\n稍后再看\n下拉刷新内容\n热点\n长视频\n关注\n经验\n推荐\n美食\n休闲娱乐\n游玩\n丽人/美发\n住宿\n游玩\n丽人/美发\n住宿\n附近吃喝玩乐\n李子柒\n小霸宠牛排🥩\n奶茶妹◕🌱\n杨老虎🐯（磕穿下巴掉牙版）\n我才是岚岚\n条子\n达莎Digi\n周子然JingYi\n刘思瑶nice\n彭十六elf\n我是香秀🐂🍺\n小橙子\n南恬\n13个直播\n640.0万\n13.6万\n24.6万\n44.6万\n取消静音\n@彭十六elf\n把东方美学带到欧洲 #卢浮宫 #马面裙\n248.4万\n9.0万\n12.8万\n33.7万\n取消静音\n@刘思瑶nice\n“舒服自在 心情可爱”\n51.2万\n1.2万\n1971\n4059\n取消静音\n@李子柒\n豌豆大丰收！得闲把豌豆吃食都做个遍——豌豆凉粉和豌豆黄 #美食趣胃计划\n197.0万\n7.2万\n10.1万\n18.4万\n取消静音\n@我是香秀🐂🍺\n是谁多事种芭蕉 早也潇潇 晚也潇潇\n15.2",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 150,
+          "inputs": 0,
+          "videos": 5
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/home",
+        "navigation": {
+          "domContentLoadedMs": 896,
+          "loadEventMs": 2733,
+          "responseEndMs": 17
+        },
+        "resourceCount": 250,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [
+        {
+          "errorText": "net::ERR_BLOCKED_BY_ORB",
+          "method": "GET",
+          "resourceType": "image",
+          "url": "https://img.tol.vip/avatar/WEIXIN/3aSuTGYTzjHvcHy0y0tH1eiShKRk9Sgd.jpg?_upt=de4a5c251709635127"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://v5-se-ex-mc-e.douyinvod.com/16633575aaaf51ef1b42fc7f246dffb6/6a94002e/video/tos/cn/tos-cn-ve-15c001-alinc2/a673ed009c234f20a9d8355cc721029c/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=1459&bt=1459&cs=0&ds=4&ft=42Ugq6TMppfte1L8MCo.C_fauVq0InJRVwpc6BuSBk1ZzQdHDDAVr34Bt~3lpusZ.&mime_type=video_mp4&qs=0&rc=ZjZpaGk1NzM4Zjc2MzU7N0BpM2xzcmg6ZnBvPDMzNGkzM0A1MDMwY14xXzUxYzAtX141YSNqb2ExcjRnZGBgLS1kLS9zcw%3D%3D&btag=c0000e00088000&cquery=10sH_100y&dy_q=1788080662&l=20260830170422CD28213C739E9402179C"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://v5-se2-bjtc-e.douyinvod.com/70b09cdc3bce3e6e4ac1eb956c5a3335/6a94003d/video/tos/cn/tos-cn-ve-15c001-alinc2/oY2AsBDRP3nL9vgVwYZ5e9dAbACQXjUAt0IyeT/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=4040&bt=4040&cs=0&ds=4&ft=SaxRPTj2iiuG1vrM~~OC~49Zyo3nOz7eu9xXpMyDS.aH4nQ2B22p.7.kV-w6jpd.o~&mime_type=video_mp4&qs=0&rc=NWVnOGg1ZDc5Z2Q2ZzlkM0BpM29tOjM6ZmZraTMzNGkzM0AtL2FjNTAtX2IxMi9jYTI1YSNqZmozcjRnbGBgLS1kLS9zcw%3D%3D&btag=c0000e00090000&cquery=100y_10sH&dy_q=1788080662&feature_id=59cb2766d89ae6284516c6a254e9fb61&l=20260830170422353B8B69D60F6B6398A4"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://v5-gz2-a.douyinvod.com/d6bc71e5e76b8ae539dcf18059f5338b/6a940031/video/tos/cn/tos-cn-ve-15-alinc2/44488a526c024cae942e49d85a8d1c9c/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=1336&bt=1336&cs=0&ds=4&ft=D5ZMvVQccxi-LGydf.sdex4RvMm3-sUvQcYWHAeBjyn0juh007Rwp0PKComnRfqs&mime_type=video_mp4&qs=0&rc=aWU0Zzk6Mzg5aTY0ODY1M0BpM3dzdjw6ZjQ6OjMzNGkzM0AzMl8wXi5hXzYxMF82Ly5iYSNjYG5mcjRncW9gLS1kLWFzcw%3D%3D&btag=c0000e00088000&cquery=100y_10sH&dy_q=1788080662&l=20260830170422784B171AE7E61B21F8C0"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://248954d2.qtaeixd.com:60166/v90-ncdn-domain-backup.douyinvod.com/cdf92cb8a87a62e4cc4b4e80020665c0/6a9400fa/video/tos/cn/tos-cn-ve-15/0dc7efdf776d4891aaf86a65277f4c3a/?a=1128&adxx=JmlzPWR4JnJlPXNoJmFkPXY5MC1uY2RuLWRvbWFpbi1iYWNrdXAuZG91eWludm9kLmNvbSZ0PTE3ODgwODA2NjImc2lnbj05NjI5MTJiYmI4NTc5MzAwZTJhYzI0NzFkMjMyNmVjNA&br=3751&bt=3751&btag=c0000e000a8000&cd=0%7C0%7C0%7C0&ch=0&cquery=100y_10sH&cr=0&cs=0&cts=2&cv=1&dr=0&ds=4&dy_q=1788080662&er=0&ft=QE6gGbLZffPdpK~BYj0NvAq-antLjrKYPqmuRkaRgTgYejVhWL6&jsv=1.0.8&l=2026083017042237F9271BBC5CDB623BB1&mime_type=video_mp4&nqck=0&qs=0&rc=ZWc4PDdmODw1OzhnaDdmaUBpajh5NTY0Z3k1dDMzOGkzM0BgX2IvNWM0NS8xLzZhL15iYSNzc2cyMmpibHNfLS1eLS9zcw%3D%3D&real_host=djkwLW5jZG4tZG9tYWluLWJhY2t1cC5kb3V5aW52b2QuY29t&x_r_id=c6ea814559095d86a16cd26527954216"
+        }
+      ],
+      "nonSuccessfulResponses": [],
+      "responseCount": 280
+    },
+    {
+      "id": "search-mobile",
+      "path": "/home/search",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:25.927Z",
+      "finishedAt": "2026-08-30T09:04:30.724Z",
+      "url": "http://127.0.0.1:4173/home/search",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/search-mobile.png",
+      "pageState": {
+        "bodyTextSample": "搜索\n历史记录10\n历史记录9\n展开全部\n猜你想搜\n换一换\nLing OS灵犀系统\n桑塔纳2022款\n成都新全优教育倒闭\n少年透明人\n四川双一流大学名单\n透明人\n抖音热榜\n直播榜\n音乐榜\n品牌榜\n专题：嘻嘻嘻哈哈瞄瞄嘻嘻嘻\n国内手机厂商最大的软肋就是 android 系统！\n999w\n大家的官网订单现在什么状态\n999w\n库克不愧是供应链管理大师， A15 一鱼三吃\n999w\n4\n找到了 iOS 被怀疑淘宝窃听的可能原因\n999w\n5\nrebase 还是 merge？\n999w\n6\n十一出游西安，西安的大佬们能给些建议吗？\n999w\n7\n领克 01，燃油还是 phev？\n999w\n8\n为什么要抢购新手机呢？\n999w\n9\n拼多多官方处理问题跟京东真的没法比\n999w\n10\n百度输入法 VS 搜狗输入法\n999w\n11\n关于 ios 上 app 检测代理\n999w\n12\niPadmini6 到货以后，要不要换路由器\n999w\n13\n现在有推荐的同步盘么？\n999w\n14\n大哥们， mac 电池鼓包你们都咋修的。。\n999w\n15\n发现一个特别赞的同步盘方案 Resilio Sync\n99",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 110,
+          "inputs": 1,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/home/search",
+        "navigation": {
+          "domContentLoadedMs": 679,
+          "loadEventMs": 680,
+          "responseEndMs": 10
+        },
+        "resourceCount": 202,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 202
+    },
+    {
+      "id": "shop-mobile",
+      "path": "/shop",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:30.856Z",
+      "finishedAt": "2026-08-30T09:04:35.571Z",
+      "url": "http://127.0.0.1:4173/shop",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/shop-mobile.png",
+      "pageState": {
+        "bodyTextSample": "50元话费充值\n搜索\n我的订单\n手机充值\n购物消息\n小时达\n退款/售后\n潮流服饰\n38节补贴\n￥470\n￥699\n￥8.8\n￥2.99\n小米电视6 65\" OLED 65英寸\n￥\n6699\n已售863件\n森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮\n满20减5\n￥\n49.99\n已售3314件\nRedmi K60狠快狠强，狠旗舰！2023，第一台梦幻手机\n￥\n2999\n已售967件\n近30天低价\n小米电视6 65\" OLED 65英寸\n￥\n6699\n已售863件\n森马t恤男2023男士纯棉上衣白色情侣装凉感短袖打底衫纯色体恤潮\n满20减5\n￥\n49.99\n已售3314件\n红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫\n满4减3\n￥\n39.9\n已售134件\n近30天低价\nins潮牌长袖t恤男宽松纯色内搭上衣潮牌百搭秋冬季潮流帅气打底衫\n满10减3\n￥\n22.9\n已售129件\n近30天低价\n小米笔记本Pro X 14\n￥\n6999\n已售473件\n红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫\n满4减3\n￥\n39.9\n已售134件\n近30",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 16,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/shop",
+        "navigation": {
+          "domContentLoadedMs": 609,
+          "loadEventMs": 611,
+          "responseEndMs": 15
+        },
+        "resourceCount": 215,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 215
+    },
+    {
+      "id": "shop-detail-mobile",
+      "path": "/shop/detail",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:35.723Z",
+      "finishedAt": "2026-08-30T09:04:40.570Z",
+      "url": "http://127.0.0.1:4173/shop/detail",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/shop-detail-mobile.png",
+      "pageState": {
+        "bodyTextSample": "多功能电源插座\n商品\n评价\n详情\n推荐\n1/0\n￥\n热销款券后\n￥\n已售\n保障\n假一赔四·运费险·极速退款\n选择\n【10双】男土SP中筒袜\n【5双】男土SP中筒袜\n【5双】男土SP中筒袜\n共3种规格可选\n物流\n发货 四川成都\n|\n免运费\n48小时内发货\n送至 四川省成都市\n参数\n优惠新人券 立减4新人券立减4新人券立减4新人券 立减4新人券 立减4\n商品评论(507)\n物美价廉\n29\n物流很好\n26\n推荐\n18\n商用服务好\n15\n花***栽\n东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评\nchina款/超值【买る双+送2双】共5双\n花***栽\n东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评\nchina款/超值【买る双+送2双】共5双\n店铺名\n金牌店铺\n好评过千\n销量超10万\n店铺口碑4.90分\n进店\n商品质量\n商品评价一般\n物流速度\n平均24小时发货\n商品质量\n商品评价一般\n店铺推荐\n查看全部\n小米电视6 65\" OLED 65英寸\n￥8.8\n红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣开衫\n￥8.8\n森马t恤男2023男士纯棉上衣白色情侣装凉感",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 9,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/shop/detail",
+        "navigation": {
+          "domContentLoadedMs": 715,
+          "loadEventMs": 725,
+          "responseEndMs": 12
+        },
+        "resourceCount": 196,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458",
+            "line": 2115,
+            "column": 12,
+            "lineNumber": 2115,
+            "columnNumber": 12
+          },
+          "text": "[Vue warn]: Unhandled error during execution of mounted hook \n  at <GoodsDetail onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) > > \n  at <KeepAlive exclude= [] > \n  at <BaseTransition appear=false persisted=false mode=undefined  ... > \n  at <Transition name=\"go\" > \n  at <RouterView> \n  at <App>",
+          "type": "warning"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/node_modules/.vite/deps/vue-router.js?v=9b0de458",
+            "line": 43,
+            "column": 15,
+            "lineNumber": 43,
+            "columnNumber": 15
+          },
+          "text": "[Vue Router warn]: uncaught error during route navigation:",
+          "type": "warning"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/node_modules/.vite/deps/vue-router.js?v=9b0de458",
+            "line": 2503,
+            "column": 14,
+            "lineNumber": 2503,
+            "columnNumber": 14
+          },
+          "text": "TypeError: Cannot read properties of null (reading 'imgs')\n    at http://127.0.0.1:4173/src/pages/shop/GoodsDetail.vue:56:40\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)",
+          "type": "error"
+        }
+      ],
+      "consoleErrorCount": 1,
+      "pageErrors": [
+        {
+          "message": "Cannot read properties of null (reading 'imgs')",
+          "stack": "TypeError: Cannot read properties of null (reading 'imgs')\n    at http://127.0.0.1:4173/src/pages/shop/GoodsDetail.vue:56:40\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)"
+        },
+        {
+          "message": "Cannot read properties of null (reading 'imgs')",
+          "stack": "TypeError: Cannot read properties of null (reading 'imgs')\n    at http://127.0.0.1:4173/src/pages/shop/GoodsDetail.vue:56:40\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)"
+        },
+        {
+          "message": "Cannot read properties of null (reading 'imgs')",
+          "stack": "TypeError: Cannot read properties of null (reading 'imgs')\n    at http://127.0.0.1:4173/src/pages/shop/GoodsDetail.vue:56:40\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)"
+        }
+      ],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 196
+    },
+    {
+      "id": "shop-to-detail-mobile",
+      "path": "/shop",
+      "action": "shop-to-detail",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:40.710Z",
+      "finishedAt": "2026-08-30T09:04:48.062Z",
+      "url": "http://127.0.0.1:4173/shop",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/shop-to-detail-mobile.png",
+      "pageState": {
+        "bodyTextSample": "多功能电源插座\n商品\n评价\n详情\n推荐\n1/5\n￥6699\n热销款券后\n￥399\n小米电视6 65\" OLED 65英寸\n已售863\n保障\n假一赔四·运费险·极速退款\n选择\n【10双】男土SP中筒袜\n【5双】男土SP中筒袜\n【5双】男土SP中筒袜\n共3种规格可选\n物流\n发货 四川成都\n|\n免运费\n48小时内发货\n送至 四川省成都市\n参数\n优惠新人券 立减4新人券立减4新人券立减4新人券 立减4新人券 立减4\n商品评论(507)\n物美价廉\n29\n物流很好\n26\n推荐\n18\n商用服务好\n15\n花***栽\n东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评\nchina款/超值【买る双+送2双】共5双\n花***栽\n东西不错质量也很好 性价比很高 良心商家就冲这图必须给好评\nchina款/超值【买る双+送2双】共5双\n店铺名\n金牌店铺\n好评过千\n销量超10万\n店铺口碑4.90分\n进店\n商品质量\n商品评价一般\n物流速度\n平均24小时发货\n商品质量\n商品评价一般\n店铺推荐\n查看全部\n小米电视6 65\" OLED 65英寸\n￥8.8\n红白撞色条纹软糯针织上衣女2022年秋季新款甜美减龄短款毛衣",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 29,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/shop/detail",
+        "navigation": {
+          "domContentLoadedMs": 637,
+          "loadEventMs": 639,
+          "responseEndMs": 11
+        },
+        "resourceCount": 236,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/src/pages/shop/GoodsDetail.vue",
+            "line": 55,
+            "column": 14,
+            "lineNumber": 55,
+            "columnNumber": 14
+          },
+          "text": "r Proxy(Array)",
+          "type": "log"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 235
+    },
+    {
+      "id": "message-mobile",
+      "path": "/message",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:48.189Z",
+      "finishedAt": "2026-08-30T09:04:52.841Z",
+      "url": "http://127.0.0.1:4173/message",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/message-mobile.png",
+      "pageState": {
+        "bodyTextSample": "何以为家\n浅唱↘我们的歌\n‘心’之天空\n◇、_保持微笑ゞ\n好◇°我会Yi直在●\n甫韦茹\n幸福泡泡\n蔡傲安\n心若向阳无谓伤悲\nA倒影着稚嫩的少年\n一只喵的旅行。\n℉阳光下的小情绪\n思念一直在\n阎韶丽\n马佳婉清\n倒影着稚嫩的少年\n买易槐\n章昊苍\n凌依晨\n为你锁住心\n原味青春\n一起走过的日子°\n看，熟悉旳风景\ndear°学会微笑\n富察昕昕\n蓝天下的迷彩?\n伱的微笑\n状态设置\n新朋友\nxxx 关注了你\n互动消息\nxxx 近期访问过你的主页\n杨老虎🐯（磕穿下巴掉牙版）\n哈哈哈哈哈哈\n10-10\n2\n抖音小助手\n官方\n#今天谁请客呢\n星期四\n系统通知\n官方\n协议修订通知\n08-31\n求更新\n官方\n你收到过1次求更新\n10-09\n任务通知\n官方\n发作品得流量\n05-26\n直播通知\n官方\n举报结果通知\n05-26\n钱包通知\n官方\n卡券发放提醒\n05-26\n暂时没有更多了\n首页\n商城\n消息\n2\n我",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 41,
+          "inputs": 1,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/message",
+        "navigation": {
+          "domContentLoadedMs": 562,
+          "loadEventMs": 564,
+          "responseEndMs": 11
+        },
+        "resourceCount": 231,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/src/pages/message/Message.vue",
+            "line": 37,
+            "column": 14,
+            "lineNumber": 37,
+            "columnNumber": 14
+          },
+          "text": "create",
+          "type": "log"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 231
+    },
+    {
+      "id": "chat-mobile",
+      "path": "/message/chat",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:52.984Z",
+      "finishedAt": "2026-08-30T09:04:57.694Z",
+      "url": "http://127.0.0.1:4173/message/chat",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/chat-mobile.png",
+      "pageState": {
+        "bodyTextSample": "12\nzzzz\n2021-01-02 21:21\n对方已拒绝\n点击呼叫\n通话时长 05:32\n对方未接通\n点击呼叫\n对方已拒绝\n点击呼叫\n通话时长 05:32\n对方未接通\n点击呼叫\n5'\n10'\n又在刷抖音\n我昨天@你那个视频发给我下\n我找不到了\n我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了\n服了asd\nsafasdfassafasdfassafasdfassafasdfas\n大吉大利\n抖音红包\n大吉大利\n已过期\n抖音红包",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 48,
+          "inputs": 1,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/message/chat",
+        "navigation": {
+          "domContentLoadedMs": 623,
+          "loadEventMs": 626,
+          "responseEndMs": 13
+        },
+        "resourceCount": 208,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 208
+    },
+    {
+      "id": "message-to-chat-mobile",
+      "path": "/message",
+      "action": "message-to-chat",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:04:57.828Z",
+      "finishedAt": "2026-08-30T09:05:03.575Z",
+      "url": "http://127.0.0.1:4173/message",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/message-to-chat-mobile.png",
+      "pageState": {
+        "bodyTextSample": "12\nzzzz\n2021-01-02 21:21\n对方已拒绝\n点击呼叫\n通话时长 05:32\n对方未接通\n点击呼叫\n对方已拒绝\n点击呼叫\n通话时长 05:32\n对方未接通\n点击呼叫\n5'\n10'\n又在刷抖音\n我昨天@你那个视频发给我下\n我找不到了\n我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了我也找不到了\n服了asd\nsafasdfassafasdfassafasdfassafasdfas\n大吉大利\n抖音红包\n大吉大利\n已过期\n抖音红包",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 48,
+          "inputs": 1,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/message/chat",
+        "navigation": {
+          "domContentLoadedMs": 583,
+          "loadEventMs": 584,
+          "responseEndMs": 11
+        },
+        "resourceCount": 250,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/src/pages/message/Message.vue",
+            "line": 37,
+            "column": 14,
+            "lineNumber": 37,
+            "columnNumber": 14
+          },
+          "text": "create",
+          "type": "log"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 254
+    },
+    {
+      "id": "profile-mobile",
+      "path": "/me",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:05:03.704Z",
+      "finishedAt": "2026-08-30T09:05:08.396Z",
+      "url": "http://127.0.0.1:4173/me",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/profile-mobile.png",
+      "pageState": {
+        "bodyTextSample": "编辑资料\n\n杨老虎🐯（磕穿下巴掉牙版）\n\n抖音号：12345xiaolaohu\n124\n获赞\n3778\n朋友\n3778\n关注\n173.5万\n粉丝\n添加朋友\n每晚12:00直播 韩舞业余，专业蹦迪！\n虎的小号@杨巅峰🐑🐯 \n💜商务V：Joymedia7 💜\n💙这辈子人潮汹涌 遇到你  我很幸运💙\n27岁\n广东 - 珠海\n抖音商城\n我的音乐\n我的群聊\n查看更多\n作品\n私密\n喜欢\n收藏\n21.3万\n置顶\n21.8万\n置顶\n14.0万\n置顶\n4518\n9373\n2.4万\n6912\n5482\n2.6万\n6.7万\n3.3万\n12.6万\n1.9万\n5780\n5.3万\n暂时没有更多了\n只有你能看到设为私密的作品和日常\n暂时没有更多了\n只有你能看到自己的喜欢列表\n暂时没有更多了\n只有你能看到自己的收藏列表\n暂时没有更多了\n首页\n商城\n消息\n2\n我\n我的订单\n钱包\n我的二维码\n观看历史\n时间管理\n创作者服务中心\n小程序\n抖音公益\n未成年保护工具\n我的客服\n设置\n更多功能",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 34,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/me",
+        "navigation": {
+          "domContentLoadedMs": 564,
+          "loadEventMs": 566,
+          "responseEndMs": 8
+        },
+        "resourceCount": 228,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 228
+    },
+    {
+      "id": "edit-profile-mobile",
+      "path": "/me/edit-userinfo",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:05:08.532Z",
+      "finishedAt": "2026-08-30T09:05:14.663Z",
+      "url": "http://127.0.0.1:4173/me/edit-userinfo",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/edit-profile-mobile.png",
+      "pageState": {
+        "bodyTextSample": "编辑资料\n已完成85%\n点击更换头像\n名字\n杨老虎🐯（磕穿下巴掉牙版）\n抖音号\n12345xiaolaohu\n简介\n每晚12:00直播 韩舞业余，专业蹦迪！ 虎的小号@杨巅峰🐑🐯 💜商务V：Joymedia7 💜 💙这辈子人潮汹涌 遇到你 我很幸运💙\n性别\n女\n生日\n27\n所在地\n广东 - 珠海\n学校\n点击设置",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 10,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/me/edit-userinfo",
+        "navigation": {
+          "domContentLoadedMs": 626,
+          "loadEventMs": 628,
+          "responseEndMs": 10
+        },
+        "resourceCount": 191,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 191
+    },
+    {
+      "id": "profile-to-edit-mobile",
+      "path": "/me",
+      "action": "profile-to-edit",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:05:14.795Z",
+      "finishedAt": "2026-08-30T09:05:20.616Z",
+      "url": "http://127.0.0.1:4173/me",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/profile-to-edit-mobile.png",
+      "pageState": {
+        "bodyTextSample": "编辑资料\n已完成85%\n点击更换头像\n名字\n杨老虎🐯（磕穿下巴掉牙版）\n抖音号\n12345xiaolaohu\n简介\n每晚12:00直播 韩舞业余，专业蹦迪！ 虎的小号@杨巅峰🐑🐯 💜商务V：Joymedia7 💜 💙这辈子人潮汹涌 遇到你 我很幸运💙\n性别\n女\n生日\n27\n所在地\n广东 - 珠海\n学校\n点击设置",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 10,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/me/edit-userinfo",
+        "navigation": {
+          "domContentLoadedMs": 679,
+          "loadEventMs": 681,
+          "responseEndMs": 16
+        },
+        "resourceCount": 235,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 234
+    },
+    {
+      "id": "login-mobile",
+      "path": "/login",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:05:20.753Z",
+      "finishedAt": "2026-08-30T09:05:25.459Z",
+      "url": "http://127.0.0.1:4173/login",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/login-mobile.png",
+      "pageState": {
+        "bodyTextSample": "帮助与设置\n登录看朋友内容\n138****8000\n认证服务由中国移动提供\n一键登录\n其他手机号码登录\n我已阅读并同意 用户协议 和 隐私政策\n以及 《中国移动认证服务条款》 ，同时登录并使用抖音火山版（原“火山小视频”）和抖音\n其他方式登录",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 6,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/login",
+        "navigation": {
+          "domContentLoadedMs": 643,
+          "loadEventMs": 646,
+          "responseEndMs": 13
+        },
+        "resourceCount": 193,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 193
+    },
+    {
+      "id": "video-detail-mobile",
+      "path": "/video-detail",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "startedAt": "2026-08-30T09:05:25.620Z",
+      "finishedAt": "2026-08-30T09:05:30.291Z",
+      "url": "http://127.0.0.1:4173/video-detail",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/video-detail-mobile.png",
+      "pageState": {
+        "bodyTextSample": "搜你想看的\n|\n搜索\n善语结善缘，恶言伤人心",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 1,
+          "inputs": 0,
+          "videos": 0
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/video-detail",
+        "navigation": {
+          "domContentLoadedMs": 613,
+          "loadEventMs": 616,
+          "responseEndMs": 12
+        },
+        "resourceCount": 188,
+        "scrollHeight": 844
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458",
+            "line": 2115,
+            "column": 12,
+            "lineNumber": 2115,
+            "columnNumber": 12
+          },
+          "text": "[Vue warn]: Unhandled error during execution of mounted hook \n  at <VideoDetail onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) > > \n  at <KeepAlive exclude= [] > \n  at <BaseTransition appear=false persisted=false mode=undefined  ... > \n  at <Transition name=\"go\" > \n  at <RouterView> \n  at <App>",
+          "type": "warning"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/node_modules/.vite/deps/vue-router.js?v=9b0de458",
+            "line": 43,
+            "column": 15,
+            "lineNumber": 43,
+            "columnNumber": 15
+          },
+          "text": "[Vue Router warn]: uncaught error during route navigation:",
+          "type": "warning"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/node_modules/.vite/deps/vue-router.js?v=9b0de458",
+            "line": 2503,
+            "column": 14,
+            "lineNumber": 2503,
+            "columnNumber": 14
+          },
+          "text": "TypeError: Cannot read properties of null (reading 'index')\n    at http://127.0.0.1:4173/src/pages/other/VideoDetail.vue?vue&type=script&setup=true&lang.jsx:66:41\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)",
+          "type": "error"
+        }
+      ],
+      "consoleErrorCount": 1,
+      "pageErrors": [
+        {
+          "message": "Cannot read properties of null (reading 'index')",
+          "stack": "TypeError: Cannot read properties of null (reading 'index')\n    at http://127.0.0.1:4173/src/pages/other/VideoDetail.vue?vue&type=script&setup=true&lang.jsx:66:41\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)"
+        },
+        {
+          "message": "Cannot read properties of null (reading 'index')",
+          "stack": "TypeError: Cannot read properties of null (reading 'index')\n    at http://127.0.0.1:4173/src/pages/other/VideoDetail.vue?vue&type=script&setup=true&lang.jsx:66:41\n    at http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4901:40\n    at callWithErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2263:19)\n    at callWithAsyncErrorHandling (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2270:17)\n    at hook.__weh.hook.__weh (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:4881:19)\n    at flushPostFlushCbs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2448:28)\n    at flushJobs (http://127.0.0.1:4173/node_modules/.vite/deps/chunk-3ELAN47J.js?v=9b0de458:2490:5)"
+        }
+      ],
+      "requestFailures": [],
+      "nonSuccessfulResponses": [],
+      "responseCount": 188
+    },
+    {
+      "id": "home-narrow",
+      "path": "/home",
+      "viewport": {
+        "width": 360,
+        "height": 640
+      },
+      "startedAt": "2026-08-30T09:05:30.419Z",
+      "finishedAt": "2026-08-30T09:05:35.347Z",
+      "url": "http://127.0.0.1:4173/home",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/home-narrow.png",
+      "pageState": {
+        "bodyTextSample": "下午好\n扫一扫\n常用小程序\n全部\n今日头条\n西瓜视频\n最近常看\n全部\n随机名字\n随机名字\n随机名字\n随机名字\n随机名字\n随机名字\n常用功能\n我的钱包\n券包\n小程序\n观看历史\n内容偏好\n离线模式\n设置\n稍后再看\n下拉刷新内容\n热点\n长视频\n关注\n经验\n推荐\n美食\n休闲娱乐\n游玩\n丽人/美发\n住宿\n游玩\n丽人/美发\n住宿\n附近吃喝玩乐\n李子柒\n小霸宠牛排🥩\n奶茶妹◕🌱\n杨老虎🐯（磕穿下巴掉牙版）\n我才是岚岚\n条子\n达莎Digi\n周子然JingYi\n刘思瑶nice\n彭十六elf\n我是香秀🐂🍺\n小橙子\n南恬\n13个直播\n640.0万\n13.6万\n24.6万\n44.6万\n取消静音\n@彭十六elf\n把东方美学带到欧洲 #卢浮宫 #马面裙\n248.4万\n9.0万\n12.8万\n33.7万\n取消静音\n@刘思瑶nice\n“舒服自在 心情可爱”\n51.2万\n1.2万\n1971\n4059\n取消静音\n@李子柒\n豌豆大丰收！得闲把豌豆吃食都做个遍——豌豆凉粉和豌豆黄 #美食趣胃计划\n197.0万\n7.2万\n10.1万\n18.4万\n取消静音\n@我是香秀🐂🍺\n是谁多事种芭蕉 早也潇潇 晚也潇潇\n15.2",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 150,
+          "inputs": 0,
+          "videos": 5
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/home",
+        "navigation": {
+          "domContentLoadedMs": 772,
+          "loadEventMs": 2227,
+          "responseEndMs": 9
+        },
+        "resourceCount": 250,
+        "scrollHeight": 640
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [
+        {
+          "errorText": "net::ERR_BLOCKED_BY_ORB",
+          "method": "GET",
+          "resourceType": "image",
+          "url": "https://img.tol.vip/avatar/WEIXIN/3aSuTGYTzjHvcHy0y0tH1eiShKRk9Sgd.jpg?_upt=de4a5c251709635127"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://v5-gz2-a.douyinvod.com/faa17577bcf07234be11214e2c69df47/6a940077/video/tos/cn/tos-cn-ve-15-alinc2/44488a526c024cae942e49d85a8d1c9c/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=1336&bt=1336&cs=0&ds=4&ft=VJ96rxJqRR0sipC4SDv2Nc0iPMgzbL_hM8RU_4O9oBiJNv7TGW&mime_type=video_mp4&qs=0&rc=aWU0Zzk6Mzg5aTY0ODY1M0BpM3dzdjw6ZjQ6OjMzNGkzM0AzMl8wXi5hXzYxMF82Ly5iYSNjYG5mcjRncW9gLS1kLWFzcw%3D%3D&btag=c0000e00088000&cquery=10sH_100y&dy_q=1788080732&l=202608301705321DB4B8E7C95E6DF55D73"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://47izfmyt5a4pocrpru73u89zknzjsx0.z.cjjd14.com:33443/v85-ncdn-domain-backup.douyinvod.com/f8747489a07c070c2997a390502ca9c4/6a940074/video/tos/cn/tos-cn-ve-15c001-alinc2/a673ed009c234f20a9d8355cc721029c/?a=1128&br=1459&bt=1459&btag=c0000e00088000&cd=0%7C0%7C0%7C0&ch=0&cquery=100y_10sH&cr=0&cs=0&cts=2&cv=1&dr=0&ds=4&dy_q=1788080732&er=0&ft=QELByTDZffPdOW~-N12NvAq-antLjrKkHqmuRkaNwXfYejVhWL6&l=202608301705320B699F7F09E7C50E048B&mf-x-ip-type=1&mf-x-public-ipv4=221.204.216.36&mf-x-public-ipv6=2408%3A8726%3A2000%3Aa%3A%3A1335&mf-x-resource-tag=3&mf-x-strategy-group-id=1&mf-x-trace-id=b57b50f98928be898800f17b3dd9e1e0&mime_type=video_mp4&nqck=0&qs=0&rc=ZjZpaGk1NzM4Zjc2MzU7N0BpM2xzcmg6ZnBvPDMzNGkzM0A1MDMwY14xXzUxYzAtX141YSNqb2ExcjRnZGBgLS1kLS9zcw%3D%3D&real_host=djg1LW5jZG4tZG9tYWluLWJhY2t1cC5kb3V5aW52b2QuY29t&x_r_id=4728117b784fbd826903e5de88ef9458"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://1aaapdvq9v7ro58h1z4peya7yhbtiys6wuvdfcjcemu.bdcgslb.com/v5-e.douyinvod.com/3fa0e1fa439a014e80911f7d255e7a4e/6a940083/video/tos/cn/tos-cn-ve-15c001-alinc2/oY2AsBDRP3nL9vgVwYZ5e9dAbACQXjUAt0IyeT/?a=1128&bdcdn_rkey=vcold_cache05.sxtaiyuan-cu74&br=4040&bt=4040&btag=c0000e00095600&cd=0%7C0%7C0%7C0&ch=0&cquery=10sH_100y&cr=0&cs=0&cv=1&dr=0&ds=4&dy_q=1788080732&dy_va_biz_cert=&er=0&feature_id=59cb2766d89ae6284516c6a254e9fb61&ft=D5ZMvjfccxi4xGH6.usdex4RvMm3-8PvQcYWHaiezbvDjuh00-UElRgVH-IURfqs&jump_ttl=1&l=2026083017053262E68842C48AF951A2B8&mime_type=video_mp4&qs=0&rc=NWVnOGg1ZDc5Z2Q2ZzlkM0BpM29tOjM6ZmZraTMzNGkzM0AtL2FjNTAtX2IxMi9jYTI1YSNqZmozcjRnbGBgLS1kLS9zcw%3D%3D"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://248954d2.qtaeixd.com:60166/v90-ncdn-domain-backup.douyinvod.com/52ecdad133edfc215907f91317a4fbea/6a940140/video/tos/cn/tos-cn-ve-15/0dc7efdf776d4891aaf86a65277f4c3a/?a=1128&adxx=JmlzPWR4JnJlPXNoJmFkPXY5MC1uY2RuLWRvbWFpbi1iYWNrdXAuZG91eWludm9kLmNvbSZ0PTE3ODgwODA3MzImc2lnbj1hM2QzYWM1Mjg4ZjE2NTFlZjYyNjYyZGQ5MzBiNGQyYQ&br=3751&bt=3751&btag=c0000e000a8000&cd=0%7C0%7C0%7C0&ch=0&cquery=100y_10sH&cr=0&cs=0&cts=2&cv=1&dr=0&ds=4&dy_q=1788080732&er=0&ft=y10BaSS9ce9iThUyRfK26hMFkuagyo2jY5ThO6h1bOl1m7mmvB03unx~yGgUxMf&jsv=1.0.8&l=202608301705327C04F293C8263ED60A57&mime_type=video_mp4&nqck=0&qs=0&rc=ZWc4PDdmODw1OzhnaDdmaUBpajh5NTY0Z3k1dDMzOGkzM0BgX2IvNWM0NS8xLzZhL15iYSNzc2cyMmpibHNfLS1eLS9zcw%3D%3D&real_host=djkwLW5jZG4tZG9tYWluLWJhY2t1cC5kb3V5aW52b2QuY29t&x_r_id=6bf54081d4710ae6e5c899e5724e4514"
+        }
+      ],
+      "nonSuccessfulResponses": [],
+      "responseCount": 283
+    },
+    {
+      "id": "home-desktop",
+      "path": "/home",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "startedAt": "2026-08-30T09:05:35.492Z",
+      "finishedAt": "2026-08-30T09:05:40.808Z",
+      "url": "http://127.0.0.1:4173/home",
+      "responseStatus": 200,
+      "navigationError": null,
+      "actionError": null,
+      "screenshot": "screenshots/home-desktop.png",
+      "pageState": {
+        "bodyTextSample": "下午好\n扫一扫\n常用小程序\n全部\n今日头条\n西瓜视频\n最近常看\n全部\n随机名字\n随机名字\n随机名字\n随机名字\n随机名字\n随机名字\n常用功能\n我的钱包\n券包\n小程序\n观看历史\n内容偏好\n离线模式\n设置\n稍后再看\n下拉刷新内容\n热点\n长视频\n关注\n经验\n推荐\n美食\n休闲娱乐\n游玩\n丽人/美发\n住宿\n游玩\n丽人/美发\n住宿\n附近吃喝玩乐\n李子柒\n小霸宠牛排🥩\n奶茶妹◕🌱\n杨老虎🐯（磕穿下巴掉牙版）\n我才是岚岚\n条子\n达莎Digi\n周子然JingYi\n刘思瑶nice\n彭十六elf\n我是香秀🐂🍺\n小橙子\n南恬\n13个直播\n640.0万\n13.6万\n24.6万\n44.6万\n取消静音\n@彭十六elf\n把东方美学带到欧洲 #卢浮宫 #马面裙\n248.4万\n9.0万\n12.8万\n33.7万\n取消静音\n@刘思瑶nice\n“舒服自在 心情可爱”\n51.2万\n1.2万\n1971\n4059\n取消静音\n@李子柒\n豌豆大丰收！得闲把豌豆吃食都做个遍——豌豆凉粉和豌豆黄 #美食趣胃计划\n197.0万\n7.2万\n10.1万\n18.4万\n取消静音\n@我是香秀🐂🍺\n是谁多事种芭蕉 早也潇潇 晚也潇潇\n15.2",
+        "counts": {
+          "anchors": 0,
+          "buttons": 0,
+          "images": 151,
+          "inputs": 0,
+          "videos": 5
+        },
+        "documentTitle": "Douyin",
+        "finalUrl": "http://127.0.0.1:4173/home",
+        "navigation": {
+          "domContentLoadedMs": 1128,
+          "loadEventMs": 2910,
+          "responseEndMs": 12
+        },
+        "resourceCount": 250,
+        "scrollHeight": 720
+      },
+      "consoleMessages": [
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 788,
+            "column": 8,
+            "lineNumber": 788,
+            "columnNumber": 8
+          },
+          "text": "[vite] connecting...",
+          "type": "debug"
+        },
+        {
+          "location": {
+            "url": "http://127.0.0.1:4173/@vite/client",
+            "line": 911,
+            "column": 14,
+            "lineNumber": 911,
+            "columnNumber": 14
+          },
+          "text": "[vite] connected.",
+          "type": "debug"
+        }
+      ],
+      "consoleErrorCount": 0,
+      "pageErrors": [],
+      "requestFailures": [
+        {
+          "errorText": "net::ERR_BLOCKED_BY_ORB",
+          "method": "GET",
+          "resourceType": "image",
+          "url": "https://gd-hbimg.huaban.com/65130a3e6a139530bb03bd118e21a2603af7df4e1303b-OOzcBu_fw658webp"
+        },
+        {
+          "errorText": "net::ERR_BLOCKED_BY_ORB",
+          "method": "GET",
+          "resourceType": "image",
+          "url": "https://img.tol.vip/avatar/WEIXIN/3aSuTGYTzjHvcHy0y0tH1eiShKRk9Sgd.jpg?_upt=de4a5c251709635127"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://v9.douyinvod.com/40beabb2396a3780190829adadc4c222/6a940088/video/tos/cn/tos-cn-ve-15c001-alinc2/oY2AsBDRP3nL9vgVwYZ5e9dAbACQXjUAt0IyeT/?a=1128&br=4040&bt=4040&btag=c0000e00090600&cd=0%7C0%7C0%7C0&ch=0&cquery=100y_10sH&cr=0&cs=0&cv=1&dr=0&ds=4&dy_q=1788080737&dy_va_biz_cert=&er=0&feature_id=59cb2766d89ae6284516c6a254e9fb61&ft=5TInVQ9MppftrfL8DsA.C_bAja-CIn-1Vwpc6BIbwZw6tYpHDDs03CvzYJygGusZ.&l=20260830170537FCC357E89A1E515BB647&mime_type=video_mp4&qs=0&rc=NWVnOGg1ZDc5Z2Q2ZzlkM0BpM29tOjM6ZmZraTMzNGkzM0AtL2FjNTAtX2IxMi9jYTI1YSNqZmozcjRnbGBgLS1kLS9zcw%3D%3D"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://47izfmyt5a4pocrpru73u89zknzjsx0.z.cjjd14.com:33443/v85-ncdn-domain-backup.douyinvod.com/f2a84ea3226880538c37faea7c9f9b45/6a940079/video/tos/cn/tos-cn-ve-15c001-alinc2/a673ed009c234f20a9d8355cc721029c/?a=1128&br=1459&bt=1459&btag=c0000e00088000&cd=0%7C0%7C0%7C0&ch=0&cquery=100y_10sH&cr=0&cs=0&cts=2&cv=1&dr=0&ds=4&dy_q=1788080737&er=0&ft=QELByTDrffPdqK~-I1jNvAq-antLjrKNHqmuRkaworU9UjVhWL6&l=20260830170537A5C8A80DF89221290A52&mf-x-ip-type=1&mf-x-public-ipv4=221.204.216.36&mf-x-public-ipv6=2408%3A8726%3A2000%3Aa%3A%3A1335&mf-x-resource-tag=3&mf-x-strategy-group-id=1&mf-x-trace-id=417841042acfcfbcb2309324267e7079&mime_type=video_mp4&nqck=0&qs=0&rc=ZjZpaGk1NzM4Zjc2MzU7N0BpM2xzcmg6ZnBvPDMzNGkzM0A1MDMwY14xXzUxYzAtX141YSNqb2ExcjRnZGBgLS1kLS9zcw%3D%3D&real_host=djg1LW5jZG4tZG9tYWluLWJhY2t1cC5kb3V5aW52b2QuY29t&x_r_id=d913c2cb315ab45cd1e53d1a7d960404"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://3684321158.qrstuvwxyzab.com/v5-se-qn-daily-cm.douyinvod.com/77363e07fc4368b902d0ac15217eb30e/6a94007c/video/tos/cn/tos-cn-ve-15-alinc2/44488a526c024cae942e49d85a8d1c9c/?a=1128&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=1336&bt=1336&cs=0&ds=4&ft=XV-6aF0UUmf.mdaz1PD1YmAo6kItGP76yU9eFa7C8Xr12nzXT&mime_type=video_mp4&qs=0&rc=aWU0Zzk6Mzg5aTY0ODY1M0BpM3dzdjw6ZjQ6OjMzNGkzM0AzMl8wXi5hXzYxMF82Ly5iYSNjYG5mcjRncW9gLS1kLWFzcw%3D%3D&btag=c0000e00088000&cquery=100y_10sH&dy_q=1788080737&l=2026083017053776BBD3697EEDB647DB3E&real_host=djUtc2UtcW4tZGFpbHktY20uZG91eWludm9kLmNvbQ&x-sid=0X11AZ40CH6DzM&x-redirect=0X11AMyFeMRJ7DGIuMVYtWjsUJSk2XG0aLw4&x-lid=0X11Aa33e5940a2f6&x-st=0X11Ahash"
+        },
+        {
+          "errorText": "net::ERR_ABORTED",
+          "method": "GET",
+          "resourceType": "media",
+          "url": "https://248954d2.qtaeixd.com:60166/v90-ncdn-domain-backup.douyinvod.com/2796aa4adf9778918e3cb057d61c9860/6a940145/video/tos/cn/tos-cn-ve-15/0dc7efdf776d4891aaf86a65277f4c3a/?a=1128&adxx=JmlzPWR4JnJlPXNoJmFkPXY5MC1uY2RuLWRvbWFpbi1iYWNrdXAuZG91eWludm9kLmNvbSZ0PTE3ODgwODA3Mzgmc2lnbj0xYzNjMDk1ZTExNTIyNmVhNzNiNmQyNDM5MzFmMmZiOQ&br=3751&bt=3751&btag=c0000e000a8000&cd=0%7C0%7C0%7C0&ch=0&cquery=100y_10sH&cr=0&cs=0&cts=2&cv=1&dr=0&ds=4&dy_q=1788080737&er=0&ft=SaxRPT9WiiuGzJrZ~d9C~49Zyo3nOz7CN9xXpMynM2oVKVE2B22b3vNijYHqfLd.o~&jsv=1.0.8&l=20260830170537B35DCF64F09CDA8DCDE0&mime_type=video_mp4&nqck=0&qs=0&rc=ZWc4PDdmODw1OzhnaDdmaUBpajh5NTY0Z3k1dDMzOGkzM0BgX2IvNWM0NS8xLzZhL15iYSNzc2cyMmpibHNfLS1eLS9zcw%3D%3D&real_host=djkwLW5jZG4tZG9tYWluLWJhY2t1cC5kb3V5aW52b2QuY29t&x_r_id=2f4efd9753c3a935fafcdad6d522962d"
+        }
+      ],
+      "nonSuccessfulResponses": [],
+      "responseCount": 284
+    }
+  ]
+}

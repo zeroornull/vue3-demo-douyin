@@ -1,0 +1,429 @@
+{
+  "generatedAt": "2026-08-30T09:12:05.481Z",
+  "exitCode": 2,
+  "errorCount": 59,
+  "filesWithErrors": 20,
+  "countsByCode": {
+    "TS2339": 43,
+    "TS2322": 8,
+    "TS2554": 5,
+    "TS2591": 1,
+    "TS2551": 1,
+    "TS2304": 1
+  },
+  "errors": [
+    {
+      "path": "src/config/index.ts",
+      "line": 20,
+      "column": 23,
+      "code": "TS2591",
+      "message": "Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node` and then add 'node' to the types field in your tsconfig."
+    },
+    {
+      "path": "src/components/BaseMusic.vue",
+      "line": 41,
+      "column": 48,
+      "code": "TS2551",
+      "message": "Property 'value' does not exist on type 'boolean'. Did you mean 'valueOf'?"
+    },
+    {
+      "path": "src/utils/index.tsx",
+      "line": 261,
+      "column": 11,
+      "code": "TS2322",
+      "message": "Type '(e: any) => void' is not assignable to type '() => any'."
+    },
+    {
+      "path": "src/utils/index.tsx",
+      "line": 266,
+      "column": 11,
+      "code": "TS2322",
+      "message": "Type '(e: any) => void' is not assignable to type '() => any'."
+    },
+    {
+      "path": "src/utils/index.tsx",
+      "line": 306,
+      "column": 11,
+      "code": "TS2322",
+      "message": "Type '(e: any) => void' is not assignable to type '() => any'."
+    },
+    {
+      "path": "src/utils/index.tsx",
+      "line": 314,
+      "column": 11,
+      "code": "TS2322",
+      "message": "Type '(e: any) => void' is not assignable to type '() => any'."
+    },
+    {
+      "path": "src/utils/index.tsx",
+      "line": 341,
+      "column": 11,
+      "code": "TS2322",
+      "message": "Type '(e: any) => void' is not assignable to type '() => any'."
+    },
+    {
+      "path": "src/store/pinia.ts",
+      "line": 59,
+      "column": 19,
+      "code": "TS2339",
+      "message": "Property 'friends' does not exist on type '{ selectFriends(): any; }'."
+    },
+    {
+      "path": "src/components/Comment.vue",
+      "line": 282,
+      "column": 41,
+      "code": "TS2339",
+      "message": "Property 'ip_location' does not exist on type '{ nickname: string; desc: string; user_age: string; signature: string; unique_id: string; province: string; city: string; gender: string; school: { name: string; department: any; joinTime: any; education: any; displayType: number; }; avatar_168x168: { ...; }; avatar_300x300: { ...; }; cover_url: { ...; }[]; white_co...'."
+    },
+    {
+      "path": "src/components/Comment.vue",
+      "line": 286,
+      "column": 40,
+      "code": "TS2339",
+      "message": "Property 'uid' does not exist on type '{ nickname: string; desc: string; user_age: string; signature: string; unique_id: string; province: string; city: string; gender: string; school: { name: string; department: any; joinTime: any; education: any; displayType: number; }; avatar_168x168: { ...; }; avatar_300x300: { ...; }; cover_url: { ...; }[]; white_co...'."
+    },
+    {
+      "path": "src/components/Comment.vue",
+      "line": 287,
+      "column": 45,
+      "code": "TS2339",
+      "message": "Property 'short_id' does not exist on type '{ nickname: string; desc: string; user_age: string; signature: string; unique_id: string; province: string; city: string; gender: string; school: { name: string; department: any; joinTime: any; education: any; displayType: number; }; avatar_168x168: { ...; }; avatar_300x300: { ...; }; cover_url: { ...; }[]; white_co...'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 88,
+      "column": 74,
+      "code": "TS2339",
+      "message": "Property 'cover' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 91,
+      "column": 29,
+      "code": "TS2339",
+      "message": "Property 'name' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 93,
+      "column": 53,
+      "code": "TS2339",
+      "message": "Property 'discount' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 94,
+      "column": 29,
+      "code": "TS2339",
+      "message": "Property 'discount' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 99,
+      "column": 48,
+      "code": "TS2339",
+      "message": "Property 'price' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 101,
+      "column": 48,
+      "code": "TS2339",
+      "message": "Property 'sold' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/Shop.vue",
+      "line": 103,
+      "column": 47,
+      "code": "TS2339",
+      "message": "Property 'isLowPrice' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 301,
+      "column": 78,
+      "code": "TS2339",
+      "message": "Property 'cover' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 304,
+      "column": 33,
+      "code": "TS2339",
+      "message": "Property 'name' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 306,
+      "column": 57,
+      "code": "TS2339",
+      "message": "Property 'discount' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 307,
+      "column": 33,
+      "code": "TS2339",
+      "message": "Property 'discount' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 312,
+      "column": 52,
+      "code": "TS2339",
+      "message": "Property 'price' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 314,
+      "column": 52,
+      "code": "TS2339",
+      "message": "Property 'sold' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/shop/GoodsDetail.vue",
+      "line": 316,
+      "column": 51,
+      "code": "TS2339",
+      "message": "Property 'isLowPrice' does not exist on type 'unknown'."
+    },
+    {
+      "path": "src/pages/me/userinfo/EditUserInfoItem.vue",
+      "line": 109,
+      "column": 5,
+      "code": "TS2554",
+      "message": "Expected 5 arguments, but got 3."
+    },
+    {
+      "path": "src/pages/me/userinfo/AddSchool.vue",
+      "line": 159,
+      "column": 5,
+      "code": "TS2554",
+      "message": "Expected 5 arguments, but got 3."
+    },
+    {
+      "path": "src/pages/me/rightMenu/LookHistory.vue",
+      "line": 125,
+      "column": 3,
+      "code": "TS2554",
+      "message": "Expected 8 arguments, but got 4."
+    },
+    {
+      "path": "src/pages/me/rightMenu/Setting.vue",
+      "line": 182,
+      "column": 31,
+      "code": "TS2304",
+      "message": "Cannot find name 'LATEST_COMMIT_HASH'."
+    },
+    {
+      "path": "src/pages/message/JoinedGroupChat.vue",
+      "line": 87,
+      "column": 41,
+      "code": "TS2339",
+      "message": "Property 'sort' does not exist on type '{}'."
+    },
+    {
+      "path": "src/pages/message/JoinedGroupChat.vue",
+      "line": 27,
+      "column": 43,
+      "code": "TS2339",
+      "message": "Property 'select' does not exist on type 'never'."
+    },
+    {
+      "path": "src/pages/message/JoinedGroupChat.vue",
+      "line": 28,
+      "column": 40,
+      "code": "TS2339",
+      "message": "Property 'avatar' does not exist on type 'never'."
+    },
+    {
+      "path": "src/pages/message/JoinedGroupChat.vue",
+      "line": 31,
+      "column": 20,
+      "code": "TS2339",
+      "message": "Property 'name' does not exist on type 'never'."
+    },
+    {
+      "path": "src/pages/message/JoinedGroupChat.vue",
+      "line": 31,
+      "column": 44,
+      "code": "TS2339",
+      "message": "Property 'name' does not exist on type 'never'."
+    },
+    {
+      "path": "src/pages/message/JoinedGroupChat.vue",
+      "line": 31,
+      "column": 78,
+      "code": "TS2339",
+      "message": "Property 'name' does not exist on type 'never'."
+    },
+    {
+      "path": "src/pages/message/notice/TaskNotice.vue",
+      "line": 33,
+      "column": 54,
+      "code": "TS2339",
+      "message": "Property 'read' does not exist on type '{ type: number; title: string; detail: string; time: string; content: string; }'."
+    },
+    {
+      "path": "src/pages/message/notice/MoneyNotice.vue",
+      "line": 17,
+      "column": 77,
+      "code": "TS2339",
+      "message": "Property '_no' does not exist on type 'CreateComponentPublicInstanceWithMixins<ToResolvedProps<{}, {}>, { FromBottomDialog: __VLS_WithTemplateSlots<DefineComponent<Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, ... 12 more ..., any>, { ...; }>; Scroll: DefineComponent<...>; nav: (path: any, query?: {}, data?: any) => void; data: { ....'."
+    },
+    {
+      "path": "src/pages/message/notice/NoticeSetting.vue",
+      "line": 111,
+      "column": 3,
+      "code": "TS2322",
+      "message": "Type 'string | string[]' is not assignable to type 'string'."
+    },
+    {
+      "path": "src/pages/message/chat/ChatDetail.vue",
+      "line": 109,
+      "column": 3,
+      "code": "TS2554",
+      "message": "Expected 8 arguments, but got 7."
+    },
+    {
+      "path": "src/pages/message/SetRemark.vue",
+      "line": 53,
+      "column": 5,
+      "code": "TS2554",
+      "message": "Expected 5 arguments, but got 3."
+    },
+    {
+      "path": "src/pages/me/RequestUpdate.vue",
+      "line": 44,
+      "column": 57,
+      "code": "TS2339",
+      "message": "Property '_no' does not exist on type 'CreateComponentPublicInstanceWithMixins<ToResolvedProps<{}, {}>, { FromBottomDialog: __VLS_WithTemplateSlots<DefineComponent<Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, ... 12 more ..., any>, { ...; }>; ... 5 more ...; toggleRequestUpdate: () => void; }, ... 23 more ..., {}>'."
+    },
+    {
+      "path": "src/pages/home/SubmitReport.vue",
+      "line": 73,
+      "column": 3,
+      "code": "TS2322",
+      "message": "Type 'string | string[]' is not assignable to type 'string'."
+    },
+    {
+      "path": "src/pages/home/SubmitReport.vue",
+      "line": 74,
+      "column": 3,
+      "code": "TS2322",
+      "message": "Type 'string | string[]' is not assignable to type 'string'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 213,
+      "column": 39,
+      "code": "TS2339",
+      "message": "Property 'innerText' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 213,
+      "column": 54,
+      "code": "TS2339",
+      "message": "Property 'offsetTop' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 219,
+      "column": 24,
+      "code": "TS2339",
+      "message": "Property 'offsetTop' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 222,
+      "column": 19,
+      "code": "TS2339",
+      "message": "Property 'touches' does not exist on type 'Event'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 226,
+      "column": 39,
+      "code": "TS2339",
+      "message": "Property 'touches' does not exist on type 'Event'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 229,
+      "column": 19,
+      "code": "TS2339",
+      "message": "Property 'touches' does not exist on type 'Event'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 230,
+      "column": 39,
+      "code": "TS2339",
+      "message": "Property 'touches' does not exist on type 'Event'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 243,
+      "column": 10,
+      "code": "TS2339",
+      "message": "Property 'style' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 245,
+      "column": 25,
+      "code": "TS2339",
+      "message": "Property 'style' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 246,
+      "column": 54,
+      "code": "TS2339",
+      "message": "Property 'innerText' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 323,
+      "column": 41,
+      "code": "TS2339",
+      "message": "Property 'sort' does not exist on type '{}'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 328,
+      "column": 22,
+      "code": "TS2339",
+      "message": "Property 'map' does not exist on type '{}'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 348,
+      "column": 61,
+      "code": "TS2339",
+      "message": "Property 'offsetTop' does not exist on type 'Element'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 117,
+      "column": 45,
+      "code": "TS2339",
+      "message": "Property 'select' does not exist on type 'number'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 118,
+      "column": 42,
+      "code": "TS2339",
+      "message": "Property 'avatar' does not exist on type 'number'."
+    },
+    {
+      "path": "src/pages/message/Share2Friend.vue",
+      "line": 119,
+      "column": 27,
+      "code": "TS2339",
+      "message": "Property 'name' does not exist on type 'number'."
+    }
+  ]
+}

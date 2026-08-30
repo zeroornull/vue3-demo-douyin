@@ -1,0 +1,157 @@
+{
+  "generatedAt": "2026-08-30T09:12:05.597Z",
+  "files": 981,
+  "fileCountsByExtension": {
+    ".webp": 390,
+    ".png": 381,
+    ".vue": 128,
+    ".jpg": 22,
+    ".svg": 19,
+    ".ts": 18,
+    ".less": 8,
+    ".js": 3,
+    ".txt": 3,
+    ".json": 2,
+    ".lrc": 2,
+    ".gif": 2,
+    ".jpeg": 1,
+    ".tsx": 1,
+    ".css": 1
+  },
+  "vue": {
+    "total": 128,
+    "categories": {
+      "noScript": 0,
+      "scriptJs": 38,
+      "scriptSetupJs": 19,
+      "scriptSetupTs": 69,
+      "scriptTs": 2
+    }
+  },
+  "occurrences": {
+    "any": {
+      "count": 54,
+      "files": [
+        {
+          "path": "src/mock/index.ts",
+          "count": 3
+        },
+        {
+          "path": "src/api/videos.ts",
+          "count": 16
+        },
+        {
+          "path": "src/api/user.ts",
+          "count": 14
+        },
+        {
+          "path": "src/utils/request.ts",
+          "count": 1
+        },
+        {
+          "path": "src/utils/hooks/useNav.ts",
+          "count": 1
+        },
+        {
+          "path": "src/utils/hooks/useClick.ts",
+          "count": 1
+        },
+        {
+          "path": "src/utils/dom.ts",
+          "count": 2
+        },
+        {
+          "path": "src/utils/slide.ts",
+          "count": 1
+        },
+        {
+          "path": "src/pages/message/notice/TaskNotice.vue",
+          "count": 1
+        },
+        {
+          "path": "src/pages/home/Music.vue",
+          "count": 2
+        },
+        {
+          "path": "src/pages/me/collect/MusicCollect.vue",
+          "count": 2
+        },
+        {
+          "path": "src/pages/me/collect/VideoCollect.vue",
+          "count": 1
+        },
+        {
+          "path": "src/pages/me/MyMusic.vue",
+          "count": 1
+        },
+        {
+          "path": "src/pages/me/rightMenu/LookHistory.vue",
+          "count": 2
+        },
+        {
+          "path": "src/components/UserPanel.vue",
+          "count": 2
+        },
+        {
+          "path": "src/components/BaseHeader.vue",
+          "count": 1
+        },
+        {
+          "path": "src/components/slide/SlideVerticalInfinite.vue",
+          "count": 2
+        },
+        {
+          "path": "src/components/Comment.vue",
+          "count": 1
+        }
+      ]
+    },
+    "dollarRef": {
+      "count": 5,
+      "files": [
+        {
+          "path": "src/utils/hooks/useScroll.ts",
+          "count": 1
+        },
+        {
+          "path": "src/components/BaseMusic.vue",
+          "count": 1
+        },
+        {
+          "path": "src/components/Back.vue",
+          "count": 1
+        },
+        {
+          "path": "src/components/slide/BaseVideo.vue",
+          "count": 2
+        }
+      ]
+    },
+    "tsIgnore": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "globalSideEffects": [
+    {
+      "path": "src/main.ts",
+      "behavior": "Proxies HTMLElement.prototype.addEventListener for every click listener."
+    },
+    {
+      "path": "src/main.ts",
+      "behavior": "Installs a global mixin and global directives/components."
+    },
+    {
+      "path": "src/main.ts",
+      "behavior": "Creates mutable window.isMoved/window.isMuted state."
+    },
+    {
+      "path": "src/main.ts",
+      "behavior": "Starts Axios mock handlers after Pinia/router mount."
+    },
+    {
+      "path": "src/store/pinia.ts",
+      "behavior": "Reads document.body dimensions during store state initialization."
+    }
+  ]
+}

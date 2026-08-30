@@ -17,8 +17,8 @@
 | `src/` TypeScript/TSX 文件 | 19 |
 | `src/` JavaScript 文件 | 3 |
 | `node/` JavaScript 数据处理脚本 | 10 |
-| `$ref` 非标准宏出现次数 | 54 |
-| 显式 `: any` 出现次数 | 52 |
+| `$ref` 非标准宏 token | 5（4 个文件） |
+| 显式 `any`（`: any` + `as any`） | 54 |
 
 由此可见，项目并不是“从 JavaScript 迁到 TypeScript”的零起点：它已经混合使用 Vue 3、TS、JS 和 Vue Macros。真正的任务是**收紧类型边界、移除非标准运行假设并建立可持续工具链**。
 
@@ -54,7 +54,7 @@
 
 1. **双版本风险**：本地 npm 依赖与 Vite CDN 中的 Vue/Router 版本不同，升级后可能在开发和生产呈现不同运行时。
 2. **全局副作用**：修改 `HTMLElement.prototype` 会影响第三方组件和所有点击处理器。
-3. **宏锁定**：`$ref` 属于非标准宏，直接移除 `unplugin-vue-macros` 会造成大量编译失败或响应性错误。
+3. **宏锁定**：`$ref` 属于非标准宏，直接移除 `unplugin-vue-macros` 会造成编译失败或响应性错误。
 4. **类型债务集中**：Pinia、Mock、API 响应和路由 meta 的类型会向所有页面传播。
 5. **历史依赖**：构建中读取最后一次 Git 提交；仓库重置后必须重新定义构建版本来源。
 6. **资源规模**：一次性复制旧图片和 JSON 会让审查、性能比较和死资源判断失真。

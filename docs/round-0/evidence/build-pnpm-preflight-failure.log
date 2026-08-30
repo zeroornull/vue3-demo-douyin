@@ -1,0 +1,25 @@
+$ cd legacy && pnpm run build
+started_at=2026-08-30T16:52:39+08:00
+✓ Lockfile passes supply-chain policies (verified 1m ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+$ husky
+.git can't be found[ERR_PNPM_IGNORED_BUILDS] Ignored build scripts: esbuild@0.23.1, esbuild@0.25.12, vue-demi@0.14.10
+
+Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.
+[ERROR] Command failed with exit code 1: pnpm install
+
+pnpm: Command failed with exit code 1: pnpm install
+    at getFinalError (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:89024:14)
+    at makeError (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:91331:21)
+    at getSyncResult (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:93175:10)
+    at spawnSubprocessSync (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:93135:14)
+    at execaCoreSync (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:93065:23)
+    at callBoundExeca (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:95593:23)
+    at boundExeca (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:95570:49)
+    at sync2 (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:95725:14)
+    at runPnpmCli (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:269874:5)
+    at runDepsStatusCheck (file:///home/pax/.local/share/mise/installs/node/22.23.2/lib/node_modules/pnpm/dist/pnpm.mjs:271638:7)
+exit_code=1
+finished_at=2026-08-30T16:52:42+08:00

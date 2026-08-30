@@ -1,0 +1,339 @@
+:root {
+  color: #f5f5f2;
+  background: #121210;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --surface: #1c1c19;
+  --surface-raised: #24241f;
+  --line: #38382f;
+  --muted: #aaa99e;
+  --accent: #e8ff61;
+  --accent-ink: #17170f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: #121210;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.7rem 1rem;
+  color: var(--accent-ink);
+  background: var(--accent);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 2rem));
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.app-header,
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-color: var(--line);
+}
+
+.app-header {
+  min-height: 108px;
+  border-bottom: 1px solid var(--line);
+}
+
+.app-header nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.app-header nav a {
+  padding: 0.65rem 0.9rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-radius: 999px;
+}
+
+.app-header nav a:hover,
+.app-header nav a.router-link-exact-active {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+.brand,
+.eyebrow,
+.status-label {
+  margin: 0;
+}
+
+.brand {
+  margin-top: 0.25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.eyebrow,
+.status-label {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+main {
+  padding: clamp(3rem, 9vw, 7rem) 0;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.75fr);
+  gap: clamp(2rem, 7vw, 6rem);
+  align-items: end;
+}
+
+.hero h1,
+.health h1 {
+  max-width: 15ch;
+  margin: 0.7rem 0 1.4rem;
+  font-size: clamp(2.8rem, 7vw, 6.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.065em;
+}
+
+.health h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+}
+
+.lede,
+.section-heading > p:last-child {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.primary-action,
+.secondary-action {
+  padding: 0.85rem 1.1rem;
+  font-weight: 750;
+  text-decoration: none;
+  border: 1px solid var(--line);
+}
+
+.primary-action {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.secondary-action:hover {
+  border-color: var(--accent);
+}
+
+.status-panel,
+.health-status,
+.health-grid > div,
+.principle-grid li {
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.status-panel {
+  padding: 1.5rem;
+  box-shadow: 16px 16px 0 #090908;
+}
+
+.status-summary {
+  margin: 0.7rem 0 2rem;
+  font-size: 1.45rem;
+  line-height: 1.35;
+}
+
+.status-panel dl,
+.health-grid {
+  margin: 0;
+}
+
+.status-panel dl > div,
+.health-grid > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--line);
+}
+
+dt {
+  color: var(--muted);
+}
+
+dd {
+  margin: 0;
+  font-weight: 750;
+}
+
+.principles {
+  margin-top: clamp(5rem, 12vw, 10rem);
+}
+
+.section-heading h2 {
+  max-width: 22ch;
+  margin: 0.6rem 0 2rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.04em;
+}
+
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.principle-grid li {
+  min-height: 240px;
+  padding: 1.4rem;
+}
+
+.principle-grid li > span {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.principle-grid h3 {
+  margin: 3.5rem 0 0.75rem;
+  font-size: 1.35rem;
+}
+
+.principle-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.health {
+  max-width: 850px;
+}
+
+.health-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1.5rem 0;
+  padding: 0.8rem 1rem;
+}
+
+.status-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.3rem rgb(232 255 97 / 12%);
+}
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.health-grid > div {
+  min-height: 115px;
+  padding: 1.1rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.app-footer {
+  min-height: 90px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.app-footer a {
+  color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .app-header,
+  .app-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.2rem 0;
+  }
+
+  .hero,
+  .principle-grid,
+  .health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-panel {
+    box-shadow: 8px 8px 0 #090908;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

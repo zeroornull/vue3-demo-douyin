@@ -1,0 +1,40 @@
+$ bun install
+started_at=2026-08-30T17:45:22+08:00
+bun install v1.4.0 (34cbb9a40)
+Resolving dependencies
+Resolved, downloaded and extracted [312]
+warn: incorrect peer dependency "oxlint@1.74.0"
+Saved lockfile
+
++ @playwright/test@1.62.1
++ @tsconfig/node24@24.0.5
++ @types/jsdom@28.0.3 (v30.0.0 available)
++ @types/node@24.13.3 (v26.4.0 available)
++ @vitejs/plugin-vue@6.0.8
++ @vitest/eslint-plugin@1.6.27
++ @vue/eslint-config-typescript@14.9.0
++ @vue/test-utils@2.5.0
++ @vue/tsconfig@0.9.1
++ eslint@10.9.1
++ eslint-config-prettier@10.1.8
++ eslint-plugin-oxlint@1.73.0 (v1.80.0 available)
++ eslint-plugin-playwright@2.11.0
++ eslint-plugin-vue@10.9.2 (v10.10.0 available)
++ jiti@2.7.0
++ jsdom@29.1.1 (v30.0.1 available)
++ npm-run-all2@9.0.3
++ oxlint@1.74.0 (v1.80.0 available)
++ prettier@3.9.6
++ typescript@6.0.3
++ vite@8.2.2
++ vite-plugin-vue-devtools@8.2.1
++ vitest@4.1.11
++ vue-eslint-parser@10.4.1
++ vue-tsc@3.3.11
++ pinia@4.0.3
++ vue@3.5.42
++ vue-router@5.3.0
+
+369 packages installed [4.63s]
+exit_code=0
+finished_at=2026-08-30T17:45:26+08:00

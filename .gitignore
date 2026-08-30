@@ -12,10 +12,14 @@
 /playwright-report/
 /test-results/
 *.tsbuildinfo
+.eslintcache
 
 # Bun/npm diagnostics.
 bun-error.log
 *.log
+
+# Verification logs under migration rounds are intentional documentation evidence.
+!/docs/round-*/evidence/*.log
 
 # Local environment files. Commit only documented examples.
 .env
@@ -28,3 +32,6 @@ bun-error.log
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+# Round-0 full resource manifest is reproducible but intentionally local.
+/docs/round-0/generated/*.local.json

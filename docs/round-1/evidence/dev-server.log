@@ -1,0 +1,7 @@
+$ vite --host "127.0.0.1" --port "5173" --strictPort
+6:04:50 PM [vite] (client) Re-optimizing dependencies because lockfile has changed
+
+  VITE v8.2.2  ready in 453 ms
+
+  ➜  Local:   http://127.0.0.1:5173/
+  ➜  press h + enter to show help

@@ -115,7 +115,7 @@ export type ApiResult<T> = ApiSuccess<T> | ApiFailure
 
 ## 5. 移除 `$ref` 与 Vue Macros 锁定
 
-旧项目有约 54 个 `$ref`。它们应逐文件替换：
+旧项目有 5 个 `$ref` token，分布在 4 个文件中。它们应逐文件替换：
 
 ```ts
 // 旧：编译期转换，赋值时不写 .value

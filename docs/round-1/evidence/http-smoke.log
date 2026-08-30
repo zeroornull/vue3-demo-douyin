@@ -1,0 +1,24 @@
+### GET /
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/html
+Cache-Control: no-cache
+Etag: W/"288-5jvTuO0+ivcXcJk6aUFLOLnMJP8"
+Date: Sun, 30 Aug 2026 09:50:35 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 648
+
+body_bytes=648
+### GET /health
+HTTP/1.1 200 OK
+Vary: Origin
+Content-Type: text/html
+Cache-Control: no-cache
+Etag: W/"288-5jvTuO0+ivcXcJk6aUFLOLnMJP8"
+Date: Sun, 30 Aug 2026 09:50:35 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 648
+
+body_bytes=648

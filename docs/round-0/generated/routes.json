@@ -1,0 +1,535 @@
+{
+  "generatedAt": "2026-08-30T09:12:03.648Z",
+  "source": "legacy/src/router/routes.ts",
+  "total": 65,
+  "named": 1,
+  "redirects": 1,
+  "dynamicImports": 61,
+  "priorityCounts": {
+    "P1": 53,
+    "P2": 2,
+    "P0": 10
+  },
+  "routes": [
+    {
+      "path": "/",
+      "name": null,
+      "redirect": "/home",
+      "component": null,
+      "sourceLine": 8,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/test",
+      "name": null,
+      "redirect": null,
+      "component": "../pages/test/Test.vue",
+      "sourceLine": 9,
+      "suggestedPriority": "P2"
+    },
+    {
+      "path": "/test4",
+      "name": null,
+      "redirect": null,
+      "component": "../pages/test/Test4.vue",
+      "sourceLine": 10,
+      "suggestedPriority": "P2"
+    },
+    {
+      "path": "/publish",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/Publish.vue",
+      "sourceLine": 12,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/home",
+      "name": null,
+      "redirect": null,
+      "component": "../pages/home/index.vue",
+      "sourceLine": 14,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/home/music",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/Music.vue",
+      "sourceLine": 15,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/home/music-rank-list",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/MusicRankList.vue",
+      "sourceLine": 16,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/home/live",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/LivePage.vue",
+      "sourceLine": 20,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/shop",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/shop/Shop.vue",
+      "sourceLine": 22,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/shop/detail",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/shop/GoodsDetail.vue",
+      "sourceLine": 23,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/me",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/Me.vue",
+      "sourceLine": 28,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/me/edit-userinfo",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/EditUserInfo.vue",
+      "sourceLine": 29,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/me/edit-userinfo-item",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/EditUserInfoItem.vue",
+      "sourceLine": 33,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/country-choose",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/countryChoose.vue",
+      "sourceLine": 37,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/my-card",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/MyCard.vue",
+      "sourceLine": 41,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/add-school",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/AddSchool.vue",
+      "sourceLine": 42,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/choose-school",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/ChooseSchool.vue",
+      "sourceLine": 46,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/declare-school",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/DeclareSchool.vue",
+      "sourceLine": 50,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/choose-department",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/ChooseDepartment.vue",
+      "sourceLine": 54,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/display-type",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/DisplayType.vue",
+      "sourceLine": 58,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/choose-location",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/ChooseLocation.vue",
+      "sourceLine": 62,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/choose-province",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/ChooseProvince.vue",
+      "sourceLine": 66,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/choose-city",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/userinfo/ChooseCity.vue",
+      "sourceLine": 70,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/right-menu/look-history",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/rightMenu/LookHistory.vue",
+      "sourceLine": 74,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/right-menu/minor-protection/index",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/rightMenu/MinorProtection/Index.vue",
+      "sourceLine": 78,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/right-menu/minor-protection/detail-setting",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/rightMenu/MinorProtection/DetailSetting.vue",
+      "sourceLine": 82,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/right-menu/minor-protection/trigger-time",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/rightMenu/MinorProtection/TriggerTime.vue",
+      "sourceLine": 86,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/right-menu/setting",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/rightMenu/Setting.vue",
+      "sourceLine": 90,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/collect/music-collect",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/collect/MusicCollect.vue",
+      "sourceLine": 94,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/collect/video-collect",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/collect/VideoCollect.vue",
+      "sourceLine": 98,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/my-music",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/MyMusic.vue",
+      "sourceLine": 102,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/Message.vue",
+      "sourceLine": 105,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/message/all",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/AllMessage.vue",
+      "sourceLine": 106,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/more-search",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/MoreSearch.vue",
+      "sourceLine": 110,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/joined-group-chat",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/JoinedGroupChat.vue",
+      "sourceLine": 114,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/fans",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/Fans.vue",
+      "sourceLine": 118,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/visitors",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/Visitors.vue",
+      "sourceLine": 122,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/douyin-helper",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/notice/DouyinHelper.vue",
+      "sourceLine": 126,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/system-notice",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/notice/SystemNotice.vue",
+      "sourceLine": 130,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/task-notice",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/notice/TaskNotice.vue",
+      "sourceLine": 134,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/live-notice",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/notice/LiveNotice.vue",
+      "sourceLine": 138,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/money-notice",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/notice/MoneyNotice.vue",
+      "sourceLine": 142,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/notice-setting",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/notice/NoticeSetting.vue",
+      "sourceLine": 146,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/chat",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/chat/Chat.vue",
+      "sourceLine": 151,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/message/chat/detail",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/chat/ChatDetail.vue",
+      "sourceLine": 155,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/chat/red-packet-detail",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/RedPacketDetail.vue",
+      "sourceLine": 159,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/people/find-acquaintance",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/people/FindAcquaintance.vue",
+      "sourceLine": 164,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/people/follow-and-fans",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/people/FollowAndFans.vue",
+      "sourceLine": 168,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/address-list",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/people/AddressList.vue",
+      "sourceLine": 174,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/scan",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/people/Scan.vue",
+      "sourceLine": 178,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/face-to-face",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/people/FaceToFace.vue",
+      "sourceLine": 179,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/set-remark",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/SetRemark.vue",
+      "sourceLine": 183,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/login",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/Login.vue",
+      "sourceLine": 189,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/login/other",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/OtherLogin.vue",
+      "sourceLine": 190,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/login/password",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/PasswordLogin.vue",
+      "sourceLine": 194,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/login/verification-code",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/VerificationCode.vue",
+      "sourceLine": 198,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/login/retrieve-password",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/RetrievePassword.vue",
+      "sourceLine": 202,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/login/help",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/login/Help.vue",
+      "sourceLine": 206,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/request-update",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/RequestUpdate.vue",
+      "sourceLine": 209,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/me/my-request-update",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/me/MyRequestUpdate.vue",
+      "sourceLine": 213,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/home/report",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/Report.vue",
+      "sourceLine": 217,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/home/submit-report",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/SubmitReport.vue",
+      "sourceLine": 218,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/message/share-to-friend",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/message/Share2Friend.vue",
+      "sourceLine": 222,
+      "suggestedPriority": "P1"
+    },
+    {
+      "path": "/video-detail",
+      "name": "video-detail",
+      "redirect": null,
+      "component": "@/pages/other/VideoDetail.vue",
+      "sourceLine": 226,
+      "suggestedPriority": "P0"
+    },
+    {
+      "path": "/home/search",
+      "name": null,
+      "redirect": null,
+      "component": "@/pages/home/SearchPage.vue",
+      "sourceLine": 233,
+      "suggestedPriority": "P0"
+    }
+  ]
+}

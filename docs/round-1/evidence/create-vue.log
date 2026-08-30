@@ -1,0 +1,25 @@
+$ bun create vue@latest app --bare --ts --router --pinia --vitest --playwright --eslint --prettier
+Resolving dependencies
+Resolved, downloaded and extracted [2]
+create_vue_version=create-vue v3.23.0
+started_at=2026-08-30T17:40:03+08:00
+Resolving dependencies
+Resolved, downloaded and extracted [2]
+┌  Vue.js - The Progressive JavaScript Framework
+
+Scaffolding project in /tmp/douyin-round1.1oOSRj/app...
+│
+└  Done. Now run:
+
+   cd app
+   bun install
+   bun format
+   bun dev
+
+| Optional: Initialize Git in your project directory with:
+
+   git init && git add -A && git commit -m "initial commit"
+
+exit_code=0
+finished_at=2026-08-30T17:40:04+08:00
+scaffold_path=/tmp/douyin-round1.1oOSRj/app

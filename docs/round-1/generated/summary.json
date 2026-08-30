@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-08-30T10:05:40.606Z",
+  "tools": {
+    "bun": "1.4.0",
+    "bunRevision": "1.4.0+34cbb9a40",
+    "git": "git version 2.43.0",
+    "node": "v22.23.2"
+  },
+  "git": {
+    "branch": "main",
+    "commitCount": 1,
+    "head": "445c21a090dec5a78f3aa86ec7e761d46b46774e",
+    "remoteCount": 0,
+    "stagedFiles": 0
+  },
+  "package": {
+    "name": "douyin-web-modern",
+    "version": "0.1.0",
+    "packageManager": "bun@1.4.0",
+    "dependencies": {
+      "pinia": "4.0.3",
+      "vue": "3.5.42",
+      "vue-router": "5.3.0"
+    },
+    "devDependencies": {
+      "@playwright/test": "1.62.1",
+      "@tsconfig/node24": "24.0.5",
+      "@types/jsdom": "^28.0.3",
+      "@types/node": "^24.13.3",
+      "@vitejs/plugin-vue": "6.0.8",
+      "@vitest/eslint-plugin": "1.6.27",
+      "@vue/eslint-config-typescript": "^14.9.0",
+      "@vue/test-utils": "2.5.0",
+      "@vue/tsconfig": "^0.9.1",
+      "eslint": "10.9.1",
+      "eslint-config-prettier": "^10.1.8",
+      "eslint-plugin-oxlint": "1.80.0",
+      "eslint-plugin-playwright": "2.11.0",
+      "eslint-plugin-vue": "10.10.0",
+      "jiti": "^2.7.0",
+      "jsdom": "^29.1.1",
+      "npm-run-all2": "9.0.3",
+      "oxlint": "1.80.0",
+      "prettier": "3.9.6",
+      "typescript": "6.0.3",
+      "vite": "8.2.2",
+      "vitest": "4.1.11",
+      "vue-eslint-parser": "^10.4.1",
+      "vue-tsc": "3.3.11"
+    },
+    "resolvedDirectDependencies": {
+      "@playwright/test": "1.62.1",
+      "@tsconfig/node24": "24.0.5",
+      "@types/jsdom": "28.0.3",
+      "@types/node": "24.13.3",
+      "@vitejs/plugin-vue": "6.0.8",
+      "@vitest/eslint-plugin": "1.6.27",
+      "@vue/eslint-config-typescript": "14.9.0",
+      "@vue/test-utils": "2.5.0",
+      "@vue/tsconfig": "0.9.1",
+      "eslint": "10.9.1",
+      "eslint-config-prettier": "10.1.8",
+      "eslint-plugin-oxlint": "1.80.0",
+      "eslint-plugin-playwright": "2.11.0",
+      "eslint-plugin-vue": "10.10.0",
+      "jiti": "2.7.0",
+      "jsdom": "29.1.1",
+      "npm-run-all2": "9.0.3",
+      "oxlint": "1.80.0",
+      "pinia": "4.0.3",
+      "prettier": "3.9.6",
+      "typescript": "6.0.3",
+      "vite": "8.2.2",
+      "vitest": "4.1.11",
+      "vue": "3.5.42",
+      "vue-eslint-parser": "10.4.1",
+      "vue-router": "5.3.0",
+      "vue-tsc": "3.3.11"
+    }
+  },
+  "lockfile": {
+    "bytes": 80089,
+    "lines": 720,
+    "sha256": "283a100a8d12a351035e66145c9b49b9c740a50c680db71f28ad2288e3e5c897"
+  },
+  "source": {
+    "files": 12,
+    "typescriptFiles": 7,
+    "vueFiles": 4,
+    "vueScriptSetupTypeScript": 4,
+    "javascriptFiles": 0,
+    "legacyReferences": 0,
+    "oldCdnReferences": 0,
+    "dollarRefTokens": 0
+  },
+  "build": {
+    "files": 7,
+    "bytes": 106432,
+    "largestFiles": [
+      {
+        "path": "assets/index-DtsAmyU3.js",
+        "bytes": 93357,
+        "gzipBytes": 36590
+      },
+      {
+        "path": "favicon.ico",
+        "bytes": 4286,
+        "gzipBytes": null
+      },
+      {
+        "path": "assets/index-BUJx-KGV.css",
+        "bytes": 4168,
+        "gzipBytes": 1565
+      },
+      {
+        "path": "assets/MigrationHomeView-LtciA-hA.js",
+        "bytes": 2218,
+        "gzipBytes": 1371
+      },
+      {
+        "path": "assets/HealthView-DtNRCxby.js",
+        "bytes": 1131,
+        "gzipBytes": 656
+      },
+      {
+        "path": "index.html",
+        "bytes": 648,
+        "gzipBytes": 429
+      },
+      {
+        "path": "assets/NotFoundView-DsbH6e7M.js",
+        "bytes": 624,
+        "gzipBytes": 506
+      }
+    ]
+  },
+  "screenshots": {
+    "files": 4,
+    "bytes": 393109,
+    "items": [
+      {
+        "path": "docs/round-1/screenshots/health-desktop.png",
+        "bytes": 59869
+      },
+      {
+        "path": "docs/round-1/screenshots/health-mobile.png",
+        "bytes": 49790
+      },
+      {
+        "path": "docs/round-1/screenshots/home-desktop.png",
+        "bytes": 157060
+      },
+      {
+        "path": "docs/round-1/screenshots/home-mobile.png",
+        "bytes": 126390
+      }
+    ]
+  },
+  "evidence": {
+    "bunInstall": {
+      "exitCode": 0,
+      "sha256": "125f559cb344bd7e712861f709f78c9fc0e5d5625be8ddadff136edecc056384"
+    },
+    "frozenInstall": {
+      "exitCode": 0,
+      "sha256": "b9cd4d3faf13ef7c42b7dce25a5c948c085a09f5f14403645cbf38d588fc490b"
+    },
+    "cleanFrozenInstall": {
+      "exitCode": 0,
+      "sha256": "6d7ef15898ead5a7b668b584bc591f393e438adf2be15232221839d7502254de"
+    },
+    "check": {
+      "exitCode": 0,
+      "sha256": "07c71f05bb8d4827b109f34ddc319fe0d104ee292322114a1d4d7dcbc8ef5eac"
+    },
+    "e2e": {
+      "exitCode": 0,
+      "sha256": "52758e1601b79bbc03d6553739056074bcb222cc3647a3151d638ef175afa038"
+    },
+    "e2eCiMode": {
+      "exitCode": 0,
+      "sha256": "048b37b57f0c96b2f9ba6b9046d2eee00fd3ee13b16142430614c9363fa62cde"
+    },
+    "playwrightChromium": {
+      "exitCode": 0,
+      "sha256": "14b20f7db064a88c60bf7fff31e2a49c13d193758e732198c427fc1ef0af6098"
+    },
+    "audit": {
+      "exitCode": 0,
+      "sha256": "a00042f707d311581016f68e149e5296c99222201e322c550dfc3ba143632abb"
+    }
+  },
+  "tests": {
+    "unitFiles": 3,
+    "unitTests": 4,
+    "e2eFiles": 1,
+    "e2eTests": 3
+  }
+}

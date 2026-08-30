@@ -1,0 +1,38 @@
+$ bun run check
+started_at=2026-08-30T17:48:11+08:00
+$ run-s format:check lint type-check test:unit:run build-only
+$ prettier --check --experimental-cli .
+Checking formatting...
+All matched files use Prettier code style!
+$ run-s lint:oxlint lint:eslint
+$ oxlint .
+$ eslint . --cache
+$ vue-tsc --build
+$ vitest run
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./vite.config" without a file extension (vitest.config.ts:3:24). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /home/pax/Project/github/douyin
+
+
+ Test Files  2 passed (2)
+      Tests  3 passed (3)
+   Start at  17:48:19
+   Duration  1.99s (transform 103ms, setup 0ms, import 259ms, tests 22ms, environment 3.12s)
+
+$ vite build
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 31 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.64 kB │ gzip:  0.42 kB
+dist/assets/index-BUJx-KGV.css              4.16 kB │ gzip:  1.56 kB
+dist/assets/HealthView-BpdIDMXu.js          1.13 kB │ gzip:  0.65 kB
+dist/assets/MigrationHomeView-BxHr_73v.js   2.21 kB │ gzip:  1.37 kB
+dist/assets/index--ZPlSr-v.js              93.25 kB │ gzip: 36.55 kB
+
+✓ built in 315ms
+exit_code=0
+finished_at=2026-08-30T17:48:22+08:00
