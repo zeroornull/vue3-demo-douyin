@@ -12,7 +12,7 @@
 
 完整逐文件 SHA-256 清单位于本地
 `generated/resource-manifest.local.json`，该文件可重建且已被 Git 忽略。可提交摘要位于
-[`generated/resource-summary.json`](generated/resource-summary.json)。
+`generated/resource-summary.json`（本地生成：`generated/resource-summary.json`）。
 
 ## 按扩展名
 

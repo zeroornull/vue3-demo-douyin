@@ -124,10 +124,10 @@ status: "ok"
 
 视觉证据：
 
-- [`screenshots/home-desktop.png`](screenshots/home-desktop.png)
-- [`screenshots/home-mobile.png`](screenshots/home-mobile.png)
-- [`screenshots/health-desktop.png`](screenshots/health-desktop.png)
-- [`screenshots/health-mobile.png`](screenshots/health-mobile.png)
+- `screenshots/home-desktop.png`（本地生成：`screenshots/home-desktop.png`）
+- `screenshots/home-mobile.png`（本地生成：`screenshots/home-mobile.png`）
+- `screenshots/health-desktop.png`（本地生成：`screenshots/health-desktop.png`）
+- `screenshots/health-mobile.png`（本地生成：`screenshots/health-mobile.png`）
 
 ## 构建边界
 

@@ -4,18 +4,18 @@
 
 | 验证 | 命令 | 结果 | 日志 |
 | --- | --- | --- | --- |
-| Bun 安装 | `bun install` | 通过，无最终 peer warning | [`bun-install.log`](evidence/bun-install.log) |
-| 冻结安装 | `bun install --frozen-lockfile` | 通过，无变化 | [`bun-install-frozen.log`](evidence/bun-install-frozen.log) |
-| 空目录冻结安装 | 临时目录 `bun install --frozen-lockfile` | 297 packages，通过且输入哈希不变 | [`bun-install-clean-frozen.log`](evidence/bun-install-clean-frozen.log) |
-| 格式 | `bun run format:check` | 通过 | [`check.log`](evidence/check.log) |
-| Oxlint | `bun run lint:oxlint` | 通过 | [`check.log`](evidence/check.log) |
-| ESLint | `bun run lint:eslint` | 通过 | [`check.log`](evidence/check.log) |
-| TypeScript | `bun run type-check` | 通过 | [`check.log`](evidence/check.log) |
-| Unit/component | `bun run test:unit:run` | 3 files / 4 tests 通过 | [`check.log`](evidence/check.log) |
-| Build | `bun run build-only` | 33 modules / 7 files 通过 | [`check.log`](evidence/check.log) |
-| Local E2E | `bun run test:e2e` | 3 tests 通过 | [`e2e.log`](evidence/e2e.log) |
-| CI-mode E2E | `CI=true ... bun run test:e2e` | 3 tests 通过 | [`e2e-ci-mode.log`](evidence/e2e-ci-mode.log) |
-| Audit | `bun audit --audit-level=high` | 0 vulnerabilities | [`bun-audit.log`](evidence/bun-audit.log) |
+| Bun 安装 | `bun install` | 通过，无最终 peer warning | `bun-install.log`（本地生成：`evidence/bun-install.log`） |
+| 冻结安装 | `bun install --frozen-lockfile` | 通过，无变化 | `bun-install-frozen.log`（本地生成：`evidence/bun-install-frozen.log`） |
+| 空目录冻结安装 | 临时目录 `bun install --frozen-lockfile` | 297 packages，通过且输入哈希不变 | `bun-install-clean-frozen.log`（本地生成：`evidence/bun-install-clean-frozen.log`） |
+| 格式 | `bun run format:check` | 通过 | `check.log`（本地生成：`evidence/check.log`） |
+| Oxlint | `bun run lint:oxlint` | 通过 | `check.log`（本地生成：`evidence/check.log`） |
+| ESLint | `bun run lint:eslint` | 通过 | `check.log`（本地生成：`evidence/check.log`） |
+| TypeScript | `bun run type-check` | 通过 | `check.log`（本地生成：`evidence/check.log`） |
+| Unit/component | `bun run test:unit:run` | 3 files / 4 tests 通过 | `check.log`（本地生成：`evidence/check.log`） |
+| Build | `bun run build-only` | 33 modules / 7 files 通过 | `check.log`（本地生成：`evidence/check.log`） |
+| Local E2E | `bun run test:e2e` | 3 tests 通过 | `e2e.log`（本地生成：`evidence/e2e.log`） |
+| CI-mode E2E | `CI=true ... bun run test:e2e` | 3 tests 通过 | `e2e-ci-mode.log`（本地生成：`evidence/e2e-ci-mode.log`） |
+| Audit | `bun audit --audit-level=high` | 0 vulnerabilities | `bun-audit.log`（本地生成：`evidence/bun-audit.log`） |
 
 所有最终日志中的 `exit_code` 都是 0。
 
@@ -80,7 +80,7 @@ bun run preview -- --host 127.0.0.1 --port 4173 --strictPort
 
 本地模式使用系统 Google Chrome；`CI=true` 使用 Playwright Chromium。两个分支的 3 个测试都通过。
 
-另外，Vite dev server 对 `/`、`/health` 和 catch-all 样例 `/mine` 都返回 200，且 `/mine` 不再产生 Vue Router no-match warning。证据见 [`dev-server.log`](evidence/dev-server.log) 和 [`dev-http-smoke.log`](evidence/dev-http-smoke.log)。
+另外，Vite dev server 对 `/`、`/health` 和 catch-all 样例 `/mine` 都返回 200，且 `/mine` 不再产生 Vue Router no-match warning。证据见 `dev-server.log`（本地生成：`evidence/dev-server.log`） 和 `dev-http-smoke.log`（本地生成：`evidence/dev-http-smoke.log`）。
 
 ## 构建结果
 
@@ -94,7 +94,7 @@ bun run preview -- --host 127.0.0.1 --port 4173 --strictPort
 | HTML | 648 B | 429 B |
 | favicon | 4,286 B | — |
 
-最终精确大小由 [`generated/summary.json`](generated/summary.json) 记录；新增显式 404 chunk 后为 106,432 B，约 103.94 KiB。
+最终精确大小由 `generated/summary.json`（本地生成：`generated/summary.json`） 记录；新增显式 404 chunk 后为 106,432 B，约 103.94 KiB。
 
 构建产物不包含：
 

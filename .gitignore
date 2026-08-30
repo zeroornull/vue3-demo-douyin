@@ -3,6 +3,7 @@
 
 # Local oh-my-codex runtime state.
 /.omx/
+/.omc/
 
 # Dependencies and build output.
 /node_modules/
@@ -18,13 +19,17 @@
 bun-error.log
 *.log
 
-# Verification logs under migration rounds are intentional documentation evidence.
-!/docs/round-*/evidence/*.log
+# Reproducible migration evidence. Keep handwritten Markdown, but do not commit
+# command logs, machine-generated reports, or browser screenshots.
+/docs/round-*/evidence/
+/docs/round-*/generated/
+/docs/round-*/screenshots/
 
 # Local environment files. Commit only documented examples.
 .env
 .env.*
 !.env.example
+!.env.e2e
 
 # OS and editor-local files.
 .DS_Store
@@ -32,6 +37,3 @@ bun-error.log
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-
-# Round-0 full resource manifest is reproducible but intentionally local.
-/docs/round-0/generated/*.local.json

@@ -1,6 +1,0 @@
-$ bun run scripts/round-0/collect-baseline.ts
-Round-0 baseline generated in docs/round-0/generated
-$ bun run scripts/round-0/render-report.ts
-Round-0 Markdown reports rendered
-collect_exit=0
-render_exit=0

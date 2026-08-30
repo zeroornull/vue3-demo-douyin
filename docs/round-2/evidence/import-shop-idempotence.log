@@ -1,6 +1,0 @@
-$ run migration:shop:import twice and compare all output SHA-256 values
-Imported 6 unique goods and 27 images (1274128 bytes)
-Imported 6 unique goods and 27 images (1274128 bytes)
-output_files=29
-hashes_identical=true
-exit_code=0

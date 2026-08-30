@@ -1,6 +1,0 @@
-$ bun run migration:shop:import
-started_at=2026-08-30T19:21:39+08:00
-$ bun run scripts/round-2/import-shop-fixture.ts
-Imported 6 unique goods and 27 images (1274128 bytes)
-exit_code=0
-finished_at=2026-08-30T19:21:39+08:00

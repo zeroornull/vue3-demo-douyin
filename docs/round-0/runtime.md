@@ -31,7 +31,7 @@ allowBuilds:
 并使用 `HUSKY=0` 防止旧 Husky 修改新仓库 hooks。随后冻结安装成功，且
 `package.json` 与 `pnpm-lock.yaml` 的 SHA-256 前后不变。
 
-证据：[`evidence/pnpm-install.log`](evidence/pnpm-install.log)。pnpm 自动预检导致的首次脚本阻断也保存在
+证据：`evidence/pnpm-install.log`（本地生成：`evidence/pnpm-install.log`）。pnpm 自动预检导致的首次脚本阻断也保存在
 `type-check-pnpm-preflight-failure.log` 和 `build-pnpm-preflight-failure.log`。
 
 ## 类型检查
@@ -78,8 +78,8 @@ allowBuilds:
 | `src/pages/message/SetRemark.vue` | 1 |
 | `src/pages/me/RequestUpdate.vue` | 1 |
 
-完整错误：[`generated/type-errors.json`](generated/type-errors.json) 和
-[`evidence/type-check.log`](evidence/type-check.log)。
+完整错误：`generated/type-errors.json`（本地生成：`generated/type-errors.json`） 和
+`evidence/type-check.log`（本地生成：`evidence/type-check.log`）。
 
 ## 生产构建
 
@@ -112,8 +112,8 @@ allowBuilds:
 | `data/user_video_list/user-SUNMENG333.json` | 352.52 KiB | 39.12 KiB |
 | `data/user_video_list/user-81069823274.json` | 319.15 KiB | 36.54 KiB |
 
-证据：[`generated/build-summary.json`](generated/build-summary.json) 和
-[`evidence/build.log`](evidence/build.log)。
+证据：`generated/build-summary.json`（本地生成：`generated/build-summary.json`） 和
+`evidence/build.log`（本地生成：`evidence/build.log`）。
 
 ## 浏览器冒烟
 
@@ -129,21 +129,21 @@ allowBuilds:
 
 | 用例 | HTTP | Console errors | Page errors | Request failures | 视觉证据 |
 | --- | ---: | ---: | ---: | ---: | --- |
-| `home-mobile` | 200 | 0 | 0 | 5 | [截图](screenshots/home-mobile.png) |
-| `search-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/search-mobile.png) |
-| `shop-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/shop-mobile.png) |
-| `shop-detail-mobile` | 200 | 1 | 3 | 0 | [截图](screenshots/shop-detail-mobile.png) |
-| `shop-to-detail-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/shop-to-detail-mobile.png) |
-| `message-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/message-mobile.png) |
-| `chat-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/chat-mobile.png) |
-| `message-to-chat-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/message-to-chat-mobile.png) |
-| `profile-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/profile-mobile.png) |
-| `edit-profile-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/edit-profile-mobile.png) |
-| `profile-to-edit-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/profile-to-edit-mobile.png) |
-| `login-mobile` | 200 | 0 | 0 | 0 | [截图](screenshots/login-mobile.png) |
-| `video-detail-mobile` | 200 | 1 | 2 | 0 | [截图](screenshots/video-detail-mobile.png) |
-| `home-narrow` | 200 | 0 | 0 | 5 | [截图](screenshots/home-narrow.png) |
-| `home-desktop` | 200 | 0 | 0 | 6 | [截图](screenshots/home-desktop.png) |
+| `home-mobile` | 200 | 0 | 0 | 5 | 截图（本地生成：`screenshots/home-mobile.png`） |
+| `search-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/search-mobile.png`） |
+| `shop-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/shop-mobile.png`） |
+| `shop-detail-mobile` | 200 | 1 | 3 | 0 | 截图（本地生成：`screenshots/shop-detail-mobile.png`） |
+| `shop-to-detail-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/shop-to-detail-mobile.png`） |
+| `message-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/message-mobile.png`） |
+| `chat-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/chat-mobile.png`） |
+| `message-to-chat-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/message-to-chat-mobile.png`） |
+| `profile-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/profile-mobile.png`） |
+| `edit-profile-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/edit-profile-mobile.png`） |
+| `profile-to-edit-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/profile-to-edit-mobile.png`） |
+| `login-mobile` | 200 | 0 | 0 | 0 | 截图（本地生成：`screenshots/login-mobile.png`） |
+| `video-detail-mobile` | 200 | 1 | 2 | 0 | 截图（本地生成：`screenshots/video-detail-mobile.png`） |
+| `home-narrow` | 200 | 0 | 0 | 5 | 截图（本地生成：`screenshots/home-narrow.png`） |
+| `home-desktop` | 200 | 0 | 0 | 6 | 截图（本地生成：`screenshots/home-desktop.png`） |
 
 ### 已确认缺陷
 
@@ -154,5 +154,5 @@ allowBuilds:
    `ERR_BLOCKED_BY_ORB` 或 `ERR_ABORTED`；页面本身仍可渲染。
 5. Message→Chat、Profile→Edit 三条点击流程没有错误。
 
-机器证据：[`generated/browser-smoke.json`](generated/browser-smoke.json)。截图位于
-[`screenshots/`](screenshots/)。
+机器证据：`generated/browser-smoke.json`（本地生成：`generated/browser-smoke.json`）。截图位于
+`screenshots/`（本地生成：`screenshots/`）。

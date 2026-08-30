@@ -25,9 +25,9 @@
 - [技术栈与依赖解析](dependency-resolution.md)
 - [应用壳与架构](architecture.md)
 - [验证证据](verification.md)
-- [机器摘要](generated/summary.json)
-- [桌面/移动视觉证据](screenshots/)
-- [原始命令日志](evidence/)
+- 机器摘要（本地生成：`generated/summary.json`）
+- 桌面/移动视觉证据（本地生成：`screenshots/`）
+- 原始命令日志（本地生成：`evidence/`）
 
 ## 新根目录能力
 

@@ -1,3 +1,0 @@
-$ vite preview --host "127.0.0.1" --port "4173" --strictPort
-  ➜  Local:   http://127.0.0.1:4173/
-  ➜  press h + enter to show help

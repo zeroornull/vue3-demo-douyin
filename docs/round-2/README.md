@@ -26,10 +26,10 @@
 - [Shop 纵切及行为差异](shop-slice.md)
 - [类型债务与迁移指标](metrics.md)
 - [验证证据](verification.md)
-- [机器摘要](generated/summary.json)
-- [资源导入清单](generated/shop-import.json)
-- [视觉证据](screenshots/)
-- [原始命令日志](evidence/)
+- 机器摘要（本地生成：`generated/summary.json`）
+- 资源导入清单（本地生成：`generated/shop-import.json`）
+- 视觉证据（本地生成：`screenshots/`）
+- 原始命令日志（本地生成：`evidence/`）
 
 ## Git 边界
 

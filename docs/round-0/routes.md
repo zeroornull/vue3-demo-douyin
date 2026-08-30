@@ -9,7 +9,7 @@
 - 建议优先级：P0 10、P1 53、P2 2。
 
 优先级是迁移规划建议，不是旧代码事实。路由来源事实保存在
-[`generated/routes.json`](generated/routes.json)，由
+`generated/routes.json`（本地生成：`generated/routes.json`），由
 [`scripts/round-0/collect-baseline.ts`](../../scripts/round-0/collect-baseline.ts) 从
 `legacy/src/router/routes.ts` 的 TypeScript AST 生成。
 

@@ -27,7 +27,7 @@ $ref across all src=0
 type suppression across all src=0
 ```
 
-这些数字由 [`scripts/round-2/collect-round.ts`](../../scripts/round-2/collect-round.ts) 直接扫描生成；机器结果位于 [`generated/summary.json`](generated/summary.json)。
+这些数字由 [`scripts/round-2/collect-round.ts`](../../scripts/round-2/collect-round.ts) 直接扫描生成；机器结果位于 `generated/summary.json`（本地生成：`generated/summary.json`）。
 
 ## Shop 数据收敛
 

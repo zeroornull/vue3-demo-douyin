@@ -20,9 +20,9 @@ bun create vue@latest app \
 
 原始生成日志和 package：
 
-- [`evidence/create-vue.log`](evidence/create-vue.log)
-- [`evidence/create-vue-package.json`](evidence/create-vue-package.json)
-- [`evidence/create-vue-files.txt`](evidence/create-vue-files.txt)
+- `evidence/create-vue.log`（本地生成：`evidence/create-vue.log`）
+- `evidence/create-vue-package.json`（本地生成：`evidence/create-vue-package.json`）
+- `evidence/create-vue-files.txt`（本地生成：`evidence/create-vue-files.txt`）
 
 骨架在 `/tmp` 生成，再选择性复制；没有使用 `--force` 覆盖根目录，也没有复制脚手架 README、Git 或 `.gitignore`。
 
@@ -44,7 +44,7 @@ bun create vue@latest app \
 | Vitest | 4.1.11 | 官方模板测试栈 |
 | Playwright | 1.62.1 | production-preview E2E |
 
-完整直接依赖解析保存在 [`generated/summary.json`](generated/summary.json)。
+完整直接依赖解析保存在 `generated/summary.json`（本地生成：`generated/summary.json`）。
 
 ## Oxlint peer 修复
 
@@ -65,8 +65,8 @@ registry 显示当日 `eslint-plugin-oxlint@1.80.0` peer 要求 `oxlint ~1.80.0`
 
 证据：
 
-- [`evidence/bun-install-initial.log`](evidence/bun-install-initial.log)
-- [`evidence/bun-install.log`](evidence/bun-install.log)
+- `evidence/bun-install-initial.log`（本地生成：`evidence/bun-install-initial.log`）
+- `evidence/bun-install.log`（本地生成：`evidence/bun-install.log`）
 
 ## 文本锁文件
 
@@ -84,9 +84,9 @@ registry 显示当日 `eslint-plugin-oxlint@1.80.0` peer 要求 `oxlint ~1.80.0`
 - 生成 `node_modules`。
 - 临时副本的 `package.json` 和 `bun.lock` 哈希均与仓库输入一致。
 
-证据：[`evidence/bun-install-clean-frozen.log`](evidence/bun-install-clean-frozen.log)。
+证据：`evidence/bun-install-clean-frozen.log`（本地生成：`evidence/bun-install-clean-frozen.log`）。
 
-冻结安装证据：[`evidence/bun-install-frozen.log`](evidence/bun-install-frozen.log)。
+冻结安装证据：`evidence/bun-install-frozen.log`（本地生成：`evidence/bun-install-frozen.log`）。
 
 ## 有意不升级的候选
 
@@ -99,7 +99,7 @@ registry 显示当日 `eslint-plugin-oxlint@1.80.0` peer 要求 `oxlint ~1.80.0`
 | `@types/jsdom` | 28.0.3 | 30.0.0 | 与官方模板/当前 jsdom 组合一起验证 |
 | `@types/node` | 24.13.3 | 26.4.0 | 项目使用 Node 24 tsconfig，不用未来 Node 26 类型污染边界 |
 
-日志：[`evidence/bun-outdated.log`](evidence/bun-outdated.log)。
+日志：`evidence/bun-outdated.log`（本地生成：`evidence/bun-outdated.log`）。
 
 这四项不是遗漏更新，而是经过 peer/engine 判断后的兼容性固定。后续主版本升级必须单独执行。
 
@@ -112,4 +112,4 @@ checked 324 packages
 exit_code=0
 ```
 
-日志：[`evidence/bun-audit.log`](evidence/bun-audit.log)。
+日志：`evidence/bun-audit.log`（本地生成：`evidence/bun-audit.log`）。

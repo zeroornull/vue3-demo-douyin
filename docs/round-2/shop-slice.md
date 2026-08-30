@@ -77,9 +77,9 @@ image bytes: 1,274,128
 fixture bytes: 1,745
 ```
 
-完整来源清单：[`generated/shop-import.json`](generated/shop-import.json)。
+完整来源清单：`generated/shop-import.json`（本地生成：`generated/shop-import.json`）。
 
-生成器连续执行两次并比较 fixture、27 张图片和 manifest 共 29 个文件的 SHA-256，结果完全一致；见 [`evidence/import-shop-idempotence.log`](evidence/import-shop-idempotence.log)。
+生成器连续执行两次并比较 fixture、27 张图片和 manifest 共 29 个文件的 SHA-256，结果完全一致；见 `evidence/import-shop-idempotence.log`（本地生成：`evidence/import-shop-idempotence.log`）。
 
 新运行时只导入新 fixture，不从 `legacy/` import。迁移脚本允许读取本地 legacy，因为它是显式、可重放的开发工具边界。
 
@@ -113,10 +113,10 @@ fixture bytes: 1,745
 
 ## 视觉证据
 
-- [`screenshots/shop-desktop.png`](screenshots/shop-desktop.png)
-- [`screenshots/shop-mobile.png`](screenshots/shop-mobile.png)
-- [`screenshots/shop-detail-desktop.png`](screenshots/shop-detail-desktop.png)
-- [`screenshots/shop-detail-mobile.png`](screenshots/shop-detail-mobile.png)
-- [`screenshots/shop-not-found-mobile.png`](screenshots/shop-not-found-mobile.png)
+- `screenshots/shop-desktop.png`（本地生成：`screenshots/shop-desktop.png`）
+- `screenshots/shop-mobile.png`（本地生成：`screenshots/shop-mobile.png`）
+- `screenshots/shop-detail-desktop.png`（本地生成：`screenshots/shop-detail-desktop.png`）
+- `screenshots/shop-detail-mobile.png`（本地生成：`screenshots/shop-detail-mobile.png`）
+- `screenshots/shop-not-found-mobile.png`（本地生成：`screenshots/shop-not-found-mobile.png`）
 
 视觉目标是验证类型纵切和响应式布局，不是完整复刻旧 1,150 行商品详情。

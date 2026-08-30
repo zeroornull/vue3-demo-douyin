@@ -4,14 +4,14 @@
 
 | 验证 | 命令 | 结果 | 证据 |
 | --- | --- | --- | --- |
-| Fixture import | `bun run migration:shop:import` | 6 products / 27 images | [`import-shop-fixture.log`](evidence/import-shop-fixture.log) |
-| Fixture idempotence | 连续导入两次并比较 29 个 SHA-256 | 完全一致 | [`import-shop-idempotence.log`](evidence/import-shop-idempotence.log) |
-| Frozen install | `bun install --frozen-lockfile` | 298 installs / 339 packages，无变化 | [`bun-install-frozen.log`](evidence/bun-install-frozen.log) |
-| Read-only check | `bun run check` | 全部通过 | [`check.log`](evidence/check.log) |
-| Combined build | `bun run build` | type-check + Vite build 通过 | [`build.log`](evidence/build.log) |
-| Local E2E | `bun run test:e2e` | 7/7 | [`e2e.log`](evidence/e2e.log) |
-| CI-mode E2E | `CI=true ... bun run test:e2e` | 7/7 | [`e2e-ci-mode.log`](evidence/e2e-ci-mode.log) |
-| Audit | `bun audit --audit-level=high` | 0 vulnerabilities | [`bun-audit.log`](evidence/bun-audit.log) |
+| Fixture import | `bun run migration:shop:import` | 6 products / 27 images | `import-shop-fixture.log`（本地生成：`evidence/import-shop-fixture.log`） |
+| Fixture idempotence | 连续导入两次并比较 29 个 SHA-256 | 完全一致 | `import-shop-idempotence.log`（本地生成：`evidence/import-shop-idempotence.log`） |
+| Frozen install | `bun install --frozen-lockfile` | 298 installs / 339 packages，无变化 | `bun-install-frozen.log`（本地生成：`evidence/bun-install-frozen.log`） |
+| Read-only check | `bun run check` | 全部通过 | `check.log`（本地生成：`evidence/check.log`） |
+| Combined build | `bun run build` | type-check + Vite build 通过 | `build.log`（本地生成：`evidence/build.log`） |
+| Local E2E | `bun run test:e2e` | 7/7 | `e2e.log`（本地生成：`evidence/e2e.log`） |
+| CI-mode E2E | `CI=true ... bun run test:e2e` | 7/7 | `e2e-ci-mode.log`（本地生成：`evidence/e2e-ci-mode.log`） |
+| Audit | `bun audit --audit-level=high` | 0 vulnerabilities | `bun-audit.log`（本地生成：`evidence/bun-audit.log`） |
 
 ## `bun run check`
 
@@ -52,8 +52,8 @@ exit_code                0
 
 历史日志：
 
-- [`check-attempt-1.log`](evidence/check-attempt-1.log)
-- [`check-generated-format-failure.log`](evidence/check-generated-format-failure.log)
+- `check-attempt-1.log`（本地生成：`evidence/check-attempt-1.log`）
+- `check-generated-format-failure.log`（本地生成：`evidence/check-generated-format-failure.log`）
 
 ## Runtime 和视觉
 
@@ -72,7 +72,7 @@ HTTP smoke 覆盖：
 - 390px mobile list/detail。
 - Mobile not-found。
 
-机器证据见 [`generated/summary.json`](generated/summary.json)。
+机器证据见 `generated/summary.json`（本地生成：`generated/summary.json`）。
 
 ## 供应链
 

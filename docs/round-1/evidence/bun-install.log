@@ -1,8 +1,0 @@
-$ bun install
-started_at=2026-08-30T18:02:00+08:00
-bun install v1.4.0 (34cbb9a40)
-Saved lockfile
-
-1 package removed [13.00ms]
-exit_code=0
-finished_at=2026-08-30T18:02:00+08:00

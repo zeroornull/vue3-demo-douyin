@@ -25,9 +25,9 @@
 - [API、Mock 和数据契约](contracts.md)
 - [全局副作用](global-side-effects.md)
 - [资源基线](resources.md)
-- [机器生成 JSON](generated/)
-- [P0 截图](screenshots/)
-- [原始命令日志](evidence/)
+- 机器生成 JSON（本地生成：`generated/`）
+- P0 截图（本地生成：`screenshots/`）
+- 原始命令日志（本地生成：`evidence/`）
 
 ## 可重复执行
 
@@ -43,7 +43,7 @@ bun run scripts/round-0/render-report.ts
 ```
 
 浏览器采集需要运行旧 Vite dev server和 Playwright 1.62.1；完整命令记录在
-[`evidence/browser-capture.log`](evidence/browser-capture.log)。脚本默认使用系统 Google Chrome：
+`evidence/browser-capture.log`（本地生成：`evidence/browser-capture.log`）。脚本默认使用系统 Google Chrome：
 
 ```bash
 cd legacy

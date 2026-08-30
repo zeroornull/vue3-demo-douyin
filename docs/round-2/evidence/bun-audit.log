@@ -1,7 +1,0 @@
-$ bun audit --audit-level=high
-started_at=2026-08-30T19:14:46+08:00
-bun audit v1.4.0 (34cbb9a40)
-
-No vulnerabilities found (checked 324 packages) [490.00ms]
-exit_code=0
-finished_at=2026-08-30T19:14:46+08:00

@@ -9,8 +9,8 @@
 
 原始机器证据：
 
-- [`generated/api-and-mocks.json`](generated/api-and-mocks.json)
-- [`generated/fixture-summary.json`](generated/fixture-summary.json)
+- `generated/api-and-mocks.json`（本地生成：`generated/api-and-mocks.json`）
+- `generated/fixture-summary.json`（本地生成：`generated/fixture-summary.json`）
 
 ## API 包装函数
 
