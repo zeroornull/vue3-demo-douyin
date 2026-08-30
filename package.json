@@ -12,6 +12,7 @@
     "test:unit:run": "vitest run",
     "test:e2e": "playwright test",
     "build-only": "vite build",
+    "build:e2e": "vite build --mode e2e",
     "type-check": "vue-tsc --build",
     "lint": "run-s lint:oxlint lint:eslint",
     "lint:oxlint": "oxlint .",
@@ -23,9 +24,11 @@
     "format:check": "prettier --check --experimental-cli .",
     "migration:shop:import": "bun run scripts/round-2/import-shop-fixture.ts",
     "migration:round2:collect": "bun run scripts/round-2/collect-round.ts",
+    "migration:round3:collect": "bun run scripts/round-3/collect-round.ts",
     "check": "run-s format:check lint type-check test:unit:run build-only"
   },
   "dependencies": {
+    "axios": "1.20.0",
     "pinia": "4.0.3",
     "vue": "3.5.42",
     "vue-router": "5.3.0"

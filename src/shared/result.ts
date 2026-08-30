@@ -1,9 +1,11 @@
-export type AppErrorKind = 'aborted' | 'not-found' | 'parse' | 'unexpected'
+export type AppErrorKind =
+  'aborted' | 'http' | 'network' | 'not-found' | 'parse' | 'timeout' | 'unexpected'
 
 export interface AppError {
   readonly kind: AppErrorKind
   readonly message: string
   readonly details?: readonly string[]
+  readonly status?: number
 }
 
 export type AppResult<T, E extends AppError = AppError> =

@@ -9,5 +9,6 @@ describe('HealthView', () => {
     expect(wrapper.get('[data-testid="health-status"]').text()).toBe('ok')
     expect(wrapper.text()).toContain('Package manager')
     expect(wrapper.text()).toContain('Bun 1.4')
+    expect(wrapper.get('[data-testid="shop-data-source"]').text()).toBe('fixture')
   })
 })

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import shopFixture from '../src/features/shop/data/goods.fixture.json' with { type: 'json' }
 
 function captureRuntimeErrors(page: Page) {
   const errors: string[] = []
@@ -7,6 +8,16 @@ function captureRuntimeErrors(page: Page) {
     if (message.type() === 'error') errors.push(message.text())
   })
   return errors
+}
+
+async function mockShopSuccess(page: Page) {
+  await page.route('**/api/shop/products', (route) =>
+    route.fulfill({
+      body: JSON.stringify(shopFixture),
+      contentType: 'application/json',
+      status: 200,
+    }),
+  )
 }
 
 test('shows the migration baseline at the root route', async ({ page }) => {
@@ -21,6 +32,7 @@ test('exposes a production health route', async ({ page }) => {
   await expect(page.getByRole('heading', { name: '运行状态' })).toBeVisible()
   await expect(page.getByTestId('health-status')).toHaveText('ok')
   await expect(page.getByText(/^3\.5\./)).toBeVisible()
+  await expect(page.getByTestId('shop-data-source')).toHaveText('http')
 })
 
 test('renders an explicit not-found route', async ({ page }) => {
@@ -31,6 +43,7 @@ test('renders an explicit not-found route', async ({ page }) => {
 
 test('navigates from the typed Shop list to a stable detail URL', async ({ page }) => {
   const errors = captureRuntimeErrors(page)
+  await mockShopSuccess(page)
   await page.goto('/shop')
 
   const products = page.locator('.product-card')
@@ -57,6 +70,7 @@ test('navigates from the typed Shop list to a stable detail URL', async ({ page 
 
 test('loads and reloads a Shop detail deep link without routeData', async ({ page }) => {
   const errors = captureRuntimeErrors(page)
+  await mockShopSuccess(page)
   await page.goto('/shop/detail/g6')
 
   await expect(page.getByRole('heading', { level: 1 })).toContainText('小米电视6')
@@ -81,6 +95,7 @@ test('loads and reloads a Shop detail deep link without routeData', async ({ pag
 
 test('distinguishes an invalid product ID from runtime failure', async ({ page }) => {
   const errors = captureRuntimeErrors(page)
+  await mockShopSuccess(page)
   await page.goto('/shop/detail/not-valid')
 
   await expect(page.getByTestId('product-not-found')).toContainText('商品不存在')
@@ -88,8 +103,52 @@ test('distinguishes an invalid product ID from runtime failure', async ({ page }
 })
 
 test('redirects the legacy detail path that has no product ID', async ({ page }) => {
+  await mockShopSuccess(page)
   await page.goto('/shop/detail')
 
   await expect(page).toHaveURL(/\/shop$/)
   await expect(page.getByRole('heading', { name: '商品样板' })).toBeVisible()
+})
+
+test('renders an explicit empty state from the HTTP adapter', async ({ page }) => {
+  await page.route('**/api/shop/products', (route) =>
+    route.fulfill({ body: '[]', contentType: 'application/json', status: 200 }),
+  )
+
+  await page.goto('/shop')
+
+  await expect(page.getByRole('heading', { name: '目前没有商品' })).toBeVisible()
+})
+
+test('renders a typed HTTP status failure without an application exception', async ({ page }) => {
+  const errors = captureRuntimeErrors(page)
+  await page.route('**/api/shop/products', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ message: 'maintenance' }),
+      contentType: 'application/json',
+      status: 503,
+    }),
+  )
+
+  await page.goto('/shop')
+
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（503）')
+  expect(errors).toHaveLength(1)
+  expect(errors[0]).toContain('503')
+})
+
+test('renders a parser error for an invalid HTTP payload', async ({ page }) => {
+  const errors = captureRuntimeErrors(page)
+  await page.route('**/api/shop/products', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ invalid: true }),
+      contentType: 'application/json',
+      status: 200,
+    }),
+  )
+
+  await page.goto('/shop')
+
+  await expect(page.getByRole('alert')).toContainText('商品列表必须是数组')
+  expect(errors).toEqual([])
 })

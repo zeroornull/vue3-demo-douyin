@@ -308,6 +308,34 @@ dd {
   color: var(--accent);
 }
 
+.route-forward-enter-active,
+.route-forward-leave-active,
+.route-back-enter-active,
+.route-back-leave-active,
+.route-fade-enter-active,
+.route-fade-leave-active {
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.route-forward-enter-from,
+.route-back-leave-to {
+  opacity: 0;
+  transform: translateX(1rem);
+}
+
+.route-forward-leave-to,
+.route-back-enter-from {
+  opacity: 0;
+  transform: translateX(-1rem);
+}
+
+.route-fade-enter-from,
+.route-fade-leave-to {
+  opacity: 0;
+}
+
 @media (max-width: 760px) {
   .app-header,
   .app-footer {

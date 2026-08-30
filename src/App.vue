@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { RouterLink, RouterView } from 'vue-router'
+import { useNavigationStore } from '@/stores/navigation'
+
+const navigation = useNavigationStore()
+const { keepAliveNames, transitionName } = storeToRefs(navigation)
 </script>
 
 <template>
@@ -20,7 +25,13 @@ import { RouterLink, RouterView } from 'vue-router'
     </header>
 
     <main id="main-content">
-      <RouterView />
+      <RouterView v-slot="{ Component, route }">
+        <Transition :name="transitionName" mode="out-in">
+          <KeepAlive :include="[...keepAliveNames]">
+            <component :is="Component" :key="route.fullPath" />
+          </KeepAlive>
+        </Transition>
+      </RouterView>
     </main>
 
     <footer class="app-footer">

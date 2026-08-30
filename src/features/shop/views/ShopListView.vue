@@ -16,6 +16,8 @@ function load(force = false) {
 }
 
 onMounted(() => load())
+
+defineOptions({ name: 'ShopListView' })
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 # Bun + TypeScript + Vue 迁移与学习文档
 
 > 版本核对日期：2026-08-30（Asia/Shanghai）
-> 文档状态：第 0、1、2 轮已完成，第 3 轮尚未开始
+> 文档状态：第 0、1、2、3 轮已完成，第 4 轮尚未开始
 > 目标：用 Bun 管理依赖和运行脚本，以 TypeScript 严格模式重建应用，并迁移到当前稳定 Vue 生态。
 
 ## 1. 文档地图
@@ -19,8 +19,12 @@
 | 8 | [学习路线](08-learning-path.md) | 按迁移任务学习 Bun、TS、Vue 与测试 | 能解释设计，不只是复制命令 |
 | 9 | [命令、清单与排错](09-command-reference.md) | 提供日常命令、验收模板和常见故障处理 | 每轮均可复用同一套证据格式 |
 | 10 | [依赖策略与来源](10-dependency-policy.md) | 解释“最新”含义、兼容矩阵、升级规则与来源 | 依赖升级可复现且不盲追版本 |
+| 11 | [Git 文件卫生](git-hygiene.md) | 说明哪些文件应跟踪、忽略或取消跟踪 | 仓库不再积累可重建证据产物 |
 
 ## 当前执行产物
+
+> 各轮的 `evidence/`、`generated/` 和 `screenshots/` 都由仓库脚本或测试重新生成，
+> 仅保留在本地并由 Git 忽略；仓库只跟踪手写 Markdown、生成脚本和产品运行所需资源。
 
 - [第 0 轮验收报告](round-0/README.md)
 - [旧项目运行、类型、构建和浏览器证据](round-0/runtime.md)
@@ -37,6 +41,11 @@
 - [第 2 轮 Shop 纵切](round-2/shop-slice.md)
 - [第 2 轮迁移指标](round-2/metrics.md)
 - [第 2 轮验证证据](round-2/verification.md)
+- [第 3 轮核心基础设施验收报告](round-3/README.md)
+- [第 3 轮 HTTP、环境与 Adapter](round-3/http-and-environment.md)
+- [第 3 轮导航、KeepAlive 与事件](round-3/navigation-and-events.md)
+- [第 3 轮架构和迁移指标](round-3/architecture-and-metrics.md)
+- [第 3 轮验证证据](round-3/verification.md)
 
 ## 2. 必须遵守的迁移原则
 

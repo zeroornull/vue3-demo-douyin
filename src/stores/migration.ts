@@ -1,10 +1,10 @@
 import { computed, readonly, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-const completedRounds = [0, 1, 2] as const
+const completedRounds = [0, 1, 2, 3] as const
 
 export const useMigrationStore = defineStore('migration', () => {
-  const nextRound = ref(3)
+  const nextRound = ref(4)
   const completed = readonly(ref<readonly number[]>(completedRounds))
 
   const summary = computed(

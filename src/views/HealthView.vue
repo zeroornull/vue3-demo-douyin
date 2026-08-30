@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { version as vueVersion } from 'vue'
+import { getRuntimeConfig } from '@/config/runtime'
 import { createHealthSnapshot } from '@/lib/health'
 
 const buildSha = import.meta.env.VITE_BUILD_SHA
+const runtime = getRuntimeConfig()
 const health = createHealthSnapshot({
   ...(buildSha ? { buildSha } : {}),
   mode: import.meta.env.MODE,
@@ -39,6 +41,14 @@ const health = createHealthSnapshot({
       <div>
         <dt>Package manager</dt>
         <dd>Bun 1.4</dd>
+      </div>
+      <div>
+        <dt>Shop data source</dt>
+        <dd data-testid="shop-data-source">{{ runtime.shopDataSource }}</dd>
+      </div>
+      <div>
+        <dt>HTTP timeout</dt>
+        <dd>{{ runtime.httpTimeoutMs }} ms</dd>
       </div>
     </dl>
   </section>

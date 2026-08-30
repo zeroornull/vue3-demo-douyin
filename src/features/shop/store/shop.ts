@@ -2,9 +2,10 @@ import { computed, ref, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import type { Product, ProductId } from '@/domain/shop/product'
 import { createAppEvent, type AppEvent } from '@/shared/events'
+import { appEventBus } from '@/infrastructure/events/app-event-bus'
 import { failure, success, type AppError, type AppResult } from '@/shared/result'
-import { fixtureShopGateway } from '@/features/shop/api/fixture-shop-gateway'
 import type { GatewayRequestOptions, ShopGateway } from '@/features/shop/api/shop-gateway'
+import { getDefaultShopGateway } from '@/features/shop/api/shop-gateway-provider'
 
 export type ShopStatus = 'empty' | 'error' | 'idle' | 'loading' | 'ready'
 export type ProductViewedEvent = AppEvent<'shop:product-viewed'>
@@ -35,9 +36,9 @@ export const useShopStore = defineStore('shop', () => {
     const requestId = ++requestSequence
     status.value = 'loading'
     error.value = null
-    const gateway = options.gateway ?? fixtureShopGateway
     let result: AppResult<readonly Product[]>
     try {
+      const gateway = options.gateway ?? getDefaultShopGateway()
       result = await gateway.list(options.signal ? { signal: options.signal } : undefined)
     } catch (cause: unknown) {
       result = failure({
@@ -61,6 +62,7 @@ export const useShopStore = defineStore('shop', () => {
 
   function recordViewed(productId: ProductId) {
     lastViewedEvent.value = createAppEvent('shop:product-viewed', { productId })
+    appEventBus.emit('shop:product-viewed', { productId })
   }
 
   function reset() {

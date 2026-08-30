@@ -3,16 +3,18 @@
 本仓库已经重置为一个**文档优先的迁移工作区**。旧项目仍保存在本地
 `legacy/` 中，供逐页比对和迁移使用，但该目录被 Git 忽略，不属于新仓库历史。
 
-当前阶段不包含新应用实现。迁移应按文档中的轮次推进，每一轮都必须通过自己的
-验收门禁后才能进入下一轮，避免一次性升级运行时、框架、类型系统和业务代码。
+当前已经包含现代 Vue 应用壳、严格类型的 Shop 样板和可切换的 fixture/HTTP 基础设施。
+迁移继续按文档中的轮次推进，每一轮都必须通过自己的验收门禁后才能进入下一轮，
+避免一次性升级运行时、框架、类型系统和业务代码。
 
 ## 当前进度
 
 - 第 0 轮“旧项目行为基线”已执行完成。
 - 第 1 轮“Bun + Vue TypeScript 官方骨架”已执行完成。
-- 第 2 轮“严格 TypeScript 迁移通道与 Shop 样板”已执行完成，保持未提交。
-- 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)、[`docs/round-2/README.md`](docs/round-2/README.md)。
-- 下一实施轮次：第 3 轮核心基础设施。
+- 第 2 轮“严格 TypeScript 迁移通道与 Shop 样板”已执行并提交为 `b79b695`。
+- 第 3 轮“HTTP、环境、导航与事件核心基础设施”已执行完成，保持未提交。
+- 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)、[`docs/round-2/README.md`](docs/round-2/README.md)、[`docs/round-3/README.md`](docs/round-3/README.md)。
+- 下一实施轮次：第 4 轮业务页面与资源迁移。
 
 ## 从这里开始
 

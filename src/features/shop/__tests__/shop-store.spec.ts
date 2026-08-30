@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { parseProductId, type Product } from '@/domain/shop/product'
 import type { ShopGateway } from '@/features/shop/api/shop-gateway'
 import { fixtureShopGateway } from '@/features/shop/api/fixture-shop-gateway'
+import { appEventBus } from '@/infrastructure/events/app-event-bus'
 import { useShopStore } from '@/features/shop/store/shop'
 import { failure, success } from '@/shared/result'
 
@@ -38,6 +39,7 @@ function gatewayReturning(items: readonly Product[]): ShopGateway {
 describe('useShopStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
+    appEventBus.clear()
   })
 
   it('moves from idle to ready and indexes products by branded ID', async () => {
@@ -115,12 +117,20 @@ describe('useShopStore', () => {
 
   it('records a typed domain event when a product is viewed', () => {
     const store = useShopStore()
+    const received: string[] = []
+    const off = appEventBus.on('shop:product-viewed', ({ productId: viewedId }) =>
+      received.push(viewedId),
+    )
 
+    store.recordViewed(productId)
+    off()
     store.recordViewed(productId)
 
     expect(store.lastViewedEvent).toMatchObject({
       type: 'shop:product-viewed',
       payload: { productId: 'g1' },
     })
+    expect(received).toEqual(['g1'])
+    expect(appEventBus.listenerCount('shop:product-viewed')).toBe(0)
   })
 })

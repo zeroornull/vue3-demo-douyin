@@ -13,8 +13,8 @@ const { completed, nextRound, summary } = storeToRefs(migrationStore)
       <p class="eyebrow">Bun · TypeScript · Vue</p>
       <h1 id="migration-title">用可验证的小步迁移，替代一次性重写。</h1>
       <p class="lede">
-        第 0 轮锁定旧行为，第 1 轮建立现代基座；第 2 轮用 Shop 样板证明 DTO、Domain、Router、Pinia
-        和运行时解析可以形成严格边界。
+        第 0–2 轮建立基线、现代基座和严格 Shop 边界；第 3 轮加入 HTTP adapter、环境解析、导航状态和
+        typed event dispatcher，并保持页面不依赖基础设施细节。
       </p>
 
       <div class="actions">
@@ -46,25 +46,25 @@ const { completed, nextRound, summary } = storeToRefs(migrationStore)
 
   <section class="principles" aria-labelledby="principles-title">
     <div class="section-heading">
-      <p class="eyebrow">Round 2 contract</p>
+      <p class="eyebrow">Round 3 contract</p>
       <h2 id="principles-title">这层基座只证明三件事</h2>
     </div>
 
     <ol class="principle-grid">
       <li>
         <span>01</span>
-        <h3>外部输入先验证</h3>
-        <p>Legacy fixture 以 unknown 进入 parser，通过后才成为 Domain model。</p>
+        <h3>Adapter 可替换</h3>
+        <p>Fixture 与 Axios HTTP Gateway 共享同一 ShopGateway 和 AppResult 合同。</p>
       </li>
       <li>
         <span>02</span>
-        <h3>URL 是详情真相</h3>
-        <p>稳定 productId 进入 URL，刷新和深链不再依赖全局内存对象。</p>
+        <h3>环境配置先解析</h3>
+        <p>数据源、API base URL 和 timeout 都从 unknown 字符串收窄后使用。</p>
       </li>
       <li>
         <span>03</span>
-        <h3>失败状态可区分</h3>
-        <p>加载、空、解析错误、取消和 not-found 由判别联合与测试覆盖。</p>
+        <h3>副作用可清理</h3>
+        <p>导航方向由 history position 推导，typed event listener 返回 unsubscribe。</p>
       </li>
     </ol>
   </section>
