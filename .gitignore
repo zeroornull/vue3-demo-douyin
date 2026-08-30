@@ -1,0 +1,30 @@
+# Local archive of the repository before the Bun/Vue migration.
+/legacy/
+
+# Local oh-my-codex runtime state.
+/.omx/
+
+# Dependencies and build output.
+/node_modules/
+/dist/
+/dist-ssr/
+/coverage/
+/playwright-report/
+/test-results/
+*.tsbuildinfo
+
+# Bun/npm diagnostics.
+bun-error.log
+*.log
+
+# Local environment files. Commit only documented examples.
+.env
+.env.*
+!.env.example
+
+# OS and editor-local files.
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
