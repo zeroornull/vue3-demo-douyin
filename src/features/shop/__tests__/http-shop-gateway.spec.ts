@@ -10,6 +10,9 @@ function clientWithGet(result: Awaited<ReturnType<HttpClient['get']>>): HttpClie
     async get() {
       return result
     },
+    async patch() {
+      return failure({ kind: 'unexpected', message: 'PATCH should not be used' })
+    },
     async post() {
       return failure({ kind: 'unexpected', message: 'POST should not be used' })
     },

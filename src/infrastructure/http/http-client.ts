@@ -7,12 +7,14 @@ import axios, {
 import { failure, success, type AppError, type AppResult } from '@/shared/result'
 
 export interface HttpRequestOptions {
+  readonly headers?: Readonly<Record<string, string>>
   readonly query?: Readonly<Record<string, boolean | number | string>>
   readonly signal?: AbortSignal
 }
 
 export interface HttpClient {
   get(path: string, options?: HttpRequestOptions): Promise<AppResult<unknown>>
+  patch(path: string, body: unknown, options?: HttpRequestOptions): Promise<AppResult<unknown>>
   post(path: string, body: unknown, options?: HttpRequestOptions): Promise<AppResult<unknown>>
 }
 
@@ -62,7 +64,7 @@ export function createAxiosHttpClient(options: AxiosHttpClientOptions): HttpClie
     })
 
   async function request(
-    method: 'GET' | 'POST',
+    method: 'GET' | 'PATCH' | 'POST',
     path: string,
     body: unknown,
     requestOptions?: HttpRequestOptions,
@@ -71,6 +73,8 @@ export function createAxiosHttpClient(options: AxiosHttpClientOptions): HttpClie
       method,
       url: path,
       ...(method === 'POST' ? { data: body } : {}),
+      ...(method === 'PATCH' ? { data: body } : {}),
+      ...(requestOptions?.headers ? { headers: requestOptions.headers } : {}),
       ...(requestOptions?.query ? { params: requestOptions.query } : {}),
       ...(requestOptions?.signal ? { signal: requestOptions.signal } : {}),
     }
@@ -85,6 +89,10 @@ export function createAxiosHttpClient(options: AxiosHttpClientOptions): HttpClie
   return {
     get(path, requestOptions) {
       return request('GET', path, undefined, requestOptions)
+    },
+
+    patch(path, body, requestOptions) {
+      return request('PATCH', path, body, requestOptions)
     },
 
     post(path, body, requestOptions) {

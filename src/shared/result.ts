@@ -1,5 +1,6 @@
 export type AppErrorKind =
   | 'aborted'
+  | 'conflict'
   | 'http'
   | 'network'
   | 'not-found'

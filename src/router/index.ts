@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { pinia } from '@/stores'
 import { useNavigationStore } from '@/stores/navigation'
 import { defineRouteMeta, parseRouteMeta } from './meta'
+import { useAuthStore } from '@/features/auth/store/auth'
 
 export const ROUTE_NAMES = {
   migrationHome: 'migration-home',
@@ -10,6 +11,8 @@ export const ROUTE_NAMES = {
   shopDetail: 'shop-detail',
   authLogin: 'auth-login',
   authPassword: 'auth-password',
+  profile: 'profile',
+  profileEdit: 'profile-edit',
   notFound: 'not-found',
 } as const
 
@@ -42,6 +45,28 @@ const routes: RouteRecordRaw[] = [
     path: '/login/other',
     redirect: { name: ROUTE_NAMES.authPassword },
     meta: defineRouteMeta({ migrationRound: 4, title: '登录方式重定向', transition: 'forward' }),
+  },
+  {
+    path: '/me',
+    name: ROUTE_NAMES.profile,
+    component: () => import('@/features/profile/views/ProfileView.vue'),
+    meta: defineRouteMeta({
+      migrationRound: 4,
+      title: '个人资料',
+      transition: 'forward',
+      requiresAuth: true,
+    }),
+  },
+  {
+    path: '/me/edit-userinfo',
+    name: ROUTE_NAMES.profileEdit,
+    component: () => import('@/features/profile/views/EditProfileView.vue'),
+    meta: defineRouteMeta({
+      migrationRound: 4,
+      title: '编辑资料',
+      transition: 'forward',
+      requiresAuth: true,
+    }),
   },
   {
     path: '/shop',
@@ -78,6 +103,17 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior: () => ({ top: 0 }),
+})
+
+router.beforeEach((to) => {
+  const meta = parseRouteMeta(to.meta)
+  if (meta.requiresAuth && !useAuthStore(pinia).session) {
+    return {
+      name: ROUTE_NAMES.authPassword,
+      query: { redirect: to.fullPath },
+    }
+  }
+  return true
 })
 
 router.afterEach((to) => {

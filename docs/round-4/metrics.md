@@ -1,12 +1,12 @@
-# Round 4A：迁移指标
+# Round 4A + 4B：迁移指标
 
 ## 测试增长
 
-| 指标 | Round 3 | Round 4A |
-| --- | ---: | ---: |
-| Vitest files | 13 | 20 |
-| Vitest tests | 43 | 70 |
-| E2E tests | 10 | 17 |
+| 指标 | Round 3 | Round 4A | Round 4B |
+| --- | ---: | ---: | ---: |
+| Vitest files | 13 | 20 | 27 |
+| Vitest tests | 43 | 70 | 96 |
+| E2E tests | 10 | 17 | 24 |
 
 新增测试覆盖：
 
@@ -19,6 +19,16 @@
 - Auth components：4。
 - HttpClient POST 扩展。
 - Runtime auth data source。
+
+Round 4B 新增：
+
+- Profile Domain/draft/format。
+- Profile validation。
+- UserProfile parser。
+- Fixture/HTTP ProfileGateway。
+- Profile Store dirty/save/conflict/event。
+- Profile/EditProfile components。
+- Bearer GET/PATCH 和 HttpClient patch。
 
 ## 迁移范围
 
@@ -33,23 +43,35 @@ social login=no
 help/protocol=no
 ```
 
-这是 Round 4A，不是 Round 4 全部完成。
+Round 4B 新增：
+
+```text
+legacy profile routes audited=2 core routes + many adjacent subroutes
+routes migrated=2
+profile view=yes
+profile edit=yes
+video/sidebar/QR code=no
+```
+
+这是 Round 4A+4B，不是 Round 4 全部完成。
 
 ## 现代源码规模
 
 ```text
-production files=41
-production TypeScript=29
-production Vue SFC=8
+production files=52
+production TypeScript=37
+production Vue SFC=10
 production JavaScript=0
-all src files including tests=61
+all src files including tests=79
 Auth production files=10
 Auth test files=7
+Profile production files=10
+Profile test files=7
 ```
 
 ## 类型纪律
 
-本批次最终继续要求：
+Round 4B 最终继续满足：
 
 ```text
 production JavaScript=0
@@ -65,6 +87,8 @@ legacy runtime import=0
 - Auth session response。
 - Store catch boundary。
 - HTTP response。
+- Profile parser/session user consistency。
+- Profile Store catch 和 HTTP response。
 
 ## 资源
 
@@ -91,12 +115,12 @@ Round 4A 新增：
 最终 production build：
 
 ```text
-files=43
-total=1,479,707 bytes ≈1.41 MiB
+files=45
+total=1,498,873 bytes ≈1.43 MiB
 product images=1,274,128 bytes
-non-product output=205,579 bytes ≈200.76 KiB
-Round-3 total=1,463,076 bytes
-increase=16,631 bytes
+non-product output=224,745 bytes ≈219.48 KiB
+Round-4A total=1,479,707 bytes
+Round-4B increase=19,166 bytes
 ```
 
 Lockfile 没有新增依赖，仍为：

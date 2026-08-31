@@ -4,6 +4,7 @@ export interface AppRouteMeta extends Record<PropertyKey, unknown> {
   readonly transition: 'back' | 'fade' | 'forward' | 'none'
   readonly keepAlive?: boolean
   readonly keepAliveName?: string
+  readonly requiresAuth?: boolean
 }
 
 function isTransition(value: unknown): value is AppRouteMeta['transition'] {
@@ -37,6 +38,9 @@ export function parseRouteMeta(value: unknown): AppRouteMeta {
   if ('keepAliveName' in value && typeof value.keepAliveName !== 'string') {
     throw new Error('Route meta.keepAliveName must be a string')
   }
+  if ('requiresAuth' in value && typeof value.requiresAuth !== 'boolean') {
+    throw new Error('Route meta.requiresAuth must be a boolean')
+  }
 
   return {
     title: value.title,
@@ -44,5 +48,6 @@ export function parseRouteMeta(value: unknown): AppRouteMeta {
     transition: value.transition,
     ...('keepAlive' in value ? { keepAlive: value.keepAlive as boolean } : {}),
     ...('keepAliveName' in value ? { keepAliveName: value.keepAliveName as string } : {}),
+    ...('requiresAuth' in value ? { requiresAuth: value.requiresAuth as boolean } : {}),
   }
 }

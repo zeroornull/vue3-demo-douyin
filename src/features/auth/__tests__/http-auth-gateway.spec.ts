@@ -13,6 +13,9 @@ function clientWithPost(result: Awaited<ReturnType<HttpClient['post']>>): HttpCl
     async get() {
       return failure({ kind: 'unexpected', message: 'GET should not be used' })
     },
+    async patch() {
+      return failure({ kind: 'unexpected', message: 'PATCH should not be used' })
+    },
     async post() {
       return result
     },

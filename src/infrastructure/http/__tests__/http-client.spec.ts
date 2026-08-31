@@ -79,9 +79,14 @@ describe('createAxiosHttpClient', () => {
       ok: true,
       data: { value: 42 },
     })
+    expect(await client.patch('/profile', { displayName: 'name' })).toEqual({
+      ok: true,
+      data: { value: 42 },
+    })
     expect(requests).toEqual([
       { data: undefined, method: 'get', url: '/value' },
       { data: JSON.stringify({ phone: '13800138000' }), method: 'post', url: '/session' },
+      { data: JSON.stringify({ displayName: 'name' }), method: 'patch', url: '/profile' },
     ])
   })
 })

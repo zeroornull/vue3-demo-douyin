@@ -1,8 +1,8 @@
-# 第 4 轮进度：Round 4A Login 纵切
+# 第 4 轮进度：Round 4A Login + 4B Profile
 
-> 执行日期：2026-08-30（Asia/Shanghai）
-> 状态：**Round 4A 完成；Round 4 整体仍在进行中**
-> Git：本批次基线 HEAD 为 `f9704d5`；本批次没有创建或暂存新提交
+> 更新日期：2026-08-31（Asia/Shanghai）
+> 状态：**Round 4A、4B 完成；Round 4 整体仍在进行中**
+> Git：4B 基线 HEAD 为 `0f9074f`；4B 没有创建或暂存新提交
 
 ## 本批次范围
 
@@ -16,6 +16,10 @@
 - authenticated、validation、unauthorized、503、parse、aborted、unexpected 状态。
 - 安全 redirect。
 - 内存 session、sign out 和 `auth:signed-in` typed event。
+- `/me` 个人资料与 `/me/edit-userinfo` 编辑资料。
+- UserProfile DTO/parser、fixture/http ProfileGateway。
+- Bearer GET/PATCH、dirty draft、expectedVersion 和 409 conflict。
+- 未登录 Profile 深链 redirect、401 清 session、503 和非法 payload。
 
 尚未迁移：
 
@@ -24,9 +28,9 @@
 - Help/协议页面。
 - 第三方社交登录。
 - 真实 token refresh/persistence。
-- Profile、Message、Home 等其他 Round-4 纵切。
+- Message、Home 等其他 Round-4 纵切。
 
-因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4B Profile。
+因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4C Message。
 
 ## 结果摘要
 
@@ -39,7 +43,8 @@
 | HTTP | POST `/api/auth/login`，响应仍从 unknown parser 开始 |
 | 安全 | 禁止 `//evil` 和递归 `/login` redirect |
 | Session | 只保存在 Pinia 内存，不写 localStorage/cookie |
-| Tests | 20 个 Vitest 文件、70 个测试；17 个 E2E |
+| Profile | typed draft、dirty、validation、save、409 conflict、version increment |
+| Tests | 27 个 Vitest 文件、96 个测试；24 个 E2E |
 | 依赖 | 没有新增 npm dependency，继续复用 Axios 1.20.0 |
 | 类型债务 | 新 runtime/tests 继续保持 0 any、0 `$ref`、0 type suppression |
 
@@ -47,6 +52,8 @@
 
 - [登录纵切](login-slice.md)
 - [校验和安全边界](validation-and-security.md)
+- [Profile 纵切](profile-slice.md)
+- [Profile 冲突和授权边界](profile-conflict-and-auth.md)
 - [迁移指标](metrics.md)
 - [验证证据](verification.md)
 
@@ -54,10 +61,10 @@
 
 ## Git 边界
 
-Round 3 已在批次开始前提交为：
+Round 4A 已在本批次开始前提交为：
 
 ```text
-f9704d5 feat: implement round 3 of migration focusing on HTTP infrastructure and navigation
+0f9074f feat: implement round 4A of migration focusing on authentication features
 ```
 
 本批次没有创建 commit、没有暂存文件。
@@ -77,14 +84,23 @@ f9704d5 feat: implement round 3 of migration focusing on HTTP infrastructure and
 - [x] 退出登录清空内存 session/error。
 - [x] 默认开发使用 fixture，E2E 使用 HTTP。
 - [x] 登录所有关键状态有 unit/component/E2E 和视觉证据。
+- [x] Profile 未登录深链安全 redirect 登录。
+- [x] Profile GET/PATCH 都携带 Bearer token，但 token 不进入 DOM/log/event。
+- [x] UserProfile response 从 unknown parser 开始。
+- [x] 编辑只修改 draft，dirty/reset/save 可观察。
+- [x] 保存携带 expectedVersion，409 保留本地 draft。
+- [x] 401 清 AuthSession 并回到登录。
+- [x] 401 与 session watcher 共享 single-flight redirect，登录 RouterView 不会因重复 replace 变空。
+- [x] Profile 503/parse/validation/success 有 unit/component/E2E/视觉证据。
+- [x] Profile 不复制旧视频列表、侧栏、二维码或外部头像。
 
 ## 下一批次
 
-Round 4B Profile 应复用当前 AuthSession，迁移：
+Round 4C Message 应迁移：
 
-1. User DTO/parser。
-2. Session/user Pinia 边界。
-3. `/me` 和 `/me/edit-userinfo`。
-4. 表单 dirty/validation/save/error。
-5. 深链、刷新和未登录 redirect。
-6. 只迁移该纵切真正使用的头像/资源。
+1. Message/Conversation DTO 和 parser。
+2. `/message` 与 `/message/chat`。
+3. 已读/未读、空列表、分页和会话深链。
+4. typed event subscription 与 unmount cleanup。
+5. HTTP success/401/503/parse failure。
+6. 只迁移消息纵切真正使用的头像和图标。

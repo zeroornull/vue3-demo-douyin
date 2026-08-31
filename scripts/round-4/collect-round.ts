@@ -85,7 +85,14 @@ async function main() {
       adapters: ['fixture', 'http'],
       resultKinds: ['validation', 'unauthorized', 'http', 'parse', 'aborted', 'unexpected'],
     },
-    tests: { vitestFiles: 20, vitestTests: 70, e2eFiles: 1, e2eTests: 17 },
+    profileSlice: {
+      productionFiles: productionFiles.filter((path) => path.includes('/features/profile/')).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/profile/__tests__/')).length,
+      routes: ['/me', '/me/edit-userinfo'],
+      adapters: ['fixture', 'http'],
+      resultKinds: ['validation', 'unauthorized', 'conflict', 'http', 'parse', 'aborted'],
+    },
+    tests: { vitestFiles: 27, vitestTests: 96, e2eFiles: 1, e2eTests: 24 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),
@@ -104,7 +111,7 @@ async function main() {
     resolve(root, 'docs/round-4/generated/summary.json'),
     `${JSON.stringify(summary, null, 2)}\n`,
   )
-  console.log('Round-4A summary generated')
+  console.log('Round-4 summary generated')
 }
 
 await main()

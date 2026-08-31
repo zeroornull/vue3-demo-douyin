@@ -1,12 +1,12 @@
-# Round 4A：验证证据
+# Round 4A + 4B：验证证据
 
 ## Unit / Component
 
 最终结果：
 
 ```text
-Vitest files=20
-Vitest tests=70
+Vitest files=27
+Vitest tests=96
 ```
 
 关键断言：
@@ -21,12 +21,16 @@ Vitest tests=70
 - Abort 回到 idle。
 - Sign out 清空 session/error。
 - 组件成功登录并跟随 redirect。
+- Profile parser/fixture/http gateway。
+- Bearer Authorization。
+- Dirty/validation/save/version increment。
+- 409 保留本地 draft。
+- 401 清 session。
+- Profile typed event。
 
 ## E2E
 
-最终结果：本地 Chrome 和 `CI=true` Chromium 均为 17/17。原 10 个基座/Shop 场景继续通过，新增：
-
-原 10 个基座/Shop 场景继续通过，新增：
+Round 4A 最终结果为本地和 CI 17/17；Round 4B 最终结果为本地和 CI 24/24。新增 Profile 场景：
 
 1. 登录入口 → 密码表单。
 2. 空表单三类字段错误，HTTP request 数为 0。
@@ -35,6 +39,14 @@ Vitest tests=70
 5. HTTP 503 service error。
 6. HTTP 200 invalid session → parse error。
 7. 外部 redirect 被阻止。
+8. 未登录 `/me` → 登录。
+9. Bearer GET Profile。
+10. Edit validation 不 PATCH。
+11. PATCH 保存和 version 2。
+12. 409 conflict 保留 draft。
+13. Profile 401 清 session。
+14. Profile 503。
+15. Profile invalid payload。
 
 ## 视觉状态
 
@@ -46,11 +58,18 @@ docs/round-4/screenshots/password-validation.png
 docs/round-4/screenshots/password-unauthorized.png
 docs/round-4/screenshots/password-503.png
 docs/round-4/screenshots/password-success.png
+docs/round-4/screenshots/profile-success.png
+docs/round-4/screenshots/profile-edit.png
+docs/round-4/screenshots/profile-conflict.png
+docs/round-4/screenshots/profile-unauthorized.png
+docs/round-4/screenshots/profile-503.png
+docs/round-4/screenshots/profile-parse-error.png
 ```
 
 所有状态要求 0 page exception。
 
-最终自动采集 5 张有效 PNG，总大小 388,304 B。
+最终自动采集 Login 5 张和 Profile 6 张有效 PNG，总大小 804,566 B。Profile 401
+截图已人工检查，最终页面包含完整“手机号密码登录”表单，不存在空白 RouterView。
 
 ## 完整门禁
 
@@ -60,11 +79,11 @@ Prettier                          passed
 Oxlint                            passed
 ESLint 10                         passed
 vue-tsc                           passed
-Vitest                            20 files / 70 tests passed
-Vite                              122 modules transformed
-Production build                 43 files / 1,479,707 bytes
-Local Chrome E2E                  17/17 passed
-CI Chromium E2E                  17/17 passed
+Vitest                            27 files / 96 tests passed
+Vite                              134 modules transformed
+Production build                 45 files / 1,498,873 bytes
+Local Chrome E2E                  24/24 passed
+CI Chromium E2E                  24/24 passed
 bun audit                         349 packages / 0 vulnerabilities
 ```
 

@@ -4,6 +4,10 @@ export interface AppEventMap {
   'auth:signed-in': {
     readonly userId: string
   }
+  'profile:updated': {
+    readonly userId: string
+    readonly version: number
+  }
   'shop:product-viewed': {
     readonly productId: ProductId
   }

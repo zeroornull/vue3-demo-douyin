@@ -25,10 +25,39 @@ const authSessionResponse = {
   accessToken: 'e2e-access-token',
 }
 
+const profileResponse = {
+  profile: {
+    userId: 'e2e-user',
+    displayName: 'E2E 用户',
+    handle: 'e2e_user',
+    bio: 'E2E 资料简介',
+    age: 27,
+    gender: 'female',
+    province: '广东',
+    city: '珠海',
+    school: null,
+  },
+  stats: { likes: 1000, friends: 20, following: 30, followers: 40, posts: 5 },
+  version: 1,
+}
+
 async function fillValidPasswordLogin(page: Page, password = 'douyin-demo') {
   await page.getByRole('textbox', { name: '手机号', exact: true }).fill('13800138000')
   await page.locator('input[name="password"]').fill(password)
   await page.getByRole('checkbox').check()
+}
+
+async function signInViaHttp(page: Page, redirect: string) {
+  await page.route('**/api/auth/login', (route) =>
+    route.fulfill({
+      body: JSON.stringify(authSessionResponse),
+      contentType: 'application/json',
+      status: 200,
+    }),
+  )
+  await page.goto(`/login/password?redirect=${encodeURIComponent(redirect)}`)
+  await fillValidPasswordLogin(page)
+  await page.getByRole('button', { name: '登录' }).click()
 }
 
 test('shows the migration baseline at the root route', async ({ page }) => {
@@ -273,4 +302,109 @@ test('blocks an external redirect after login', async ({ page }) => {
 
   await expect(page).toHaveURL(/\/$/)
   expect(new URL(page.url()).origin).toBe('http://127.0.0.1:4173')
+})
+
+test('redirects an unauthenticated profile deep link to login', async ({ page }) => {
+  await page.goto('/me')
+
+  await expect(page).toHaveURL(/\/login\/password\?redirect=\/me$/)
+  await expect(page.getByRole('heading', { name: '手机号密码登录' })).toBeVisible()
+})
+
+test('loads the current profile with bearer auth after login', async ({ page }) => {
+  await page.route('**/api/profile/me', async (route) => {
+    expect(route.request().method()).toBe('GET')
+    expect(route.request().headers().authorization).toBe('Bearer e2e-access-token')
+    await route.fulfill({ body: JSON.stringify(profileResponse), contentType: 'application/json' })
+  })
+  await signInViaHttp(page, '/me')
+
+  await expect(page).toHaveURL(/\/me$/)
+  await expect(page.getByRole('heading', { name: 'E2E 用户' })).toBeVisible()
+  await expect(page.getByText('@e2e_user')).toBeVisible()
+})
+
+test('validates, saves, and renders an updated profile', async ({ page }) => {
+  let patchRequests = 0
+  let patchAuthorization: string | undefined
+  let patchBody: { expectedVersion?: number; profile?: { displayName?: string } } = {}
+  await page.route('**/api/profile/me', async (route) => {
+    if (route.request().method() === 'PATCH') {
+      patchRequests += 1
+      patchAuthorization = route.request().headers().authorization
+      patchBody = route.request().postDataJSON()
+      await route.fulfill({
+        body: JSON.stringify({
+          ...profileResponse,
+          profile: { ...profileResponse.profile, displayName: '更新后的名字' },
+          version: 2,
+        }),
+        contentType: 'application/json',
+      })
+      return
+    }
+    await route.fulfill({ body: JSON.stringify(profileResponse), contentType: 'application/json' })
+  })
+  await signInViaHttp(page, '/me')
+  await page.getByRole('link', { name: '编辑资料' }).click()
+  await page.getByLabel('名字').fill('')
+  await page.getByRole('button', { name: '保存资料' }).click()
+  await expect(page.getByText('名字长度必须为 1–20 个字符')).toBeVisible()
+  expect(patchRequests).toBe(0)
+
+  await page.getByLabel('名字').fill('更新后的名字')
+  await page.getByRole('button', { name: '保存资料' }).click()
+
+  await expect(page).toHaveURL(/\/me$/)
+  await expect(page.getByRole('heading', { name: '更新后的名字' })).toBeVisible()
+  expect(patchRequests).toBe(1)
+  expect(patchAuthorization).toBe('Bearer e2e-access-token')
+  expect(patchBody.expectedVersion).toBe(1)
+  expect(patchBody.profile?.displayName).toBe('更新后的名字')
+})
+
+test('keeps local profile edits on HTTP 409 conflict', async ({ page }) => {
+  await page.route('**/api/profile/me', (route) =>
+    route.request().method() === 'PATCH'
+      ? route.fulfill({ body: '{}', contentType: 'application/json', status: 409 })
+      : route.fulfill({ body: JSON.stringify(profileResponse), contentType: 'application/json' }),
+  )
+  await signInViaHttp(page, '/me/edit-userinfo')
+  await page.getByLabel('名字').fill('本地未保存名字')
+  await page.getByRole('button', { name: '保存资料' }).click()
+
+  await expect(page.getByRole('alert')).toContainText('资料已被其他设备更新')
+  await expect(page.getByLabel('名字')).toHaveValue('本地未保存名字')
+})
+
+test('signs out and returns to login when profile returns 401', async ({ page }) => {
+  await page.route('**/api/profile/me', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 401 }),
+  )
+  await signInViaHttp(page, '/me')
+
+  await expect(page).toHaveURL(/\/login\/password\?redirect=\/me$/)
+  await expect(page.getByRole('link', { name: '登录' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '手机号密码登录' })).toBeVisible()
+})
+
+test('renders profile HTTP 503 without a page exception', async ({ page }) => {
+  await page.route('**/api/profile/me', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 503 }),
+  )
+  await signInViaHttp(page, '/me')
+
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（503）')
+})
+
+test('renders a parser error for an invalid profile response', async ({ page }) => {
+  await page.route('**/api/profile/me', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ profile: {}, stats: {}, version: 1 }),
+      contentType: 'application/json',
+    }),
+  )
+  await signInViaHttp(page, '/me')
+
+  await expect(page.getByRole('alert')).toContainText('资料响应字段无效')
 })

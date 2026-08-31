@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 import { RouterLink, RouterView } from 'vue-router'
 import { useNavigationStore } from '@/stores/navigation'
 import { useAuthStore } from '@/features/auth/store/auth'
+import { ROUTE_NAMES } from '@/router'
 
 const navigation = useNavigationStore()
 const { keepAliveNames, transitionName } = storeToRefs(navigation)
@@ -26,7 +27,7 @@ const { session } = storeToRefs(auth)
         <RouterLink to="/health">运行状态</RouterLink>
         <RouterLink v-if="!session" to="/login">登录</RouterLink>
         <span v-else class="auth-summary">
-          {{ session.displayName }}
+          <RouterLink :to="{ name: ROUTE_NAMES.profile }">{{ session.displayName }}</RouterLink>
           <button type="button" @click="auth.signOut">退出</button>
         </span>
       </nav>
