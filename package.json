@@ -25,6 +25,7 @@
     "migration:shop:import": "bun run scripts/round-2/import-shop-fixture.ts",
     "migration:round2:collect": "bun run scripts/round-2/collect-round.ts",
     "migration:round3:collect": "bun run scripts/round-3/collect-round.ts",
+    "migration:round4:collect": "bun run scripts/round-4/collect-round.ts",
     "check": "run-s format:check lint type-check test:unit:run build-only"
   },
   "dependencies": {

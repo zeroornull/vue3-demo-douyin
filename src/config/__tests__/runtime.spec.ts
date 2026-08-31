@@ -7,6 +7,7 @@ describe('parseRuntimeConfig', () => {
       ok: true,
       data: {
         apiBaseUrl: '/api',
+        authDataSource: 'fixture',
         httpTimeoutMs: 10_000,
         shopDataSource: 'fixture',
       },
@@ -17,12 +18,13 @@ describe('parseRuntimeConfig', () => {
     expect(
       parseRuntimeConfig({
         VITE_API_BASE_URL: 'https://api.example.test/v1',
+        VITE_AUTH_DATA_SOURCE: 'http',
         VITE_HTTP_TIMEOUT_MS: '2500',
         VITE_SHOP_DATA_SOURCE: 'http',
       } as ImportMetaEnv),
     ).toMatchObject({
       ok: true,
-      data: { httpTimeoutMs: 2500, shopDataSource: 'http' },
+      data: { authDataSource: 'http', httpTimeoutMs: 2500, shopDataSource: 'http' },
     })
   })
 
@@ -42,6 +44,12 @@ describe('parseRuntimeConfig', () => {
   it('rejects an unknown data source at runtime', () => {
     expect(
       parseRuntimeConfig({ VITE_SHOP_DATA_SOURCE: 'database' } as unknown as ImportMetaEnv),
+    ).toMatchObject({ ok: false, error: { kind: 'parse' } })
+  })
+
+  it('rejects an unknown auth data source at runtime', () => {
+    expect(
+      parseRuntimeConfig({ VITE_AUTH_DATA_SOURCE: 'database' } as unknown as ImportMetaEnv),
     ).toMatchObject({ ok: false, error: { kind: 'parse' } })
   })
 })

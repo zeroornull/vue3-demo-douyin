@@ -10,5 +10,6 @@ describe('HealthView', () => {
     expect(wrapper.text()).toContain('Package manager')
     expect(wrapper.text()).toContain('Bun 1.4')
     expect(wrapper.get('[data-testid="shop-data-source"]').text()).toBe('fixture')
+    expect(wrapper.get('[data-testid="auth-data-source"]').text()).toBe('fixture')
   })
 })

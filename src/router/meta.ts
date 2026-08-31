@@ -1,5 +1,5 @@
 export interface AppRouteMeta extends Record<PropertyKey, unknown> {
-  readonly migrationRound: 1 | 2 | 3
+  readonly migrationRound: 1 | 2 | 3 | 4
   readonly title: string
   readonly transition: 'back' | 'fade' | 'forward' | 'none'
   readonly keepAlive?: boolean
@@ -21,9 +21,12 @@ export function parseRouteMeta(value: unknown): AppRouteMeta {
   }
   if (
     !('migrationRound' in value) ||
-    (value.migrationRound !== 1 && value.migrationRound !== 2 && value.migrationRound !== 3)
+    (value.migrationRound !== 1 &&
+      value.migrationRound !== 2 &&
+      value.migrationRound !== 3 &&
+      value.migrationRound !== 4)
   ) {
-    throw new Error('Route meta.migrationRound must be 1, 2, or 3')
+    throw new Error('Route meta.migrationRound must be 1, 2, 3, or 4')
   }
   if (!('transition' in value) || !isTransition(value.transition)) {
     throw new Error('Route meta.transition is invalid')

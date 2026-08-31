@@ -55,17 +55,33 @@ describe('mapAxiosError', () => {
 
 describe('createAxiosHttpClient', () => {
   it('returns response data as unknown through AppResult', async () => {
+    const requests: Array<{
+      data: unknown
+      method: string | undefined
+      url: string | undefined
+    }> = []
     const instance = axios.create({
-      adapter: async (config) => ({
-        config,
-        data: { value: 42 },
-        headers: {},
-        status: 200,
-        statusText: 'OK',
-      }),
+      adapter: async (config) => {
+        requests.push({ data: config.data, method: config.method, url: config.url })
+        return {
+          config,
+          data: { value: 42 },
+          headers: {},
+          status: 200,
+          statusText: 'OK',
+        }
+      },
     })
     const client = createAxiosHttpClient({ baseUrl: '/api', instance, timeoutMs: 1000 })
 
     expect(await client.get('/value')).toEqual({ ok: true, data: { value: 42 } })
+    expect(await client.post('/session', { phone: '13800138000' })).toEqual({
+      ok: true,
+      data: { value: 42 },
+    })
+    expect(requests).toEqual([
+      { data: undefined, method: 'get', url: '/value' },
+      { data: JSON.stringify({ phone: '13800138000' }), method: 'post', url: '/session' },
+    ])
   })
 })

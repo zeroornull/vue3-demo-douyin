@@ -1,5 +1,13 @@
 export type AppErrorKind =
-  'aborted' | 'http' | 'network' | 'not-found' | 'parse' | 'timeout' | 'unexpected'
+  | 'aborted'
+  | 'http'
+  | 'network'
+  | 'not-found'
+  | 'parse'
+  | 'timeout'
+  | 'unauthorized'
+  | 'unexpected'
+  | 'validation'
 
 export interface AppError {
   readonly kind: AppErrorKind

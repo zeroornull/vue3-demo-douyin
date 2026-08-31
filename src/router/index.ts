@@ -8,6 +8,8 @@ export const ROUTE_NAMES = {
   health: 'health',
   shop: 'shop',
   shopDetail: 'shop-detail',
+  authLogin: 'auth-login',
+  authPassword: 'auth-password',
   notFound: 'not-found',
 } as const
 
@@ -23,6 +25,23 @@ const routes: RouteRecordRaw[] = [
     name: ROUTE_NAMES.health,
     component: () => import('@/views/HealthView.vue'),
     meta: defineRouteMeta({ migrationRound: 1, title: '运行状态', transition: 'fade' }),
+  },
+  {
+    path: '/login',
+    name: ROUTE_NAMES.authLogin,
+    component: () => import('@/features/auth/views/LoginEntryView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '登录', transition: 'forward' }),
+  },
+  {
+    path: '/login/password',
+    name: ROUTE_NAMES.authPassword,
+    component: () => import('@/features/auth/views/PasswordLoginView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '密码登录', transition: 'forward' }),
+  },
+  {
+    path: '/login/other',
+    redirect: { name: ROUTE_NAMES.authPassword },
+    meta: defineRouteMeta({ migrationRound: 4, title: '登录方式重定向', transition: 'forward' }),
   },
   {
     path: '/shop',

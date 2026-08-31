@@ -1,6 +1,9 @@
 import type { ProductId } from '@/domain/shop/product'
 
 export interface AppEventMap {
+  'auth:signed-in': {
+    readonly userId: string
+  }
   'shop:product-viewed': {
     readonly productId: ProductId
   }

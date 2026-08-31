@@ -1,7 +1,7 @@
 # Bun + TypeScript + Vue 迁移与学习文档
 
 > 版本核对日期：2026-08-30（Asia/Shanghai）
-> 文档状态：第 0、1、2、3 轮已完成，第 4 轮尚未开始
+> 文档状态：第 0、1、2、3 轮已完成；第 4 轮进行中（4A Login 完成）
 > 目标：用 Bun 管理依赖和运行脚本，以 TypeScript 严格模式重建应用，并迁移到当前稳定 Vue 生态。
 
 ## 1. 文档地图
@@ -46,6 +46,11 @@
 - [第 3 轮导航、KeepAlive 与事件](round-3/navigation-and-events.md)
 - [第 3 轮架构和迁移指标](round-3/architecture-and-metrics.md)
 - [第 3 轮验证证据](round-3/verification.md)
+- [第 4 轮进度与 4A Login 报告](round-4/README.md)
+- [Round 4A 登录纵切](round-4/login-slice.md)
+- [Round 4A 校验和安全](round-4/validation-and-security.md)
+- [Round 4A 指标](round-4/metrics.md)
+- [Round 4A 验证](round-4/verification.md)
 
 ## 2. 必须遵守的迁移原则
 

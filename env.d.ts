@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL?: string
+  readonly VITE_AUTH_DATA_SOURCE?: 'fixture' | 'http'
   readonly VITE_BUILD_SHA?: string
   readonly VITE_HTTP_TIMEOUT_MS?: string
   readonly VITE_SHOP_DATA_SOURCE?: 'fixture' | 'http'

@@ -13,6 +13,7 @@ export interface HttpRequestOptions {
 
 export interface HttpClient {
   get(path: string, options?: HttpRequestOptions): Promise<AppResult<unknown>>
+  post(path: string, body: unknown, options?: HttpRequestOptions): Promise<AppResult<unknown>>
 }
 
 export interface AxiosHttpClientOptions {
@@ -60,20 +61,34 @@ export function createAxiosHttpClient(options: AxiosHttpClientOptions): HttpClie
       headers: { Accept: 'application/json' },
     })
 
+  async function request(
+    method: 'GET' | 'POST',
+    path: string,
+    body: unknown,
+    requestOptions?: HttpRequestOptions,
+  ) {
+    const config: AxiosRequestConfig = {
+      method,
+      url: path,
+      ...(method === 'POST' ? { data: body } : {}),
+      ...(requestOptions?.query ? { params: requestOptions.query } : {}),
+      ...(requestOptions?.signal ? { signal: requestOptions.signal } : {}),
+    }
+    try {
+      const response = await instance.request<unknown>(config)
+      return success(response.data)
+    } catch (error: unknown) {
+      return failure(mapAxiosError(error))
+    }
+  }
+
   return {
-    async get(path, requestOptions) {
-      const config: AxiosRequestConfig = {
-        method: 'GET',
-        url: path,
-        ...(requestOptions?.query ? { params: requestOptions.query } : {}),
-        ...(requestOptions?.signal ? { signal: requestOptions.signal } : {}),
-      }
-      try {
-        const response = await instance.request<unknown>(config)
-        return success(response.data)
-      } catch (error: unknown) {
-        return failure(mapAxiosError(error))
-      }
+    get(path, requestOptions) {
+      return request('GET', path, undefined, requestOptions)
+    },
+
+    post(path, body, requestOptions) {
+      return request('POST', path, body, requestOptions)
     },
   }
 }

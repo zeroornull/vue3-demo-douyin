@@ -1,5 +1,8 @@
 # 第 4 轮：页面、组件与资源迁移
 
+> 执行状态：进行中。Round 4A Login 已完成，见 [`round-4/README.md`](round-4/README.md)；
+> Profile、Message、Home 等纵切尚未完成，因此本轮不能标记为全部完成。
+
 ## 1. 本轮目标
 
 按“用户可以完成的一条路径”迁移页面，而不是按文件类型批量复制。一个纵切必须同时包含它所需的路由、页面、组件、Store/API、fixture、资源和测试。

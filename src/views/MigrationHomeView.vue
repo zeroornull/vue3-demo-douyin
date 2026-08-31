@@ -14,7 +14,7 @@ const { completed, nextRound, summary } = storeToRefs(migrationStore)
       <h1 id="migration-title">用可验证的小步迁移，替代一次性重写。</h1>
       <p class="lede">
         第 0–2 轮建立基线、现代基座和严格 Shop 边界；第 3 轮加入 HTTP adapter、环境解析、导航状态和
-        typed event dispatcher，并保持页面不依赖基础设施细节。
+        typed event dispatcher；第 4A 批次已迁移登录入口和密码登录，Round 4 其他纵切仍在进行中。
       </p>
 
       <div class="actions">
@@ -46,25 +46,25 @@ const { completed, nextRound, summary } = storeToRefs(migrationStore)
 
   <section class="principles" aria-labelledby="principles-title">
     <div class="section-heading">
-      <p class="eyebrow">Round 3 contract</p>
+      <p class="eyebrow">Round 4A · Login slice</p>
       <h2 id="principles-title">这层基座只证明三件事</h2>
     </div>
 
     <ol class="principle-grid">
       <li>
         <span>01</span>
-        <h3>Adapter 可替换</h3>
-        <p>Fixture 与 Axios HTTP Gateway 共享同一 ShopGateway 和 AppResult 合同。</p>
+        <h3>校验不会悬挂</h3>
+        <p>协议、手机号和密码返回同步 typed validation，不创建永不完成的 Promise。</p>
       </li>
       <li>
         <span>02</span>
-        <h3>环境配置先解析</h3>
-        <p>数据源、API base URL 和 timeout 都从 unknown 字符串收窄后使用。</p>
+        <h3>Auth Adapter 可替换</h3>
+        <p>Fixture 与 HTTP Gateway 共享 AuthGateway，页面和 Pinia 不 import Axios。</p>
       </li>
       <li>
         <span>03</span>
-        <h3>副作用可清理</h3>
-        <p>导航方向由 history position 推导，typed event listener 返回 unsubscribe。</p>
+        <h3>跳转和错误可验证</h3>
+        <p>成功、401、503、非法响应和外部 redirect 都有 production-preview E2E。</p>
       </li>
     </ol>
   </section>
