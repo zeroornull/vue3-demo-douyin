@@ -13,6 +13,8 @@ export const ROUTE_NAMES = {
   authPassword: 'auth-password',
   profile: 'profile',
   profileEdit: 'profile-edit',
+  message: 'message',
+  messageChat: 'message-chat',
   notFound: 'not-found',
 } as const
 
@@ -67,6 +69,50 @@ const routes: RouteRecordRaw[] = [
       transition: 'forward',
       requiresAuth: true,
     }),
+  },
+  {
+    path: '/message',
+    component: () => import('@/features/message/views/MessageShellView.vue'),
+    meta: defineRouteMeta({
+      migrationRound: 4,
+      title: '消息',
+      transition: 'forward',
+      requiresAuth: true,
+    }),
+    children: [
+      {
+        path: '',
+        name: ROUTE_NAMES.message,
+        component: () => import('@/features/message/views/MessageListView.vue'),
+        meta: defineRouteMeta({
+          migrationRound: 4,
+          title: '消息',
+          transition: 'forward',
+          requiresAuth: true,
+        }),
+      },
+      {
+        path: 'chat',
+        redirect: { name: ROUTE_NAMES.message },
+        meta: defineRouteMeta({
+          migrationRound: 4,
+          title: '聊天重定向',
+          transition: 'back',
+          requiresAuth: true,
+        }),
+      },
+      {
+        path: 'chat/:conversationId',
+        name: ROUTE_NAMES.messageChat,
+        component: () => import('@/features/message/views/ChatView.vue'),
+        meta: defineRouteMeta({
+          migrationRound: 4,
+          title: '聊天',
+          transition: 'forward',
+          requiresAuth: true,
+        }),
+      },
+    ],
   },
   {
     path: '/shop',

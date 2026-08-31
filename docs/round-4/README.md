@@ -1,8 +1,8 @@
-# 第 4 轮进度：Round 4A Login + 4B Profile
+# 第 4 轮进度：Round 4A Login + 4B Profile + 4C Message
 
 > 更新日期：2026-08-31（Asia/Shanghai）
-> 状态：**Round 4A、4B 完成；Round 4 整体仍在进行中**
-> Git：4B 基线 HEAD 为 `0f9074f`；4B 没有创建或暂存新提交
+> 状态：**Round 4A、4B、4C 完成；Round 4 整体仍在进行中**
+> Git：4C 基线 HEAD 为 `a6ca4bc`；4C 没有创建或暂存新提交
 
 ## 本批次范围
 
@@ -20,6 +20,11 @@
 - UserProfile DTO/parser、fixture/http ProfileGateway。
 - Bearer GET/PATCH、dirty draft、expectedVersion 和 409 conflict。
 - 未登录 Profile 深链 redirect、401 清 session、503 和非法 payload。
+- `/message` 会话列表与 `/message/chat/:conversationId` 文本聊天。
+- branded ConversationId、Conversation/Message parser 和 fixture/http MessageGateway。
+- Bearer conversation/thread/read/send、cursor 分页、已读/未读和同步发送校验。
+- typed incoming/read/sent/unread events 与页面卸载订阅清理。
+- 401 清 session 和消息私有状态、404、503、非法 payload 和无 ID 旧路由回退。
 
 尚未迁移：
 
@@ -28,9 +33,9 @@
 - Help/协议页面。
 - 第三方社交登录。
 - 真实 token refresh/persistence。
-- Message、Home 等其他 Round-4 纵切。
+- Message 通知、群聊、媒体消息和 Home 等其他 Round-4 纵切。
 
-因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4C Message。
+因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4D Home/Search。
 
 ## 结果摘要
 
@@ -44,7 +49,8 @@
 | 安全 | 禁止 `//evil` 和递归 `/login` redirect |
 | Session | 只保存在 Pinia 内存，不写 localStorage/cookie |
 | Profile | typed draft、dirty、validation、save、409 conflict、version increment |
-| Tests | 27 个 Vitest 文件、96 个测试；24 个 E2E |
+| Message | stable conversation ID、cursor、read/unread、send、typed lifecycle events |
+| Tests | 34 个 Vitest 文件、125 个测试；34 个 E2E |
 | 依赖 | 没有新增 npm dependency，继续复用 Axios 1.20.0 |
 | 类型债务 | 新 runtime/tests 继续保持 0 any、0 `$ref`、0 type suppression |
 
@@ -54,6 +60,8 @@
 - [校验和安全边界](validation-and-security.md)
 - [Profile 纵切](profile-slice.md)
 - [Profile 冲突和授权边界](profile-conflict-and-auth.md)
+- [Message / Conversation 纵切](message-slice.md)
+- [Message 分页、未读与事件生命周期](message-pagination-and-events.md)
 - [迁移指标](metrics.md)
 - [验证证据](verification.md)
 
@@ -61,10 +69,10 @@
 
 ## Git 边界
 
-Round 4A 已在本批次开始前提交为：
+Round 4B 已在本批次开始前提交为：
 
 ```text
-0f9074f feat: implement round 4A of migration focusing on authentication features
+a6ca4bc feat: implement round 4B of migration focusing on profile features
 ```
 
 本批次没有创建 commit、没有暂存文件。
@@ -93,14 +101,22 @@ Round 4A 已在本批次开始前提交为：
 - [x] 401 与 session watcher 共享 single-flight redirect，登录 RouterView 不会因重复 replace 变空。
 - [x] Profile 503/parse/validation/success 有 unit/component/E2E/视觉证据。
 - [x] Profile 不复制旧视频列表、侧栏、二维码或外部头像。
+- [x] Message 深链包含 URL-safe ConversationId，无 ID 旧路径安全回到列表。
+- [x] Conversation/Message/ReadReceipt 都从 unknown parser 开始。
+- [x] 会话和更早消息使用 cursor，并按 ID 去重合并。
+- [x] 打开 unread conversation 后发送 read receipt，成功后再清未读数。
+- [x] 空消息同步 validation，Gateway 调用数为 0。
+- [x] Message HTTP 401/404/503/parse 与空列表分开表示。
+- [x] `message:received` listener 在 Message Shell unmount 时删除。
+- [x] Sign out 清除 Message Store 私有数据与导航未读徽标。
+- [x] Message 不复制旧通知、媒体、红包或外部头像资源。
 
 ## 下一批次
 
-Round 4C Message 应迁移：
+Round 4D Home/Search 建议迁移：
 
-1. Message/Conversation DTO 和 parser。
-2. `/message` 与 `/message/chat`。
-3. 已读/未读、空列表、分页和会话深链。
-4. typed event subscription 与 unmount cleanup。
-5. HTTP success/401/503/parse failure。
-6. 只迁移消息纵切真正使用的头像和图标。
+1. 最小只读 Home feed DTO 和 parser。
+2. `/home`、`/home/search` 与稳定内容深链。
+3. cursor feed、空状态、下拉刷新和请求竞态。
+4. 只迁移首屏实际消费的封面资源。
+5. 不在同一批次引入视频播放、直播、音乐和复杂手势。

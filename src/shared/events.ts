@@ -1,12 +1,29 @@
 import type { ProductId } from '@/domain/shop/product'
+import type { ChatMessage, ConversationId } from '@/domain/message/message'
 
 export interface AppEventMap {
   'auth:signed-in': {
     readonly userId: string
   }
+  'auth:signed-out': {
+    readonly userId: string | null
+  }
   'profile:updated': {
     readonly userId: string
     readonly version: number
+  }
+  'message:read': {
+    readonly conversationId: ConversationId
+  }
+  'message:received': {
+    readonly message: ChatMessage
+  }
+  'message:sent': {
+    readonly conversationId: ConversationId
+    readonly messageId: string
+  }
+  'message:unread-changed': {
+    readonly total: number
   }
   'shop:product-viewed': {
     readonly productId: ProductId

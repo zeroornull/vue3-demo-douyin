@@ -92,7 +92,14 @@ async function main() {
       adapters: ['fixture', 'http'],
       resultKinds: ['validation', 'unauthorized', 'conflict', 'http', 'parse', 'aborted'],
     },
-    tests: { vitestFiles: 27, vitestTests: 96, e2eFiles: 1, e2eTests: 24 },
+    messageSlice: {
+      productionFiles: productionFiles.filter((path) => path.includes('/features/message/')).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/message/__tests__/')).length,
+      routes: ['/message', '/message/chat/:conversationId'],
+      adapters: ['fixture', 'http'],
+      resultKinds: ['validation', 'unauthorized', 'not-found', 'http', 'parse', 'aborted'],
+    },
+    tests: { vitestFiles: 34, vitestTests: 125, e2eFiles: 1, e2eTests: 34 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),

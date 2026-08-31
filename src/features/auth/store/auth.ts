@@ -73,6 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   function signOut() {
     requestSequence += 1
+    appEventBus.emit('auth:signed-out', { userId: session.value?.userId ?? null })
     status.value = 'idle'
     session.value = null
     error.value = null

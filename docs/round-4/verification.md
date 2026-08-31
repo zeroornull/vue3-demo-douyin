@@ -1,12 +1,12 @@
-# Round 4A + 4B：验证证据
+# Round 4A + 4B + 4C：验证证据
 
 ## Unit / Component
 
 最终结果：
 
 ```text
-Vitest files=27
-Vitest tests=96
+Vitest files=34
+Vitest tests=125
 ```
 
 关键断言：
@@ -27,10 +27,21 @@ Vitest tests=96
 - 409 保留本地 draft。
 - 401 清 session。
 - Profile typed event。
+- ConversationId/时间/首字母 Domain。
+- Message draft 同步 validation。
+- Conversation/Message/ReadReceipt parser。
+- Fixture/HTTP MessageGateway 和 Bearer/cursor/path。
+- Conversation/thread cursor 合并和去重。
+- 自动 read receipt 与未读总数。
+- validation 不调用 send Gateway。
+- typed incoming/read/sent/unread events。
+- Message Shell listener mount=1、unmount=0。
+- Message list/chat/invalid ID 组件状态。
 
 ## E2E
 
-Round 4A 最终结果为本地和 CI 17/17；Round 4B 最终结果为本地和 CI 24/24。新增 Profile 场景：
+Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 34/34。
+下面列出 Round 4 功能纵切的核心浏览器覆盖；此前 10 项 Scaffold/Shop 场景仍在同一个 E2E 文件中持续执行：
 
 1. 登录入口 → 密码表单。
 2. 空表单三类字段错误，HTTP request 数为 0。
@@ -47,6 +58,19 @@ Round 4A 最终结果为本地和 CI 17/17；Round 4B 最终结果为本地和 C
 13. Profile 401 清 session。
 14. Profile 503。
 15. Profile invalid payload。
+16. 未登录 Message 深链 → 登录。
+17. Bearer conversation list 和 cursor 加载更多。
+18. 显式 empty conversation list。
+19. 稳定 conversation deep link。
+20. GET thread 后 POST read receipt。
+21. 空消息 validation 不 POST send。
+22. POST send 并渲染服务端确认消息。
+23. 无 ID 旧 chat URL → Message list。
+24. 非法 ConversationId 零 HTTP 请求。
+25. Message 401 清 session 并显示完整登录表单。
+26. Message 503。
+27. Invalid conversation payload。
+28. Missing conversation 404。
 
 ## 视觉状态
 
@@ -64,12 +88,23 @@ docs/round-4/screenshots/profile-conflict.png
 docs/round-4/screenshots/profile-unauthorized.png
 docs/round-4/screenshots/profile-503.png
 docs/round-4/screenshots/profile-parse-error.png
+docs/round-4/screenshots/message-list.png
+docs/round-4/screenshots/message-empty.png
+docs/round-4/screenshots/message-chat.png
+docs/round-4/screenshots/message-validation.png
+docs/round-4/screenshots/message-sent.png
+docs/round-4/screenshots/message-503.png
+docs/round-4/screenshots/message-unauthorized.png
+docs/round-4/screenshots/message-parse-error.png
+docs/round-4/screenshots/message-not-found.png
 ```
 
 所有状态要求 0 page exception。
 
-最终自动采集 Login 5 张和 Profile 6 张有效 PNG，总大小 804,566 B。Profile 401
-截图已人工检查，最终页面包含完整“手机号密码登录”表单，不存在空白 RouterView。
+最终自动采集 Login 5 张、Profile 6 张和 Message 9 张有效 PNG，总大小
+1,324,311 B。Profile/Message 401 截图都显示完整“手机号密码登录”表单。
+
+Message 表单交互后浏览器位于页面下方；`fullPage` 对 fixed skip-link 的拼接曾产生黄色条伪影。采集器现在在截图前显式回到 `scrollY=0`，重新生成并人工检查，运行时 skip-link 保持未聚焦和隐藏。
 
 ## 完整门禁
 
@@ -79,11 +114,11 @@ Prettier                          passed
 Oxlint                            passed
 ESLint 10                         passed
 vue-tsc                           passed
-Vitest                            27 files / 96 tests passed
-Vite                              134 modules transformed
-Production build                 45 files / 1,498,873 bytes
-Local Chrome E2E                  24/24 passed
-CI Chromium E2E                  24/24 passed
+Vitest                            34 files / 125 tests passed
+Vite                              148 modules transformed
+Production build                 52 files / 1,530,035 bytes
+Local Chrome E2E                  34/34 passed
+CI Chromium E2E                  34/34 passed
 bun audit                         349 packages / 0 vulnerabilities
 ```
 
@@ -106,6 +141,14 @@ getByRole('textbox', { name: '手机号', exact: true })
 ```
 
 防止模糊 selector 掩盖可访问性结构。
+
+### 未读摘要的 DOM 边界
+
+视觉上连续的 `2 条未读` 分别位于 `<strong>` 和 `<span>`。首轮 E2E 用单一文本节点定位，结果为 33/34。断言改为检查未读摘要容器的完整可访问文本后，定向场景和完整 34 项都通过；没有为了测试方便破坏语义结构。
+
+### Full-page fixed 元素拼接
+
+发送按钮会让浏览器滚到 composer。Playwright 在非零 scrollY 做 full-page screenshot 时，会把固定定位的隐藏 skip-link 拼接到页面中间。采集器在验证完成后先 `window.scrollTo({ top: 0 })` 再截图，消除证据生成伪影，而不是修改产品可访问性样式。
 
 ## Git 卫生
 

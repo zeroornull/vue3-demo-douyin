@@ -78,13 +78,17 @@ describe('useAuthStore', () => {
   })
 
   it('clears session and errors on sign out', async () => {
+    const signedOutUsers: Array<string | null> = []
+    const off = appEventBus.on('auth:signed-out', ({ userId }) => signedOutUsers.push(userId))
     const store = useAuthStore()
     await store.signIn(validForm, { gateway: fixtureAuthGateway })
 
     store.signOut()
+    off()
 
     expect(store.status).toBe('idle')
     expect(store.session).toBeNull()
     expect(store.error).toBeNull()
+    expect(signedOutUsers).toEqual(['demo-user'])
   })
 })

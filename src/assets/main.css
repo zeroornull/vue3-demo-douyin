@@ -87,6 +87,7 @@ a:focus-visible {
 
 .app-header nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
@@ -101,6 +102,30 @@ a:focus-visible {
 .app-header nav a.router-link-exact-active {
   color: var(--accent-ink);
   background: var(--accent);
+}
+
+.app-header nav .message-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.message-nav-link span {
+  min-width: 1.2rem;
+  height: 1.2rem;
+  display: grid;
+  place-items: center;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 900;
+}
+
+.message-nav-link.router-link-exact-active span,
+.message-nav-link:hover span {
+  color: var(--accent);
+  background: var(--accent-ink);
 }
 
 .brand,

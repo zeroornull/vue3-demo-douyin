@@ -41,6 +41,39 @@ const profileResponse = {
   version: 1,
 }
 
+function messagePayload(conversationId: string, id: string, body: string, senderId = 'friend-e2e') {
+  return {
+    id,
+    conversationId,
+    senderId,
+    body,
+    sentAt: '2026-08-31T02:00:00.000Z',
+    delivery: senderId === 'e2e-user' ? 'sent' : 'delivered',
+  }
+}
+
+function conversationPayload(id = 'conv-e2e', displayName = 'E2E 好友', unreadCount = 2) {
+  return {
+    id,
+    participant: {
+      userId: `friend-${id}`,
+      displayName,
+      handle: id.replace('conv-', ''),
+      online: true,
+    },
+    lastMessage: messagePayload(id, `msg-${id}`, `${displayName} 的最后一条消息`),
+    unreadCount,
+    updatedAt: '2026-08-31T02:00:00.000Z',
+  }
+}
+
+const messageConversationResponse = conversationPayload()
+const messageThreadResponse = {
+  conversation: messageConversationResponse,
+  messages: [messagePayload('conv-e2e', 'msg-e2e-1', 'E2E 初始消息')],
+  nextCursor: null,
+}
+
 async function fillValidPasswordLogin(page: Page, password = 'douyin-demo') {
   await page.getByRole('textbox', { name: '手机号', exact: true }).fill('13800138000')
   await page.locator('input[name="password"]').fill(password)
@@ -407,4 +440,177 @@ test('renders a parser error for an invalid profile response', async ({ page }) 
   await signInViaHttp(page, '/me')
 
   await expect(page.getByRole('alert')).toContainText('资料响应字段无效')
+})
+
+test('redirects an unauthenticated message deep link to login', async ({ page }) => {
+  await page.goto('/message/chat/conv-e2e')
+
+  await expect(page).toHaveURL(/\/login\/password\?redirect=\/message\/chat\/conv-e2e$/)
+  await expect(page.getByRole('heading', { name: '手机号密码登录' })).toBeVisible()
+})
+
+test('loads and cursor-paginates conversations with bearer auth', async ({ page }) => {
+  const cursors: Array<string | null> = []
+  await page.route('**/api/messages/conversations**', async (route) => {
+    const url = new URL(route.request().url())
+    expect(url.pathname).toBe('/api/messages/conversations')
+    expect(route.request().headers().authorization).toBe('Bearer e2e-access-token')
+    const cursor = url.searchParams.get('cursor')
+    cursors.push(cursor)
+    await route.fulfill({
+      body: JSON.stringify(
+        cursor === 'page-2'
+          ? {
+              conversations: [conversationPayload('conv-second', '第二位好友', 0)],
+              nextCursor: null,
+            }
+          : { conversations: [messageConversationResponse], nextCursor: 'page-2' },
+      ),
+      contentType: 'application/json',
+    })
+  })
+  await signInViaHttp(page, '/message')
+
+  await expect(page.getByRole('heading', { name: '消息', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: /E2E 好友/ })).toBeVisible()
+  await expect(page.locator('.message-unread-summary')).toContainText(/2\s*条未读/)
+  await page.getByRole('button', { name: '加载更多会话' }).click()
+  await expect(page.getByRole('link', { name: /第二位好友/ })).toBeVisible()
+  expect(cursors).toEqual([null, 'page-2'])
+})
+
+test('renders an explicit empty conversation state', async ({ page }) => {
+  await page.route('**/api/messages/conversations**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ conversations: [], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await signInViaHttp(page, '/message')
+
+  await expect(page.getByRole('heading', { name: '还没有会话' })).toBeVisible()
+})
+
+test('opens, marks read, validates, and sends in a stable conversation deep link', async ({
+  page,
+}) => {
+  let readRequests = 0
+  let sendRequests = 0
+  let sentBody: { body?: string } = {}
+  await page.route('**/api/messages/conversations**', async (route) => {
+    const request = route.request()
+    const url = new URL(request.url())
+    expect(request.headers().authorization).toBe('Bearer e2e-access-token')
+    if (request.method() === 'GET' && url.pathname.endsWith('/conv-e2e/messages')) {
+      await route.fulfill({
+        body: JSON.stringify(messageThreadResponse),
+        contentType: 'application/json',
+      })
+      return
+    }
+    if (request.method() === 'POST' && url.pathname.endsWith('/conv-e2e/read')) {
+      readRequests += 1
+      await route.fulfill({
+        body: JSON.stringify({
+          conversationId: 'conv-e2e',
+          readAt: '2026-08-31T02:01:00.000Z',
+        }),
+        contentType: 'application/json',
+      })
+      return
+    }
+    if (request.method() === 'POST' && url.pathname.endsWith('/conv-e2e/messages')) {
+      sendRequests += 1
+      sentBody = request.postDataJSON()
+      await route.fulfill({
+        body: JSON.stringify(
+          messagePayload('conv-e2e', 'msg-sent-e2e', 'E2E 发送内容', 'e2e-user'),
+        ),
+        contentType: 'application/json',
+      })
+      return
+    }
+    await route.abort()
+  })
+  await signInViaHttp(page, '/message/chat/conv-e2e')
+
+  await expect(page).toHaveURL(/\/message\/chat\/conv-e2e$/)
+  await expect(page.getByRole('heading', { name: 'E2E 好友' })).toBeVisible()
+  await expect(page.getByText('E2E 初始消息')).toBeVisible()
+  expect(readRequests).toBe(1)
+
+  await page.getByRole('button', { name: '发送', exact: true }).click()
+  await expect(page.getByText('消息必须为 1–500 个字符')).toBeVisible()
+  expect(sendRequests).toBe(0)
+
+  await page.getByLabel('消息内容').fill('E2E 发送内容')
+  await page.getByRole('button', { name: '发送', exact: true }).click()
+  await expect(page.getByText('E2E 发送内容')).toBeVisible()
+  expect(sendRequests).toBe(1)
+  expect(sentBody).toEqual({ body: 'E2E 发送内容' })
+})
+
+test('redirects the legacy chat URL without a conversation ID', async ({ page }) => {
+  await page.route('**/api/messages/conversations**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ conversations: [messageConversationResponse], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await signInViaHttp(page, '/message/chat')
+
+  await expect(page).toHaveURL(/\/message$/)
+  await expect(page.getByRole('heading', { name: '消息', exact: true })).toBeVisible()
+})
+
+test('rejects an invalid conversation ID before an HTTP request', async ({ page }) => {
+  let requests = 0
+  await page.route('**/api/messages/conversations**', (route) => {
+    requests += 1
+    return route.abort()
+  })
+  await signInViaHttp(page, '/message/chat/bad.id')
+
+  await expect(page.getByRole('alert')).toContainText('会话地址无效')
+  expect(requests).toBe(0)
+})
+
+test('signs out and shows login when the conversation list returns 401', async ({ page }) => {
+  await page.route('**/api/messages/conversations**', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 401 }),
+  )
+  await signInViaHttp(page, '/message')
+
+  await expect(page).toHaveURL(/\/login\/password\?redirect=\/message$/)
+  await expect(page.getByRole('heading', { name: '手机号密码登录' })).toBeVisible()
+})
+
+test('renders message HTTP 503 without a page exception', async ({ page }) => {
+  await page.route('**/api/messages/conversations**', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 503 }),
+  )
+  await signInViaHttp(page, '/message')
+
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（503）')
+})
+
+test('renders a parser error for an invalid conversation list', async ({ page }) => {
+  await page.route('**/api/messages/conversations**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ conversations: [{}], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await signInViaHttp(page, '/message')
+
+  await expect(page.getByRole('alert')).toContainText('会话列表响应字段无效')
+})
+
+test('renders a typed not-found state for a missing conversation', async ({ page }) => {
+  await page.route('**/api/messages/conversations**', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 404 }),
+  )
+  await signInViaHttp(page, '/message/chat/conv-missing')
+
+  await expect(page.getByRole('alert')).toContainText('会话不存在')
 })
