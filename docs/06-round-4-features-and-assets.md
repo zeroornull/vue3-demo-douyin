@@ -1,8 +1,7 @@
 # 第 4 轮：页面、组件与资源迁移
 
-> 执行状态：进行中。Round 4A Login、4B Profile、4C Message、4D Feed 和 4E Media
-> 已完成，见 [`round-4/README.md`](round-4/README.md)；评论/分享、媒体消息、通知等
-> 纵切尚未完成，因此本轮不能标记为全部完成。
+> 执行状态：进行中。Round 4A–4F 已完成，见 [`round-4/README.md`](round-4/README.md)；
+> 分享、媒体消息、通知等纵切尚未完成，因此本轮不能标记为全部完成。
 
 ## 1. 本轮目标
 

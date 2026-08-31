@@ -100,6 +100,37 @@ const mediaSourceResponse = {
   durationSeconds: 4,
 }
 
+function commentPayload(id = 'comment-e2e', body = 'E2E 评论') {
+  return {
+    id,
+    feedId: 'feed-e2e',
+    author: { userId: 'comment-user', displayName: 'E2E 评论者' },
+    body,
+    createdAt: '2026-08-31T03:00:00.000Z',
+    likeCount: 2,
+    likedByViewer: false,
+    version: 1,
+  }
+}
+
+async function mockFeedDetail(page: Page) {
+  await page.route('**/api/feed/feed-e2e', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ item: feedPayload(), media: mediaSourceResponse }),
+      contentType: 'application/json',
+    }),
+  )
+}
+
+test.beforeEach(async ({ page }) => {
+  await page.route('**/api/feed/*/comments**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ comments: [], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+})
+
 async function fillValidPasswordLogin(page: Page, password = 'douyin-demo') {
   await page.getByRole('textbox', { name: '手机号', exact: true }).fill('13800138000')
   await page.locator('input[name="password"]').fill(password)
@@ -968,4 +999,172 @@ test('redirects the legacy video detail URL without content identity', async ({ 
 
   await expect(page).toHaveURL(/\/home$/)
   await expect(page.getByRole('heading', { name: '推荐内容', exact: true })).toBeVisible()
+})
+
+test('loads and cursor-paginates public feed comments', async ({ page }) => {
+  const cursors: Array<string | null> = []
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/comments**', async (route) => {
+    const cursor = new URL(route.request().url()).searchParams.get('cursor')
+    cursors.push(cursor)
+    await route.fulfill({
+      body: JSON.stringify(
+        cursor === 'comments-2'
+          ? { comments: [commentPayload('comment-2', '第二页评论')], nextCursor: null }
+          : { comments: [commentPayload()], nextCursor: 'comments-2' },
+      ),
+      contentType: 'application/json',
+    })
+  })
+  await page.goto('/home/content/feed-e2e')
+  await expect(page.getByText('E2E 评论', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '加载更多评论' }).click()
+  await expect(page.getByText('第二页评论')).toBeVisible()
+  expect(cursors).toEqual([null, 'comments-2'])
+})
+
+test('redirects an unauthenticated like write to login', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.goto('/home/content/feed-e2e')
+  await page.getByRole('button', { name: /喜欢/ }).click()
+  await expect(page).toHaveURL(/\/login\/password\?redirect=\/home\/content\/feed-e2e$/)
+  await expect(page.getByRole('heading', { name: '手机号密码登录' })).toBeVisible()
+})
+
+test('restores comment focus after login redirect', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/auth/login', (route) =>
+    route.fulfill({ body: JSON.stringify(authSessionResponse), contentType: 'application/json' }),
+  )
+  await page.goto('/home/content/feed-e2e')
+  await page.getByLabel('发表评论').fill('登录后继续')
+  await page.getByRole('button', { name: '登录后评论' }).click()
+  await fillValidPasswordLogin(page)
+  await page.getByRole('button', { name: '登录' }).click()
+  await expect(page).toHaveURL(/\/home\/content\/feed-e2e#comment-form$/)
+  await expect(page.getByLabel('发表评论')).toBeFocused()
+})
+
+test('optimistically likes and accepts the versioned server result', async ({ page }) => {
+  let likeBody: { expectedVersion?: number; liked?: boolean } = {}
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/like', async (route) => {
+    likeBody = route.request().postDataJSON()
+    await new Promise((resolve) => setTimeout(resolve, 150))
+    await route.fulfill({
+      body: JSON.stringify({ feedId: 'feed-e2e', liked: true, likeCount: 1001, version: 2 }),
+      contentType: 'application/json',
+    })
+  })
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  const button = page.getByRole('button', { name: /喜欢/ })
+  await button.click()
+  await expect(button).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByText('正在同步点赞…')).toBeVisible()
+  await expect(page.getByRole('button', { name: /取消喜欢/ })).toContainText('1001')
+  expect(likeBody).toEqual({ liked: true, expectedVersion: 1 })
+})
+
+test('rolls back an optimistic like on HTTP 409', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/like', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 409 }),
+  )
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  await page.getByRole('button', { name: /喜欢/ }).click()
+  await expect(page.getByRole('alert')).toContainText('内容状态已更新')
+  await expect(page.getByRole('button', { name: /喜欢/ })).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.getByRole('button', { name: /喜欢/ })).toContainText('1000')
+})
+
+test('validates and duplicate-protects optimistic comment submission', async ({ page }) => {
+  let requests = 0
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/comments', async (route) => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({
+        body: JSON.stringify({ comments: [], nextCursor: null }),
+        contentType: 'application/json',
+      })
+      return
+    }
+    requests += 1
+    await new Promise((resolve) => setTimeout(resolve, 180))
+    await route.fulfill({
+      body: JSON.stringify(commentPayload('comment-created', '浏览器确认评论')),
+      contentType: 'application/json',
+    })
+  })
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  await page.getByRole('button', { name: '发表评论' }).click()
+  await expect(page.getByText('评论必须为 1–300 个字符')).toBeVisible()
+  expect(requests).toBe(0)
+  await page.getByLabel('发表评论').fill('浏览器确认评论')
+  await page.locator('#comment-form').evaluate((form: HTMLFormElement) => {
+    form.requestSubmit()
+    form.requestSubmit()
+  })
+  await expect(page.getByText('正在发送…')).toBeVisible()
+  await expect(page.getByText('浏览器确认评论')).toBeVisible()
+  await expect(page.getByLabel('发表评论')).toBeFocused()
+  expect(requests).toBe(1)
+})
+
+test('rolls back HTTP 429 comment and preserves the draft', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/comments', (route) =>
+    route.request().method() === 'GET'
+      ? route.fulfill({
+          body: JSON.stringify({ comments: [], nextCursor: null }),
+          contentType: 'application/json',
+        })
+      : route.fulfill({ body: '{}', contentType: 'application/json', status: 429 }),
+  )
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  await page.getByLabel('发表评论').fill('请保留这段输入')
+  await page.getByRole('button', { name: '发表评论' }).click()
+  await expect(page.getByRole('alert')).toContainText('操作过于频繁')
+  await expect(page.getByLabel('发表评论')).toHaveValue('请保留这段输入')
+  await expect(page.getByText('正在发送…')).toHaveCount(0)
+})
+
+test('redirects an expired comment write on HTTP 401', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/comments', (route) =>
+    route.request().method() === 'GET'
+      ? route.fulfill({
+          body: JSON.stringify({ comments: [], nextCursor: null }),
+          contentType: 'application/json',
+        })
+      : route.fulfill({ body: '{}', contentType: 'application/json', status: 401 }),
+  )
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  await page.getByLabel('发表评论').fill('session expired')
+  await page.getByRole('button', { name: '发表评论' }).click()
+  await expect(page).toHaveURL(
+    /\/login\/password\?redirect=\/home\/content\/feed-e2e%23comment-form$/,
+  )
+  await expect(page.getByRole('heading', { name: '手机号密码登录' })).toBeVisible()
+})
+
+test('renders comment HTTP 503 without hiding feed detail', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/comments**', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 503 }),
+  )
+  await page.goto('/home/content/feed-e2e')
+  await expect(page.getByRole('heading', { name: 'E2E 推荐内容' })).toBeVisible()
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（503）')
+})
+
+test('renders a parser error for invalid comment payload', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/comments**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ comments: [{ body: '' }], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/content/feed-e2e')
+  await expect(page.getByRole('alert')).toContainText('评论列表字段无效')
 })

@@ -5,6 +5,7 @@ export type AppErrorKind =
   | 'network'
   | 'not-found'
   | 'parse'
+  | 'rate-limit'
   | 'timeout'
   | 'unauthorized'
   | 'unexpected'

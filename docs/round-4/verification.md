@@ -1,12 +1,12 @@
-# Round 4A + 4B + 4C + 4D + 4E：验证证据
+# Round 4A–4F：验证证据
 
 ## Unit / Component
 
 最终结果：
 
 ```text
-Vitest files=44
-Vitest tests=168
+Vitest files=51
+Vitest tests=192
 ```
 
 关键断言：
@@ -52,10 +52,13 @@ Vitest tests=168
 - MediaPlayer 无 autoplay、可访问控制、用户触发播放。
 - Keyboard mute 和 media error alert。
 - Feed detail item+media 双 parser 和 Store activeMedia reset。
+- Comment/Like Domain、validation、parser、fixture/http Gateway。
+- Public comment cursor、optimistic confirm/rollback、like snapshot rollback。
+- Duplicate submit 单 POST、401/409/429/503 和 focus intent。
 
 ## E2E
 
-Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 34/34；Round 4D 为 45/45；Round 4E 为 51/51。
+Round 4A–4E 分别达到 17/17、24/24、34/34、45/45、51/51；Round 4F 为 61/61。
 下面列出 Round 4 功能纵切的核心浏览器断言；一个 E2E 测试可以同时覆盖多条断言，
 因此序号不等于测试数量。此前 Scaffold/Shop 场景仍在同一个 E2E 文件中持续执行：
 
@@ -105,6 +108,11 @@ Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 3
 44. External media source parse rejection，外部请求数为 0。
 45. Reduced Motion transition=0s。
 46. Local MP4 `Range: bytes=0-99` → 206/100 bytes。
+47. Public comment cursor。
+48. Unauthenticated like/comment login redirect 与 comment focus intent。
+49. Optimistic like success 和 409 rollback。
+50. Comment validation、pending、duplicate one POST、confirm/focus。
+51. Comment 429 rollback/draft preservation、401 redirect、503 和 parse。
 
 ## 视觉状态
 
@@ -147,13 +155,21 @@ docs/round-4/screenshots/media-playing.png
 docs/round-4/screenshots/media-unmuted.png
 docs/round-4/screenshots/media-ended.png
 docs/round-4/screenshots/media-error.png
+docs/round-4/screenshots/interaction-comments.png
+docs/round-4/screenshots/interaction-liked.png
+docs/round-4/screenshots/interaction-like-conflict.png
+docs/round-4/screenshots/interaction-comment-pending.png
+docs/round-4/screenshots/interaction-comment-success.png
+docs/round-4/screenshots/interaction-rate-limit.png
+docs/round-4/screenshots/interaction-comments-503.png
+docs/round-4/screenshots/interaction-login-required.png
 ```
 
 所有状态要求 0 page exception。
 
-最终自动采集 Login 5 张、Profile 6 张、Message 9 张、Feed 11 张和 Media 5 张
-有效 PNG，总大小 3,941,896 B。Media paused/playing/unmuted/ended/error 均为
-0 page exception，移动端控制条没有横向溢出。
+最终自动采集 Login 5 张、Profile 6 张、Message 9 张、Feed 11 张、Media 5 张和
+Interaction 8 张有效 PNG，总大小 5,704,213 B。Interaction public/liked/conflict/
+pending/success/rate-limit/503/login-required 均为 0 page exception。
 
 Message 表单交互后浏览器位于页面下方；`fullPage` 对 fixed skip-link 的拼接曾产生黄色条伪影。采集器现在在截图前显式回到 `scrollY=0`，重新生成并人工检查，运行时 skip-link 保持未聚焦和隐藏。
 
@@ -165,11 +181,11 @@ Prettier                          passed
 Oxlint                            passed
 ESLint 10                         passed
 vue-tsc                           passed
-Vitest                            44 files / 168 tests passed
-Vite                              169 modules transformed
-Production build                 62 files / 1,675,195 bytes
-Local Chrome E2E                  51/51 passed
-CI Chromium E2E                  51/51 passed
+Vitest                            51 files / 192 tests passed
+Vite                              179 modules transformed
+Production build                 62 files / 1,691,087 bytes
+Local Chrome E2E                  61/61 passed
+CI Chromium E2E                  61/61 passed
 bun audit                         349 packages / 0 vulnerabilities
 ```
 
@@ -229,6 +245,22 @@ Playwright request 发送 `Range: bytes=0-99`，Vite preview 返回 206、
 ### CSP 与 parser 双边界
 
 E2E 读取 CSP 中 `media-src 'self'`；同时外部 HTTPS MediaSource 在 parser 层失败，浏览器对测试域的请求数为 0。CSP 不替代 runtime parser，parser 也不替代浏览器安全策略。
+
+### 程序化双 submit
+
+首轮交互定向 E2E 为 9/10。程序化连续 `requestSubmit()` 会在 Store 拒绝第二次之前由组件先
+abort 首请求，导致 pending comment 回滚。组件现在在创建新 AbortController 前检查
+`submitting`，随后定向测试和完整 61 项通过。
+
+### jsdom focus
+
+未 attach 的 Vue Test Utils wrapper 不会改变 `document.activeElement`。组件测试改为 spy
+textarea.focus 调用；真实 Chrome E2E 使用 `toBeFocused()` 验证登录返回和成功提交后的焦点。
+
+### Interaction full-page 截图
+
+首轮采集因先滚到评论区再次出现 fixed skip-link 拼接伪影。采集器验证交互后统一回到
+`scrollY=0` 再 full-page screenshot，8 张重新生成并人工检查。
 
 ## Git 卫生
 

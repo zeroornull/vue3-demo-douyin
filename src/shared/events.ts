@@ -1,6 +1,7 @@
 import type { ProductId } from '@/domain/shop/product'
 import type { ChatMessage, ConversationId } from '@/domain/message/message'
 import type { FeedId } from '@/domain/feed/feed'
+import type { CommentId } from '@/domain/interaction/interaction'
 
 export interface AppEventMap {
   'auth:signed-in': {
@@ -27,6 +28,14 @@ export interface AppEventMap {
     readonly total: number
   }
   'feed:item-viewed': {
+    readonly feedId: FeedId
+  }
+  'feed:liked': {
+    readonly feedId: FeedId
+    readonly liked: boolean
+  }
+  'feed:comment-created': {
+    readonly commentId: CommentId
     readonly feedId: FeedId
   }
   'shop:product-viewed': {

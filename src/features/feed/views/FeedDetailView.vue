@@ -5,6 +5,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import { formatFeedCount, formatFeedPublishedAt, parseFeedId } from '@/domain/feed/feed'
 import { useFeedStore } from '@/features/feed/store/feed'
 import MediaPlayer from '@/features/media/components/MediaPlayer.vue'
+import FeedInteractions from '@/features/interaction/components/FeedInteractions.vue'
 import { ROUTE_NAMES } from '@/router'
 import '@/features/feed/feed.css'
 
@@ -100,6 +101,8 @@ onBeforeUnmount(() => controller?.abort())
       <ul class="feed-tags" aria-label="内容标签">
         <li v-for="tag in activeItem.tags" :key="tag">#{{ tag }}</li>
       </ul>
+
+      <FeedInteractions :item="activeItem" />
     </article>
   </section>
 </template>

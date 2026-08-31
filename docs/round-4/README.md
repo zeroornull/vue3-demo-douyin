@@ -1,8 +1,8 @@
-# 第 4 轮进度：Round 4A Login + 4B Profile + 4C Message + 4D Feed + 4E Media
+# 第 4 轮进度：Round 4A–4F
 
 > 更新日期：2026-08-31（Asia/Shanghai）
-> 状态：**Round 4A、4B、4C、4D、4E 完成；Round 4 整体仍在进行中**
-> Git：4E 基线 HEAD 为 `4146ffd`；4E 没有创建或暂存新提交
+> 状态：**Round 4A–4F 完成；Round 4 整体仍在进行中**
+> Git：4F 基线 HEAD 为 `d0aed28`；4F 没有创建或暂存新提交
 
 ## 本批次范围
 
@@ -36,6 +36,10 @@
 - 用户触发播放、暂停/重播、静音、range 进度和键盘控制。
 - Reduced Motion、CSP `media-src 'self'` 和 206 byte-range 验证。
 - 可重复 FFmpeg fixture 生成脚本和 0 page exception 媒体视觉证据。
+- Feed Detail 的公开评论 cursor、登录点赞/评论写入。
+- Comment/Like runtime parser、Bearer Gateway 和 401/409/429/503 状态。
+- 点赞/comment optimistic update、完整 snapshot rollback 和重复提交保护。
+- 登录 redirect 保留 `#comment-form` 意图并恢复 textarea focus。
 
 尚未迁移：
 
@@ -44,9 +48,9 @@
 - Help/协议页面。
 - 第三方社交登录。
 - 真实 token refresh/persistence。
-- 评论/分享交互、Message 通知/媒体、直播、音乐等其他 Round-4 纵切。
+- 分享、Message 通知/媒体、直播、音乐等其他 Round-4 纵切。
 
-因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4F Content Interactions。
+因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4G Notifications & Media Messages。
 
 ## 结果摘要
 
@@ -63,7 +67,8 @@
 | Message | stable conversation ID、cursor、read/unread、send、typed lifecycle events |
 | Feed | stable FeedId、search query、cursor、refresh、local cover boundary |
 | Media | user-triggered MP4、playback state、keyboard、CSP、206 range |
-| Tests | 44 个 Vitest 文件、168 个测试；51 个 E2E |
+| Interactions | comment cursor、optimistic like/comment、rollback、auth intent |
+| Tests | 51 个 Vitest 文件、192 个测试；61 个 E2E |
 | 依赖 | 没有新增 npm dependency，继续复用 Axios 1.20.0 |
 | 类型债务 | 新 runtime/tests 继续保持 0 any、0 `$ref`、0 type suppression |
 
@@ -79,6 +84,8 @@
 - [Search、Cursor 与封面资源边界](feed-search-and-resource-boundary.md)
 - [Media Playback 纵切](media-playback-slice.md)
 - [媒体资源、CSP、Range 与测试](media-source-csp-and-range.md)
+- [点赞与评论纵切](content-interactions-slice.md)
+- [Optimistic update、回滚与登录意图](interaction-optimistic-auth.md)
 - [迁移指标](metrics.md)
 - [验证证据](verification.md)
 
@@ -86,10 +93,10 @@
 
 ## Git 边界
 
-Round 4D 已在本批次开始前提交为：
+Round 4E 已在本批次开始前提交为：
 
 ```text
-4146ffd feat: implement round 4D of migration focusing on feed features
+d0aed28 feat: implement round 4E of migration focusing on media playback features
 ```
 
 本批次没有创建 commit、没有暂存文件。
@@ -148,14 +155,19 @@ Round 4D 已在本批次开始前提交为：
 - [x] CSP 限制 `media-src 'self'`，外部媒体请求数为 0。
 - [x] 本地 MP4 支持 206 byte range。
 - [x] FFmpeg fixture 重复生成 SHA-256 不变。
+- [x] Public comment cursor 和 CommentId/FeedId association。
+- [x] Like/comment 写入携带 Bearer 且 401/409/429/503 分开表示。
+- [x] Like optimistic snapshot 在失败时完整 rollback。
+- [x] Comment pending item 成功确认、失败删除并保留 draft。
+- [x] 程序化重复 submit 不 abort 首个请求且只产生一个 POST。
+- [x] 未登录/过期评论写入保留 `#comment-form` 并恢复焦点。
 
 ## 下一批次
 
-Round 4F Content Interactions 建议迁移：
+Round 4G Notifications & Media Messages 建议迁移：
 
-1. Comment DTO/parser、cursor 和 stable content association。
-2. Like/comment optimistic update 与 rollback。
-3. 未登录写操作的登录 redirect。
-4. 重复提交、冲突、401/409/429/503。
-5. 评论输入、字符限制和键盘/焦点恢复。
-6. 不同时迁移直播、音乐或复杂 Feed 滑动。
+1. Typed notification/message-media DTO 和 parser。
+2. 图片/视频消息安全资源白名单。
+3. 通知 read/unread cursor 与批量已读。
+4. 401/404/413/429/503 和上传取消。
+5. 不同时迁移直播、音乐或复杂 Feed 滑动。

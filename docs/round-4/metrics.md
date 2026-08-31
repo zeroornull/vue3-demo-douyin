@@ -1,12 +1,12 @@
-# Round 4A + 4B + 4C + 4D + 4E：迁移指标
+# Round 4A–4F：迁移指标
 
 ## 测试增长
 
-| 指标 | Round 3 | Round 4A | Round 4B | Round 4C | Round 4D | Round 4E |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Vitest files | 13 | 20 | 27 | 34 | 41 | 44 |
-| Vitest tests | 43 | 70 | 96 | 125 | 155 | 168 |
-| E2E tests | 10 | 17 | 24 | 34 | 45 | 51 |
+| 指标 | Round 3 | 4A | 4B | 4C | 4D | 4E | 4F |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Vitest files | 13 | 20 | 27 | 34 | 41 | 44 | 51 |
+| Vitest tests | 43 | 70 | 96 | 125 | 155 | 168 | 192 |
+| E2E tests | 10 | 17 | 24 | 34 | 45 | 51 | 61 |
 
 新增测试覆盖：
 
@@ -63,6 +63,9 @@ Round 4E 新增：
 - buffering/ended/error/Reduced Motion。
 - CSP、206 byte range 和外部媒体零请求。
 - 可重复 FFmpeg fixture 生成脚本。
+
+Round 4F 新增：Comment/Like Domain/parser、fixture/http Gateway、public comment cursor、
+optimistic comment/like、rollback、auth intent、duplicate protection 和 7 个测试文件。
 
 ## 迁移范围
 
@@ -128,16 +131,17 @@ CSP/range=yes
 HLS/fullscreen/PiP/comments=no
 ```
 
-这是 Round 4A+4B+4C+4D+4E，不是 Round 4 全部完成。
+Round 4F：公开评论读取、登录点赞/评论写入、401/409/429/503、草稿保留和焦点恢复已完成；
+回复、评论点赞、删除、举报、图片评论和分享尚未迁移。Round 4 仍未全部完成。
 
 ## 现代源码规模
 
 ```text
-production files=81
-production TypeScript=55
-production Vue SFC=18
+production files=91
+production TypeScript=63
+production Vue SFC=19
 production JavaScript=0
-all src files including tests=125
+all src files including tests=142
 Auth production files=10
 Auth test files=7
 Profile production files=10
@@ -148,11 +152,13 @@ Feed production files=12
 Feed test files=7
 Media production files=4
 Media test files=3
+Interaction production files=10
+Interaction test files=7
 ```
 
 ## 类型纪律
 
-Round 4E 最终继续满足：
+Round 4F 最终继续满足：
 
 ```text
 production JavaScript=0
@@ -176,6 +182,7 @@ legacy runtime import=0
 - Feed Store catch boundary 和 runtime query。
 - MediaSource parser input。
 - HTMLMediaElement play rejection/error boundary。
+- Comment/Like parser 和 optimistic catch boundary。
 
 ## 资源
 
@@ -283,6 +290,19 @@ modules transformed=169
 ```
 
 MediaPlayer CSS 与 Detail JS 继续按路由懒加载；本轮没有新增 npm dependency。
+
+Round 4F production build：
+
+```text
+files=62
+total=1,691,087 bytes ≈1.61 MiB
+product media/images=1,383,167 bytes
+non-product output=307,920 bytes ≈300.70 KiB
+Round-4F increase=15,892 bytes
+modules transformed=179
+```
+
+Interaction 只增加 Detail 懒加载 JS/CSS，没有新增产品图片、媒体或 npm dependency。
 
 Lockfile 没有新增依赖，仍为：
 

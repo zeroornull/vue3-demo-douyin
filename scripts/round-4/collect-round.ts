@@ -115,7 +115,25 @@ async function main() {
       sourceKinds: ['local-mp4'],
       playbackStates: ['idle', 'loading', 'paused', 'playing', 'buffering', 'ended', 'error'],
     },
-    tests: { vitestFiles: 44, vitestTests: 168, e2eFiles: 1, e2eTests: 51 },
+    interactionSlice: {
+      productionFiles: productionFiles.filter(
+        (path) => path.includes('/features/interaction/') || path.includes('/domain/interaction/'),
+      ).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/interaction/__tests__/'))
+        .length,
+      routes: ['/home/content/:feedId'],
+      writes: ['like', 'comment'],
+      resultKinds: [
+        'validation',
+        'unauthorized',
+        'conflict',
+        'rate-limit',
+        'http',
+        'parse',
+        'aborted',
+      ],
+    },
+    tests: { vitestFiles: 51, vitestTests: 192, e2eFiles: 1, e2eTests: 61 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),
