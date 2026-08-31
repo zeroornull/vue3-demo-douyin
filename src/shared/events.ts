@@ -1,5 +1,6 @@
 import type { ProductId } from '@/domain/shop/product'
 import type { ChatMessage, ConversationId } from '@/domain/message/message'
+import type { FeedId } from '@/domain/feed/feed'
 
 export interface AppEventMap {
   'auth:signed-in': {
@@ -24,6 +25,9 @@ export interface AppEventMap {
   }
   'message:unread-changed': {
     readonly total: number
+  }
+  'feed:item-viewed': {
+    readonly feedId: FeedId
   }
   'shop:product-viewed': {
     readonly productId: ProductId

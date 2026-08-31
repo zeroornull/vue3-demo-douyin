@@ -99,7 +99,14 @@ async function main() {
       adapters: ['fixture', 'http'],
       resultKinds: ['validation', 'unauthorized', 'not-found', 'http', 'parse', 'aborted'],
     },
-    tests: { vitestFiles: 34, vitestTests: 125, e2eFiles: 1, e2eTests: 34 },
+    feedSlice: {
+      productionFiles: productionFiles.filter((path) => path.includes('/features/feed/')).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/feed/__tests__/')).length,
+      routes: ['/home', '/home/search', '/home/content/:feedId'],
+      adapters: ['fixture', 'http'],
+      resultKinds: ['validation', 'not-found', 'http', 'parse', 'aborted'],
+    },
+    tests: { vitestFiles: 41, vitestTests: 155, e2eFiles: 1, e2eTests: 45 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),

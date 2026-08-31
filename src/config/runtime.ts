@@ -5,6 +5,7 @@ export type DataSource = 'fixture' | 'http'
 export interface RuntimeConfig {
   readonly apiBaseUrl: string
   readonly authDataSource: DataSource
+  readonly feedDataSource: DataSource
   readonly httpTimeoutMs: number
   readonly shopDataSource: DataSource
 }
@@ -12,6 +13,7 @@ export interface RuntimeConfig {
 const defaultConfig: RuntimeConfig = {
   apiBaseUrl: '/api',
   authDataSource: 'fixture',
+  feedDataSource: 'fixture',
   httpTimeoutMs: 10_000,
   shopDataSource: 'fixture',
 }
@@ -45,6 +47,10 @@ export function parseRuntimeConfig(env: ImportMetaEnv): AppResult<RuntimeConfig>
   if (authDataSource !== 'fixture' && authDataSource !== 'http') {
     details.push('VITE_AUTH_DATA_SOURCE 必须是 fixture 或 http')
   }
+  const feedDataSource = env.VITE_FEED_DATA_SOURCE ?? defaultConfig.feedDataSource
+  if (feedDataSource !== 'fixture' && feedDataSource !== 'http') {
+    details.push('VITE_FEED_DATA_SOURCE 必须是 fixture 或 http')
+  }
 
   if (details.length) {
     return failure({
@@ -57,6 +63,7 @@ export function parseRuntimeConfig(env: ImportMetaEnv): AppResult<RuntimeConfig>
   return success({
     apiBaseUrl,
     authDataSource,
+    feedDataSource,
     httpTimeoutMs,
     shopDataSource,
   })

@@ -51,6 +51,10 @@ const health = createHealthSnapshot({
         <dd data-testid="auth-data-source">{{ runtime.authDataSource }}</dd>
       </div>
       <div>
+        <dt>Feed data source</dt>
+        <dd data-testid="feed-data-source">{{ runtime.feedDataSource }}</dd>
+      </div>
+      <div>
         <dt>HTTP timeout</dt>
         <dd>{{ runtime.httpTimeoutMs }} ms</dd>
       </div>

@@ -45,6 +45,7 @@ onBeforeUnmount(() => {
 
       <nav aria-label="主要导航">
         <RouterLink to="/">迁移概览</RouterLink>
+        <RouterLink :to="{ name: ROUTE_NAMES.homeFeed }">内容推荐</RouterLink>
         <RouterLink to="/shop">商品样板</RouterLink>
         <RouterLink to="/health">运行状态</RouterLink>
         <RouterLink v-if="session" class="message-nav-link" :to="{ name: ROUTE_NAMES.message }">
@@ -70,7 +71,10 @@ onBeforeUnmount(() => {
     </main>
 
     <footer class="app-footer">
-      <span>当前包含现代基座与 Shop、Auth、Profile、Message 纵切，不导入 legacy 运行时代码。</span>
+      <span
+        >当前包含现代基座与 Feed、Shop、Auth、Profile、Message 纵切，不导入 legacy
+        运行时代码。</span
+      >
       <span>迁移文档位于仓库 <code>docs/</code>。</span>
     </footer>
   </div>

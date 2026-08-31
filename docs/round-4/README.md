@@ -1,8 +1,8 @@
-# 第 4 轮进度：Round 4A Login + 4B Profile + 4C Message
+# 第 4 轮进度：Round 4A Login + 4B Profile + 4C Message + 4D Feed
 
 > 更新日期：2026-08-31（Asia/Shanghai）
-> 状态：**Round 4A、4B、4C 完成；Round 4 整体仍在进行中**
-> Git：4C 基线 HEAD 为 `a6ca4bc`；4C 没有创建或暂存新提交
+> 状态：**Round 4A、4B、4C、4D 完成；Round 4 整体仍在进行中**
+> Git：4D 基线 HEAD 为 `bca5131`；4D 没有创建或暂存新提交
 
 ## 本批次范围
 
@@ -25,6 +25,12 @@
 - Bearer conversation/thread/read/send、cursor 分页、已读/未读和同步发送校验。
 - typed incoming/read/sent/unread events 与页面卸载订阅清理。
 - 401 清 session 和消息私有状态、404、503、非法 payload 和无 ID 旧路由回退。
+- `/home`、`/home/search?q=` 和 `/home/content/:feedId` 只读内容发现纵切。
+- branded FeedId/FeedSearchQuery、Feed parser 和 fixture/http FeedGateway。
+- Feed/Search cursor、refresh 替换、搜索 validation 和 stable detail。
+- 独立 `VITE_FEED_DATA_SOURCE` 与 Health 可观察项。
+- 只复制两个本地封面，并拒绝任意外部 cover URL。
+- 旧 `/video-detail` 因没有内容身份安全回到 `/home`。
 
 尚未迁移：
 
@@ -33,9 +39,9 @@
 - Help/协议页面。
 - 第三方社交登录。
 - 真实 token refresh/persistence。
-- Message 通知、群聊、媒体消息和 Home 等其他 Round-4 纵切。
+- 视频播放、Message 通知/媒体、直播、音乐等其他 Round-4 纵切。
 
-因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4D Home/Search。
+因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4E Media Playback。
 
 ## 结果摘要
 
@@ -50,7 +56,8 @@
 | Session | 只保存在 Pinia 内存，不写 localStorage/cookie |
 | Profile | typed draft、dirty、validation、save、409 conflict、version increment |
 | Message | stable conversation ID、cursor、read/unread、send、typed lifecycle events |
-| Tests | 34 个 Vitest 文件、125 个测试；34 个 E2E |
+| Feed | stable FeedId、search query、cursor、refresh、local cover boundary |
+| Tests | 41 个 Vitest 文件、155 个测试；45 个 E2E |
 | 依赖 | 没有新增 npm dependency，继续复用 Axios 1.20.0 |
 | 类型债务 | 新 runtime/tests 继续保持 0 any、0 `$ref`、0 type suppression |
 
@@ -62,6 +69,8 @@
 - [Profile 冲突和授权边界](profile-conflict-and-auth.md)
 - [Message / Conversation 纵切](message-slice.md)
 - [Message 分页、未读与事件生命周期](message-pagination-and-events.md)
+- [Home / Search / Feed 纵切](feed-slice.md)
+- [Search、Cursor 与封面资源边界](feed-search-and-resource-boundary.md)
 - [迁移指标](metrics.md)
 - [验证证据](verification.md)
 
@@ -69,10 +78,10 @@
 
 ## Git 边界
 
-Round 4B 已在本批次开始前提交为：
+Round 4C 已在本批次开始前提交为：
 
 ```text
-a6ca4bc feat: implement round 4B of migration focusing on profile features
+bca5131 feat: implement round 4C of migration focusing on message features
 ```
 
 本批次没有创建 commit、没有暂存文件。
@@ -110,13 +119,24 @@ a6ca4bc feat: implement round 4B of migration focusing on profile features
 - [x] `message:received` listener 在 Message Shell unmount 时删除。
 - [x] Sign out 清除 Message Store 私有数据与导航未读徽标。
 - [x] Message 不复制旧通知、媒体、红包或外部头像资源。
+- [x] Home/Search/Detail 路由可以刷新和分享，不依赖 routeData。
+- [x] Feed/Search/Detail response 全部从 unknown parser 开始。
+- [x] Feed 和 Search cursor 按 FeedId 去重合并。
+- [x] Refresh 不携带 cursor，成功替换、失败保留旧内容。
+- [x] 非法 search query/FeedId 在 Gateway 前拒绝。
+- [x] Search no-results 与 HTTP error 分开表示。
+- [x] Cover parser 拒绝外部 URL 和 dot segment。
+- [x] Feed 独立 fixture/http 数据源可从 Health 观察。
+- [x] 两个封面按消费者复制，哈希/大小/来源已记录。
+- [x] 详情明确不挂载播放器，不伪造媒体迁移完成度。
 
 ## 下一批次
 
-Round 4D Home/Search 建议迁移：
+Round 4E Media Playback 建议迁移：
 
-1. 最小只读 Home feed DTO 和 parser。
-2. `/home`、`/home/search` 与稳定内容深链。
-3. cursor feed、空状态、下拉刷新和请求竞态。
-4. 只迁移首屏实际消费的封面资源。
-5. 不在同一批次引入视频播放、直播、音乐和复杂手势。
+1. 独立 MediaSource/PlaybackState Domain。
+2. 用户触发播放，禁止默认强制自动播放。
+3. paused/playing/buffering/ended/error 状态。
+4. mute、键盘操作、Reduced Motion 和可访问名称。
+5. HLS/MP4 来源、CSP、range request 和超时边界。
+6. 不同时迁移评论、分享、直播和复杂滑动手势。

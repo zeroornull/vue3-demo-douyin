@@ -1,12 +1,12 @@
-# Round 4A + 4B + 4C：迁移指标
+# Round 4A + 4B + 4C + 4D：迁移指标
 
 ## 测试增长
 
-| 指标 | Round 3 | Round 4A | Round 4B | Round 4C |
-| --- | ---: | ---: | ---: | ---: |
-| Vitest files | 13 | 20 | 27 | 34 |
-| Vitest tests | 43 | 70 | 96 | 125 |
-| E2E tests | 10 | 17 | 24 | 34 |
+| 指标 | Round 3 | Round 4A | Round 4B | Round 4C | Round 4D |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Vitest files | 13 | 20 | 27 | 34 | 41 |
+| Vitest tests | 43 | 70 | 96 | 125 | 155 |
+| E2E tests | 10 | 17 | 24 | 34 | 45 |
 
 新增测试覆盖：
 
@@ -40,6 +40,17 @@ Round 4C 新增：
 - Incoming/read/sent/unread typed events。
 - Message Shell listener cleanup。
 - Message list/chat 组件和授权深链。
+
+Round 4D 新增：
+
+- FeedId/FeedSearchQuery/FeedItem Domain。
+- Feed page/detail parser 和本地 cover 白名单。
+- Fixture/HTTP FeedGateway。
+- 独立 Feed runtime data source。
+- Home/Search/Detail Store 状态和竞态保护。
+- Feed/Search cursor 与 refresh 替换。
+- FeedCard/Home/Search/Detail 组件。
+- stable content deep link 和旧 VideoDetail 回退。
 
 ## 迁移范围
 
@@ -77,27 +88,43 @@ cursor/read/unread/send=yes
 notice/group/media/call/red-packet=no
 ```
 
-这是 Round 4A+4B+4C，不是 Round 4 全部完成。
+Round 4D 新增：
+
+```text
+legacy Home directory files audited=22
+legacy Home index lines=513
+legacy SearchPage lines=1,315
+legacy VideoDetail lines=360
+routes migrated=3
+legacy no-ID VideoDetail redirect=1
+feed/search/detail=yes
+cursor/refresh/runtime parser=yes
+video playback/live/music/gesture=no
+```
+
+这是 Round 4A+4B+4C+4D，不是 Round 4 全部完成。
 
 ## 现代源码规模
 
 ```text
-production files=64
-production TypeScript=45
-production Vue SFC=13
+production files=77
+production TypeScript=53
+production Vue SFC=17
 production JavaScript=0
-all src files including tests=98
+all src files including tests=118
 Auth production files=10
 Auth test files=7
 Profile production files=10
 Profile test files=7
 Message production files=11
 Message test files=7
+Feed production files=12
+Feed test files=7
 ```
 
 ## 类型纪律
 
-Round 4C 最终继续满足：
+Round 4D 最终继续满足：
 
 ```text
 production JavaScript=0
@@ -117,6 +144,8 @@ legacy runtime import=0
 - Profile Store catch 和 HTTP response。
 - Conversation/Message/ReadReceipt parser input。
 - Message Store catch boundary 和 HTTP response。
+- Feed/Search/Detail parser input。
+- Feed Store catch boundary 和 runtime query。
 
 ## 资源
 
@@ -126,6 +155,15 @@ legacy runtime import=0
 login image imports=0
 third-party login icons=0
 new public assets=0
+```
+
+Round 4D 只复制两个 Feed 消费者实际使用的本地封面：
+
+```text
+feed cover files=2
+feed cover bytes=77,066
+external cover URLs accepted=0
+video files copied=0
 ```
 
 旧 social icons 留在被忽略的 legacy 中，等对应纵切迁移时再按消费者复制。
@@ -171,6 +209,21 @@ modules transformed=148
 ```
 
 Message 新增独立 CSS、Shell/List/Chat 动态 chunk。共享 Vue runtime、Router 和 Pinia 被 Vite 拆成稳定共享 chunk，因此构建文件数由 45 增至 52；总字节增量仍以实际输出总和为准，不能只比较某一个入口 chunk。
+
+Round 4D production build：
+
+```text
+files=60
+total=1,636,026 bytes ≈1.56 MiB
+product images=1,351,194 bytes
+non-product output=284,832 bytes ≈278.16 KiB
+Round-4D increase=105,991 bytes
+feed cover contribution=77,066 bytes
+code/config/chunk increase excluding covers=28,925 bytes
+modules transformed=164
+```
+
+Feed 新增 Card/Home/Search/Detail 动态 chunk和 Feed CSS；两个封面按原字节复制进入 dist，不使用无法复现的远程 Douyin 资源。
 
 Lockfile 没有新增依赖，仍为：
 

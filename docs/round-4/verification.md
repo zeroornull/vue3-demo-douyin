@@ -1,12 +1,12 @@
-# Round 4A + 4B + 4C：验证证据
+# Round 4A + 4B + 4C + 4D：验证证据
 
 ## Unit / Component
 
 最终结果：
 
 ```text
-Vitest files=34
-Vitest tests=125
+Vitest files=41
+Vitest tests=155
 ```
 
 关键断言：
@@ -37,10 +37,19 @@ Vitest tests=125
 - typed incoming/read/sent/unread events。
 - Message Shell listener mount=1、unmount=0。
 - Message list/chat/invalid ID 组件状态。
+- FeedId/SearchQuery/formatter Domain。
+- Feed query validation。
+- Feed item/page/detail parser 和 cover 白名单。
+- Fixture/HTTP FeedGateway 和 cursor/query/path。
+- Feed/Search cursor 合并和 refresh 替换。
+- Invalid query 清除旧结果且不调用 Gateway。
+- Detail typed viewed event。
+- Home/Search/Detail/invalid ID 组件状态。
+- Runtime Feed data source parser/Health。
 
 ## E2E
 
-Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 34/34。
+Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 34/34；Round 4D 为 45/45。
 下面列出 Round 4 功能纵切的核心浏览器覆盖；此前 10 项 Scaffold/Shop 场景仍在同一个 E2E 文件中持续执行：
 
 1. 登录入口 → 密码表单。
@@ -71,6 +80,17 @@ Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 3
 26. Message 503。
 27. Invalid conversation payload。
 28. Missing conversation 404。
+29. Feed cursor 加载更多和 refresh 替换。
+30. 显式 empty Feed。
+31. Feed 503。
+32. 外部 cover URL parser 拒绝。
+33. Search query/cursor 分页。
+34. 超长 query 零 HTTP 请求。
+35. 显式 no-results。
+36. Stable Feed detail 直接访问和刷新。
+37. Missing Feed 404。
+38. Invalid FeedId 零 HTTP 请求。
+39. 无 ID 旧 VideoDetail → Home。
 
 ## 视觉状态
 
@@ -97,12 +117,23 @@ docs/round-4/screenshots/message-503.png
 docs/round-4/screenshots/message-unauthorized.png
 docs/round-4/screenshots/message-parse-error.png
 docs/round-4/screenshots/message-not-found.png
+docs/round-4/screenshots/feed-list.png
+docs/round-4/screenshots/feed-refreshed.png
+docs/round-4/screenshots/feed-empty.png
+docs/round-4/screenshots/feed-503.png
+docs/round-4/screenshots/feed-parse-error.png
+docs/round-4/screenshots/feed-search-landing.png
+docs/round-4/screenshots/feed-search-results.png
+docs/round-4/screenshots/feed-search-empty.png
+docs/round-4/screenshots/feed-detail.png
+docs/round-4/screenshots/feed-not-found.png
+docs/round-4/screenshots/feed-invalid-id.png
 ```
 
 所有状态要求 0 page exception。
 
-最终自动采集 Login 5 张、Profile 6 张和 Message 9 张有效 PNG，总大小
-1,324,311 B。Profile/Message 401 截图都显示完整“手机号密码登录”表单。
+最终自动采集 Login 5 张、Profile 6 张、Message 9 张和 Feed 11 张有效 PNG，
+总大小 3,043,473 B。所有 Feed 状态为 0 page exception，本地封面成功解码，搜索标题在移动端没有孤立单字行。
 
 Message 表单交互后浏览器位于页面下方；`fullPage` 对 fixed skip-link 的拼接曾产生黄色条伪影。采集器现在在截图前显式回到 `scrollY=0`，重新生成并人工检查，运行时 skip-link 保持未聚焦和隐藏。
 
@@ -114,11 +145,11 @@ Prettier                          passed
 Oxlint                            passed
 ESLint 10                         passed
 vue-tsc                           passed
-Vitest                            34 files / 125 tests passed
-Vite                              148 modules transformed
-Production build                 52 files / 1,530,035 bytes
-Local Chrome E2E                  34/34 passed
-CI Chromium E2E                  34/34 passed
+Vitest                            41 files / 155 tests passed
+Vite                              164 modules transformed
+Production build                 60 files / 1,636,026 bytes
+Local Chrome E2E                  45/45 passed
+CI Chromium E2E                  45/45 passed
 bun audit                         349 packages / 0 vulnerabilities
 ```
 
@@ -149,6 +180,18 @@ getByRole('textbox', { name: '手机号', exact: true })
 ### Full-page fixed 元素拼接
 
 发送按钮会让浏览器滚到 composer。Playwright 在非零 scrollY 做 full-page screenshot 时，会把固定定位的隐藏 skip-link 拼接到页面中间。采集器在验证完成后先 `window.scrollTo({ top: 0 })` 再截图，消除证据生成伪影，而不是修改产品可访问性样式。
+
+### Feed 标题 selector strictness
+
+首轮 45 项 E2E 中 43 项通过；两项失败都因为非 exact 的“推荐内容”标题同时匹配页面 H1 和卡片 H2。断言改为页面 H1 的 exact accessible name 后，两个定向场景和完整套件通过。没有为了测试重命名产品标题或使用 CSS selector 绕过语义。
+
+### Search 移动端孤立单字
+
+首轮视觉截图中“从一个明确关键词开始”最后一个字单独换行。移动端 suggestion heading 使用 1.7rem 字号后，完整短语在同一行显示；重新采集 11 张 Feed 截图确认没有布局回归。
+
+### 封面来源和解码
+
+两个本地 JPEG 保留原哈希和字节；E2E 等待每个 FeedCard 图片满足 `complete && naturalWidth > 0`。外部 HTTPS cover 即使结构其他字段合法，也会在 parser 层被拒绝。
 
 ## Git 卫生
 

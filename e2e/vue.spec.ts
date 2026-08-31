@@ -74,6 +74,25 @@ const messageThreadResponse = {
   nextCursor: null,
 }
 
+function feedPayload(
+  id = 'feed-e2e',
+  caption = 'E2E 推荐内容',
+  coverUrl = '/feed/covers/field.jpg',
+) {
+  return {
+    id,
+    author: { userId: `author-${id}`, displayName: 'E2E 作者', handle: `author_${id}` },
+    caption,
+    coverUrl,
+    durationSeconds: 42,
+    likeCount: 1000,
+    commentCount: 20,
+    shareCount: 10,
+    publishedAt: '2026-08-31T01:00:00.000Z',
+    tags: ['E2E', '迁移'],
+  }
+}
+
 async function fillValidPasswordLogin(page: Page, password = 'douyin-demo') {
   await page.getByRole('textbox', { name: '手机号', exact: true }).fill('13800138000')
   await page.locator('input[name="password"]').fill(password)
@@ -107,6 +126,7 @@ test('exposes a production health route', async ({ page }) => {
   await expect(page.getByText(/^3\.5\./)).toBeVisible()
   await expect(page.getByTestId('shop-data-source')).toHaveText('http')
   await expect(page.getByTestId('auth-data-source')).toHaveText('http')
+  await expect(page.getByTestId('feed-data-source')).toHaveText('http')
 })
 
 test('renders an explicit not-found route', async ({ page }) => {
@@ -613,4 +633,197 @@ test('renders a typed not-found state for a missing conversation', async ({ page
   await signInViaHttp(page, '/message/chat/conv-missing')
 
   await expect(page.getByRole('alert')).toContainText('会话不存在')
+})
+
+test('loads, cursor-paginates, and refreshes the feed', async ({ page }) => {
+  const cursors: Array<string | null> = []
+  let firstPageCalls = 0
+  await page.route('**/api/feed**', async (route) => {
+    const url = new URL(route.request().url())
+    expect(url.pathname).toBe('/api/feed')
+    const cursor = url.searchParams.get('cursor')
+    cursors.push(cursor)
+    if (cursor === 'page-2') {
+      await route.fulfill({
+        body: JSON.stringify({
+          items: [feedPayload('feed-second', '第二页推荐内容', '/feed/covers/alley.jpg')],
+          nextCursor: null,
+        }),
+        contentType: 'application/json',
+      })
+      return
+    }
+    firstPageCalls += 1
+    await route.fulfill({
+      body: JSON.stringify({
+        items: [
+          firstPageCalls === 1 ? feedPayload() : feedPayload('feed-refreshed', '刷新后的推荐内容'),
+        ],
+        nextCursor: firstPageCalls === 1 ? 'page-2' : null,
+      }),
+      contentType: 'application/json',
+    })
+  })
+  await page.goto('/home')
+
+  await expect(page.getByRole('heading', { name: '推荐内容', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'E2E 推荐内容', exact: true })).toBeVisible()
+  await expect
+    .poll(() =>
+      page
+        .locator('.feed-card img')
+        .evaluateAll((images) =>
+          images.every(
+            (image) =>
+              image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+          ),
+        ),
+    )
+    .toBe(true)
+  await page.getByRole('button', { name: '加载更多内容' }).click()
+  await expect(page.getByRole('link', { name: '第二页推荐内容', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '刷新推荐' }).click()
+  await expect(page.getByRole('link', { name: '刷新后的推荐内容', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: '第二页推荐内容', exact: true })).toHaveCount(0)
+  expect(cursors).toEqual([null, 'page-2', null])
+})
+
+test('renders an explicit empty feed state', async ({ page }) => {
+  await page.route('**/api/feed**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ items: [], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home')
+
+  await expect(page.getByRole('heading', { name: '暂时没有推荐内容' })).toBeVisible()
+})
+
+test('renders feed HTTP 503 without a page exception', async ({ page }) => {
+  await page.route('**/api/feed**', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 503 }),
+  )
+  await page.goto('/home')
+
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（503）')
+})
+
+test('rejects an external cover URL from a feed response', async ({ page }) => {
+  await page.route('**/api/feed**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        items: [feedPayload('feed-external', '不安全封面', 'https://example.test/cover.jpg')],
+        nextCursor: null,
+      }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home')
+
+  await expect(page.getByRole('alert')).toContainText('Feed page 字段无效')
+})
+
+test('searches and cursor-paginates feed results', async ({ page }) => {
+  const cursors: Array<string | null> = []
+  await page.route('**/api/feed/search**', async (route) => {
+    const url = new URL(route.request().url())
+    expect(url.searchParams.get('q')).toBe('Vue')
+    const cursor = url.searchParams.get('cursor')
+    cursors.push(cursor)
+    await route.fulfill({
+      body: JSON.stringify(
+        cursor === 'search-2'
+          ? {
+              items: [feedPayload('feed-vue-second', 'Vue 搜索第二页')],
+              nextCursor: null,
+            }
+          : { items: [feedPayload('feed-vue', 'Vue 搜索结果')], nextCursor: 'search-2' },
+      ),
+      contentType: 'application/json',
+    })
+  })
+  await page.goto('/home/search?q=Vue')
+
+  await expect(page.getByRole('heading', { name: '搜索内容' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Vue 搜索结果', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '加载更多搜索结果' }).click()
+  await expect(page.getByRole('link', { name: 'Vue 搜索第二页', exact: true })).toBeVisible()
+  expect(cursors).toEqual([null, 'search-2'])
+})
+
+test('validates an oversized search query before HTTP', async ({ page }) => {
+  let requests = 0
+  await page.route('**/api/feed/search**', (route) => {
+    requests += 1
+    return route.abort()
+  })
+  await page.goto(`/home/search?q=${'a'.repeat(51)}`)
+
+  await expect(page.getByRole('alert')).toContainText('搜索关键词必须为 1–50 个字符')
+  expect(requests).toBe(0)
+})
+
+test('renders an explicit empty search result', async ({ page }) => {
+  await page.route('**/api/feed/search**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ items: [], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/search?q=不存在')
+
+  await expect(page.getByRole('heading', { name: '没有找到“不存在”' })).toBeVisible()
+})
+
+test('loads and reloads a stable feed detail deep link', async ({ page }) => {
+  let requests = 0
+  await page.route('**/api/feed/feed-e2e', (route) => {
+    requests += 1
+    return route.fulfill({
+      body: JSON.stringify({ item: feedPayload() }),
+      contentType: 'application/json',
+    })
+  })
+  await page.goto('/home/content/feed-e2e')
+
+  await expect(page.getByRole('heading', { name: 'E2E 推荐内容' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '本批次不挂载视频播放器' })).toBeVisible()
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'E2E 推荐内容' })).toBeVisible()
+  expect(requests).toBe(2)
+})
+
+test('renders a typed not-found state for missing feed detail', async ({ page }) => {
+  await page.route('**/api/feed/feed-missing', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 404 }),
+  )
+  await page.goto('/home/content/feed-missing')
+
+  await expect(page.getByRole('alert')).toContainText('内容不存在')
+})
+
+test('rejects an invalid feed ID before HTTP', async ({ page }) => {
+  let requests = 0
+  await page.route('**/api/feed/**', (route) => {
+    requests += 1
+    return route.abort()
+  })
+  await page.goto('/home/content/bad.id')
+
+  await expect(page.getByRole('alert')).toContainText('内容地址无效')
+  expect(requests).toBe(0)
+})
+
+test('redirects the legacy video detail URL without content identity', async ({ page }) => {
+  await page.route('**/api/feed**', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ items: [feedPayload()], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/video-detail')
+
+  await expect(page).toHaveURL(/\/home$/)
+  await expect(page.getByRole('heading', { name: '推荐内容', exact: true })).toBeVisible()
 })

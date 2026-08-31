@@ -6,6 +6,9 @@ import { useAuthStore } from '@/features/auth/store/auth'
 
 export const ROUTE_NAMES = {
   migrationHome: 'migration-home',
+  homeFeed: 'home-feed',
+  feedSearch: 'feed-search',
+  feedDetail: 'feed-detail',
   health: 'health',
   shop: 'shop',
   shopDetail: 'shop-detail',
@@ -30,6 +33,29 @@ const routes: RouteRecordRaw[] = [
     name: ROUTE_NAMES.health,
     component: () => import('@/views/HealthView.vue'),
     meta: defineRouteMeta({ migrationRound: 1, title: '运行状态', transition: 'fade' }),
+  },
+  {
+    path: '/home',
+    name: ROUTE_NAMES.homeFeed,
+    component: () => import('@/features/feed/views/HomeFeedView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '推荐内容', transition: 'forward' }),
+  },
+  {
+    path: '/home/search',
+    name: ROUTE_NAMES.feedSearch,
+    component: () => import('@/features/feed/views/FeedSearchView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '搜索内容', transition: 'forward' }),
+  },
+  {
+    path: '/home/content/:feedId',
+    name: ROUTE_NAMES.feedDetail,
+    component: () => import('@/features/feed/views/FeedDetailView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '内容详情', transition: 'forward' }),
+  },
+  {
+    path: '/video-detail',
+    redirect: { name: ROUTE_NAMES.homeFeed },
+    meta: defineRouteMeta({ migrationRound: 4, title: '旧内容详情重定向', transition: 'back' }),
   },
   {
     path: '/login',
