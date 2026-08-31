@@ -1,12 +1,12 @@
-# Round 4A + 4B + 4C + 4D：迁移指标
+# Round 4A + 4B + 4C + 4D + 4E：迁移指标
 
 ## 测试增长
 
-| 指标 | Round 3 | Round 4A | Round 4B | Round 4C | Round 4D |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Vitest files | 13 | 20 | 27 | 34 | 41 |
-| Vitest tests | 43 | 70 | 96 | 125 | 155 |
-| E2E tests | 10 | 17 | 24 | 34 | 45 |
+| 指标 | Round 3 | Round 4A | Round 4B | Round 4C | Round 4D | Round 4E |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Vitest files | 13 | 20 | 27 | 34 | 41 | 44 |
+| Vitest tests | 43 | 70 | 96 | 125 | 155 | 168 |
+| E2E tests | 10 | 17 | 24 | 34 | 45 | 51 |
 
 新增测试覆盖：
 
@@ -51,6 +51,18 @@ Round 4D 新增：
 - Feed/Search cursor 与 refresh 替换。
 - FeedCard/Home/Search/Detail 组件。
 - stable content deep link 和旧 VideoDetail 回退。
+
+Round 4E 新增：
+
+- MediaSource/PlaybackState Domain 和纯 reducer。
+- Media source runtime parser。
+- FeedDetail item+media 双边界。
+- MediaPlayer 组件和独立 CSS。
+- user-activated play/pause/replay。
+- muted/range/time/keyboard controls。
+- buffering/ended/error/Reduced Motion。
+- CSP、206 byte range 和外部媒体零请求。
+- 可重复 FFmpeg fixture 生成脚本。
 
 ## 迁移范围
 
@@ -102,16 +114,30 @@ cursor/refresh/runtime parser=yes
 video playback/live/music/gesture=no
 ```
 
-这是 Round 4A+4B+4C+4D，不是 Round 4 全部完成。
+Round 4E 新增：
+
+```text
+legacy BaseVideo lines audited=627
+legacy VideoDetail lines audited=360
+local reusable legacy videos=0
+media source kinds=local MP4
+playback states=7
+autoplay=no
+keyboard=yes
+CSP/range=yes
+HLS/fullscreen/PiP/comments=no
+```
+
+这是 Round 4A+4B+4C+4D+4E，不是 Round 4 全部完成。
 
 ## 现代源码规模
 
 ```text
-production files=77
-production TypeScript=53
-production Vue SFC=17
+production files=81
+production TypeScript=55
+production Vue SFC=18
 production JavaScript=0
-all src files including tests=118
+all src files including tests=125
 Auth production files=10
 Auth test files=7
 Profile production files=10
@@ -120,11 +146,13 @@ Message production files=11
 Message test files=7
 Feed production files=12
 Feed test files=7
+Media production files=4
+Media test files=3
 ```
 
 ## 类型纪律
 
-Round 4D 最终继续满足：
+Round 4E 最终继续满足：
 
 ```text
 production JavaScript=0
@@ -146,6 +174,8 @@ legacy runtime import=0
 - Message Store catch boundary 和 HTTP response。
 - Feed/Search/Detail parser input。
 - Feed Store catch boundary 和 runtime query。
+- MediaSource parser input。
+- HTMLMediaElement play rejection/error boundary。
 
 ## 资源
 
@@ -164,6 +194,20 @@ feed cover files=2
 feed cover bytes=77,066
 external cover URLs accepted=0
 video files copied=0
+```
+
+Round 4E 新增本地播放 fixture：
+
+```text
+media files=1
+media bytes=31,973
+codec=H.264 / yuv420p / 640x480 / 24 fps
+duration=4 seconds
+audio tracks=0
+faststart=yes
+sha256=d162a926f10ee573125b21dd52335d66e673fc1886bdc29062add83c7b2d98cd
+deterministic regeneration=yes
+external media URLs accepted=0
 ```
 
 旧 social icons 留在被忽略的 legacy 中，等对应纵切迁移时再按消费者复制。
@@ -224,6 +268,21 @@ modules transformed=164
 ```
 
 Feed 新增 Card/Home/Search/Detail 动态 chunk和 Feed CSS；两个封面按原字节复制进入 dist，不使用无法复现的远程 Douyin 资源。
+
+Round 4E production build：
+
+```text
+files=62
+total=1,675,195 bytes ≈1.60 MiB
+product media/images=1,383,167 bytes
+non-product output=292,028 bytes ≈285.18 KiB
+Round-4E increase=39,169 bytes
+media file contribution=31,973 bytes
+code/CSP/chunk increase excluding media=7,196 bytes
+modules transformed=169
+```
+
+MediaPlayer CSS 与 Detail JS 继续按路由懒加载；本轮没有新增 npm dependency。
 
 Lockfile 没有新增依赖，仍为：
 

@@ -1,4 +1,11 @@
-import { parseFeedId, type FeedAuthor, type FeedItem, type FeedPage } from '@/domain/feed/feed'
+import {
+  parseFeedId,
+  type FeedAuthor,
+  type FeedDetail,
+  type FeedItem,
+  type FeedPage,
+} from '@/domain/feed/feed'
+import { parseMediaSource } from '@/features/media/media-parser'
 import { failure, success, type AppResult } from '@/shared/result'
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -120,8 +127,17 @@ export function parseFeedPage(input: unknown): AppResult<FeedPage> {
   return success(Object.freeze({ items: Object.freeze(items), nextCursor: nextCursor.data }))
 }
 
-export function parseFeedDetail(input: unknown): AppResult<FeedItem> {
-  return isRecord(input) && 'item' in input
-    ? parseFeedItem(input.item)
-    : failure({ kind: 'parse', message: 'Feed detail 格式无效。' })
+export function parseFeedDetail(input: unknown): AppResult<FeedDetail> {
+  if (!isRecord(input) || !('item' in input) || !('media' in input)) {
+    return failure({ kind: 'parse', message: 'Feed detail 格式无效。' })
+  }
+  const item = parseFeedItem(input.item)
+  const media = parseMediaSource(input.media)
+  const errors: string[] = []
+  if (!item.ok) errors.push('item')
+  if (!media.ok) errors.push('media')
+  if (errors.length || !item.ok || !media.ok) {
+    return failure({ kind: 'parse', message: 'Feed detail 字段无效。', details: errors })
+  }
+  return success(Object.freeze({ item: item.data, media: media.data }))
 }

@@ -30,6 +30,11 @@ export interface FeedPage {
   readonly nextCursor: string | null
 }
 
+export interface FeedDetail {
+  readonly item: FeedItem
+  readonly media: MediaSource
+}
+
 export function parseFeedId(value: unknown): FeedId | null {
   return typeof value === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(value) ? (value as FeedId) : null
 }
@@ -55,3 +60,4 @@ export function formatFeedPublishedAt(value: string): string {
     year: 'numeric',
   }).format(new Date(value))
 }
+import type { MediaSource } from '@/domain/media/media'

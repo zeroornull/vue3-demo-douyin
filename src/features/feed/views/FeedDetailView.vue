@@ -2,13 +2,9 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { RouterLink, useRoute } from 'vue-router'
-import {
-  formatFeedCount,
-  formatFeedDuration,
-  formatFeedPublishedAt,
-  parseFeedId,
-} from '@/domain/feed/feed'
+import { formatFeedCount, formatFeedPublishedAt, parseFeedId } from '@/domain/feed/feed'
 import { useFeedStore } from '@/features/feed/store/feed'
+import MediaPlayer from '@/features/media/components/MediaPlayer.vue'
 import { ROUTE_NAMES } from '@/router'
 import '@/features/feed/feed.css'
 
@@ -16,7 +12,7 @@ defineOptions({ name: 'FeedDetailView' })
 
 const route = useRoute()
 const feedStore = useFeedStore()
-const { activeItem, detailError, detailStatus } = storeToRefs(feedStore)
+const { activeItem, activeMedia, detailError, detailStatus } = storeToRefs(feedStore)
 const routeError = ref<string | null>(null)
 let controller: AbortController | undefined
 
@@ -72,15 +68,14 @@ onBeforeUnmount(() => controller?.abort())
         <p>@{{ activeItem.author.handle }} · {{ activeItem.author.displayName }}</p>
       </header>
 
-      <div class="feed-detail-cover">
-        <img :src="activeItem.coverUrl" :alt="activeItem.caption" width="640" height="800" />
-        <span>{{ formatFeedDuration(activeItem.durationSeconds) }}</span>
-      </div>
+      <MediaPlayer v-if="activeMedia" :source="activeMedia" />
 
       <section class="feed-playback-boundary" aria-labelledby="playback-boundary-title">
         <p class="eyebrow">Intentional migration boundary</p>
-        <h2 id="playback-boundary-title">本批次不挂载视频播放器</h2>
-        <p>封面、元数据、搜索和深链已可验证；自动播放、手势、音量和媒体恢复留到独立纵切。</p>
+        <h2 id="playback-boundary-title">播放器只接受用户操作</h2>
+        <p>
+          本批次迁移播放、暂停、缓冲、结束、错误、静音和键盘控制；自动播放、复杂手势、直播与评论仍不进入。
+        </p>
       </section>
 
       <dl class="feed-detail-metrics">

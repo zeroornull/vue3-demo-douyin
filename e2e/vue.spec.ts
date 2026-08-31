@@ -93,6 +93,13 @@ function feedPayload(
   }
 }
 
+const mediaSourceResponse = {
+  src: '/feed/media/field-demo.mp4',
+  mimeType: 'video/mp4',
+  posterUrl: '/feed/covers/field.jpg',
+  durationSeconds: 4,
+}
+
 async function fillValidPasswordLogin(page: Page, password = 'douyin-demo') {
   await page.getByRole('textbox', { name: '手机号', exact: true }).fill('13800138000')
   await page.locator('input[name="password"]').fill(password)
@@ -781,17 +788,152 @@ test('loads and reloads a stable feed detail deep link', async ({ page }) => {
   await page.route('**/api/feed/feed-e2e', (route) => {
     requests += 1
     return route.fulfill({
-      body: JSON.stringify({ item: feedPayload() }),
+      body: JSON.stringify({ item: feedPayload(), media: mediaSourceResponse }),
       contentType: 'application/json',
     })
   })
   await page.goto('/home/content/feed-e2e')
 
   await expect(page.getByRole('heading', { name: 'E2E 推荐内容' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: '本批次不挂载视频播放器' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '播放器只接受用户操作' })).toBeVisible()
   await page.reload()
   await expect(page.getByRole('heading', { name: 'E2E 推荐内容' })).toBeVisible()
   expect(requests).toBe(2)
+})
+
+test('plays local media only after user activation and exposes keyboard controls', async ({
+  page,
+}) => {
+  const mediaRequests: Array<{ range?: string; url: string }> = []
+  page.on('request', (request) => {
+    if (request.url().endsWith('/feed/media/field-demo.mp4')) {
+      mediaRequests.push({
+        url: request.url(),
+        ...(request.headers().range ? { range: request.headers().range } : {}),
+      })
+    }
+  })
+  await page.route('**/api/feed/feed-e2e', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ item: feedPayload(), media: mediaSourceResponse }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/content/feed-e2e')
+  const media = page.getByTestId('media-element')
+
+  await expect(page.locator('meta[http-equiv="Content-Security-Policy"]')).toHaveAttribute(
+    'content',
+    /media-src 'self'/,
+  )
+  await expect(page.getByTestId('playback-status')).toHaveText('已暂停')
+  await expect(media).not.toHaveAttribute('autoplay', '')
+  expect(await media.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true)
+  expect(await media.evaluate((element: HTMLVideoElement) => element.currentTime)).toBe(0)
+
+  await page.getByRole('button', { name: '播放', exact: true }).click()
+  await expect(page.getByTestId('playback-status')).toHaveText('播放中')
+  await expect
+    .poll(() => media.evaluate((element: HTMLVideoElement) => element.currentTime))
+    .toBeGreaterThan(0)
+  await page.getByRole('button', { name: '暂停', exact: true }).click()
+  await expect(page.getByTestId('playback-status')).toHaveText('已暂停')
+
+  await page.getByLabel('媒体播放器').focus()
+  await page.keyboard.press('m')
+  await expect(page.getByRole('button', { name: '静音', exact: true })).toBeVisible()
+  await page.keyboard.press(' ')
+  await expect(page.getByTestId('playback-status')).toHaveText('播放中')
+  expect(mediaRequests.length).toBeGreaterThan(0)
+  expect(mediaRequests.every((request) => request.url.startsWith('http://127.0.0.1:4173/'))).toBe(
+    true,
+  )
+})
+
+test('reaches ended and can replay the local media fixture', async ({ page }) => {
+  await page.route('**/api/feed/feed-e2e', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ item: feedPayload(), media: mediaSourceResponse }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/content/feed-e2e')
+  const media = page.getByTestId('media-element')
+  await page.getByRole('button', { name: '播放', exact: true }).click()
+  await media.evaluate((element: HTMLVideoElement) => {
+    element.currentTime = Math.max(0, element.duration - 0.15)
+  })
+
+  await expect(page.getByTestId('playback-status')).toHaveText('播放结束', { timeout: 5000 })
+  await expect(page.getByRole('button', { name: '重新播放', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '重新播放', exact: true }).click()
+  await expect(page.getByTestId('playback-status')).toHaveText('播放中')
+})
+
+test('renders a media element error for a missing local MP4', async ({ page }) => {
+  await page.route('**/api/feed/feed-e2e', (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        item: feedPayload(),
+        media: { ...mediaSourceResponse, src: '/feed/media/missing.mp4' },
+      }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/content/feed-e2e')
+
+  await expect(page.getByRole('alert')).toContainText('媒体加载失败')
+  await expect(page.getByTestId('playback-status')).toHaveText('播放失败')
+})
+
+test('rejects an external media URL before creating a video request', async ({ page }) => {
+  let externalRequests = 0
+  await page.route('https://media.example.test/**', (route) => {
+    externalRequests += 1
+    return route.abort()
+  })
+  await page.route('**/api/feed/feed-e2e', (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        item: feedPayload(),
+        media: { ...mediaSourceResponse, src: 'https://media.example.test/video.mp4' },
+      }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/content/feed-e2e')
+
+  await expect(page.getByRole('alert')).toContainText('Feed detail 字段无效')
+  expect(externalRequests).toBe(0)
+})
+
+test('disables media transitions under reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.route('**/api/feed/feed-e2e', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ item: feedPayload(), media: mediaSourceResponse }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/home/content/feed-e2e')
+
+  await expect(page.getByTestId('playback-status')).toHaveText('已暂停')
+  expect(
+    await page
+      .getByRole('button', { name: '播放', exact: true })
+      .evaluate((element) => getComputedStyle(element).transitionDuration),
+  ).toBe('0s')
+})
+
+test('serves the local MP4 with byte-range responses', async ({ request }) => {
+  const response = await request.get('/feed/media/field-demo.mp4', {
+    headers: { Range: 'bytes=0-99' },
+  })
+
+  expect(response.status()).toBe(206)
+  expect(response.headers()['accept-ranges']).toBe('bytes')
+  expect(response.headers()['content-range']).toBe('bytes 0-99/31973')
+  expect((await response.body()).byteLength).toBe(100)
 })
 
 test('renders a typed not-found state for missing feed detail', async ({ page }) => {

@@ -28,7 +28,10 @@ describe('createFixtureFeedGateway', () => {
     const gateway = createFixtureFeedGateway()
     expect(await gateway.getItem(FIXTURE_FEED_ID)).toMatchObject({
       ok: true,
-      data: { id: FIXTURE_FEED_ID },
+      data: {
+        item: { id: FIXTURE_FEED_ID },
+        media: { src: '/feed/media/field-demo.mp4' },
+      },
     })
     expect(await gateway.getItem(parseFeedId('missing')!)).toMatchObject({
       ok: false,

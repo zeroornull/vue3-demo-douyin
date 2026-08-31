@@ -1,12 +1,12 @@
-# Round 4A + 4B + 4C + 4D：验证证据
+# Round 4A + 4B + 4C + 4D + 4E：验证证据
 
 ## Unit / Component
 
 最终结果：
 
 ```text
-Vitest files=41
-Vitest tests=155
+Vitest files=44
+Vitest tests=168
 ```
 
 关键断言：
@@ -46,11 +46,18 @@ Vitest tests=155
 - Detail typed viewed event。
 - Home/Search/Detail/invalid ID 组件状态。
 - Runtime Feed data source parser/Health。
+- MediaSource parser 和 local URL/MIME/poster/duration 白名单。
+- Playback reducer 的 load/paused/playing/buffering/ended/error/reset。
+- ended/error 不被后续 pause 覆盖。
+- MediaPlayer 无 autoplay、可访问控制、用户触发播放。
+- Keyboard mute 和 media error alert。
+- Feed detail item+media 双 parser 和 Store activeMedia reset。
 
 ## E2E
 
-Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 34/34；Round 4D 为 45/45。
-下面列出 Round 4 功能纵切的核心浏览器覆盖；此前 10 项 Scaffold/Shop 场景仍在同一个 E2E 文件中持续执行：
+Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 34/34；Round 4D 为 45/45；Round 4E 为 51/51。
+下面列出 Round 4 功能纵切的核心浏览器断言；一个 E2E 测试可以同时覆盖多条断言，
+因此序号不等于测试数量。此前 Scaffold/Shop 场景仍在同一个 E2E 文件中持续执行：
 
 1. 登录入口 → 密码表单。
 2. 空表单三类字段错误，HTTP request 数为 0。
@@ -91,6 +98,13 @@ Round 4A 最终结果为本地和 CI 17/17；Round 4B 为 24/24；Round 4C 为 3
 37. Missing Feed 404。
 38. Invalid FeedId 零 HTTP 请求。
 39. 无 ID 旧 VideoDetail → Home。
+40. 初始 paused/currentTime=0 且无 autoplay。
+41. 点击/Space 播放、按钮暂停和键盘 muted toggle。
+42. Ended 后重新播放。
+43. Missing local MP4 → media element error。
+44. External media source parse rejection，外部请求数为 0。
+45. Reduced Motion transition=0s。
+46. Local MP4 `Range: bytes=0-99` → 206/100 bytes。
 
 ## 视觉状态
 
@@ -128,12 +142,18 @@ docs/round-4/screenshots/feed-search-empty.png
 docs/round-4/screenshots/feed-detail.png
 docs/round-4/screenshots/feed-not-found.png
 docs/round-4/screenshots/feed-invalid-id.png
+docs/round-4/screenshots/media-paused.png
+docs/round-4/screenshots/media-playing.png
+docs/round-4/screenshots/media-unmuted.png
+docs/round-4/screenshots/media-ended.png
+docs/round-4/screenshots/media-error.png
 ```
 
 所有状态要求 0 page exception。
 
-最终自动采集 Login 5 张、Profile 6 张、Message 9 张和 Feed 11 张有效 PNG，
-总大小 3,043,473 B。所有 Feed 状态为 0 page exception，本地封面成功解码，搜索标题在移动端没有孤立单字行。
+最终自动采集 Login 5 张、Profile 6 张、Message 9 张、Feed 11 张和 Media 5 张
+有效 PNG，总大小 3,941,896 B。Media paused/playing/unmuted/ended/error 均为
+0 page exception，移动端控制条没有横向溢出。
 
 Message 表单交互后浏览器位于页面下方；`fullPage` 对 fixed skip-link 的拼接曾产生黄色条伪影。采集器现在在截图前显式回到 `scrollY=0`，重新生成并人工检查，运行时 skip-link 保持未聚焦和隐藏。
 
@@ -145,11 +165,11 @@ Prettier                          passed
 Oxlint                            passed
 ESLint 10                         passed
 vue-tsc                           passed
-Vitest                            41 files / 155 tests passed
-Vite                              164 modules transformed
-Production build                 60 files / 1,636,026 bytes
-Local Chrome E2E                  45/45 passed
-CI Chromium E2E                  45/45 passed
+Vitest                            44 files / 168 tests passed
+Vite                              169 modules transformed
+Production build                 62 files / 1,675,195 bytes
+Local Chrome E2E                  51/51 passed
+CI Chromium E2E                  51/51 passed
 bun audit                         349 packages / 0 vulnerabilities
 ```
 
@@ -192,6 +212,23 @@ getByRole('textbox', { name: '手机号', exact: true })
 ### 封面来源和解码
 
 两个本地 JPEG 保留原哈希和字节；E2E 等待每个 FeedCard 图片满足 `complete && naturalWidth > 0`。外部 HTTPS cover 即使结构其他字段合法，也会在 parser 层被拒绝。
+
+### Legacy 没有本地视频
+
+Legacy 只提供远程 Douyin play URL，没有可复用本地 MP4/WebM。Round 4E 没有把不稳定签名 URL复制到现代项目，而是用 FFmpeg 从已跟踪 field poster 生成 4 秒 H.264 fixture。相同环境重复生成前后 SHA-256 一致。
+
+### 浏览器媒体状态不是模拟点击文本
+
+E2E 直接读取 `HTMLVideoElement.paused/currentTime`，等待真实 currentTime 前进、ended event 和缺失媒体 error。播放器组件测试使用 mock DOM method 锁定边界；浏览器测试负责证明真实 Chrome 行为。
+
+### Byte range
+
+Playwright request 发送 `Range: bytes=0-99`，Vite preview 返回 206、
+`Accept-Ranges: bytes`、`Content-Range: bytes 0-99/31973` 和 100 B body。生产 CDN/代理仍需在部署环境重复验证。
+
+### CSP 与 parser 双边界
+
+E2E 读取 CSP 中 `media-src 'self'`；同时外部 HTTPS MediaSource 在 parser 层失败，浏览器对测试域的请求数为 0。CSP 不替代 runtime parser，parser 也不替代浏览器安全策略。
 
 ## Git 卫生
 

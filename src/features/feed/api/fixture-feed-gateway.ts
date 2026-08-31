@@ -130,7 +130,15 @@ export function createFixtureFeedGateway(pageSize = 2): FeedGateway {
       if (options?.signal?.aborted) return abortedFailure()
       const item = fixtureItems.find((candidate) => candidate.id === id)
       return item
-        ? success(item)
+        ? success({
+            item,
+            media: {
+              src: '/feed/media/field-demo.mp4',
+              mimeType: 'video/mp4',
+              posterUrl: item.coverUrl,
+              durationSeconds: 4,
+            },
+          })
         : failure({ kind: 'not-found', message: '内容不存在。', status: 404 })
     },
   }

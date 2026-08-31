@@ -18,6 +18,12 @@ const feedItemResponse = {
   tags: ['E2E', '迁移'],
 }
 const feedPageResponse = { items: [feedItemResponse], nextCursor: null }
+const mediaSourceResponse = {
+  src: '/feed/media/field-demo.mp4',
+  mimeType: 'video/mp4',
+  posterUrl: '/feed/covers/field.jpg',
+  durationSeconds: 4,
+}
 
 interface RequestRecord {
   readonly method: 'GET' | 'PATCH' | 'POST'
@@ -75,8 +81,13 @@ describe('createHttpFeedGateway', () => {
 
   it('parses stable detail and verifies the requested ID', async () => {
     const feedId = parseFeedId('feed-e2e')!
-    const gateway = createHttpFeedGateway(client([success({ item: feedItemResponse })]))
-    expect(await gateway.getItem(feedId)).toMatchObject({ ok: true, data: { id: feedId } })
+    const gateway = createHttpFeedGateway(
+      client([success({ item: feedItemResponse, media: mediaSourceResponse })]),
+    )
+    expect(await gateway.getItem(feedId)).toMatchObject({
+      ok: true,
+      data: { item: { id: feedId }, media: { mimeType: 'video/mp4' } },
+    })
   })
 
   it('maps 404 and preserves 503', async () => {

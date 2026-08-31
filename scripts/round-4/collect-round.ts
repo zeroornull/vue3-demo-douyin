@@ -106,7 +106,16 @@ async function main() {
       adapters: ['fixture', 'http'],
       resultKinds: ['validation', 'not-found', 'http', 'parse', 'aborted'],
     },
-    tests: { vitestFiles: 41, vitestTests: 155, e2eFiles: 1, e2eTests: 45 },
+    mediaSlice: {
+      productionFiles: productionFiles.filter(
+        (path) => path.includes('/features/media/') || path.includes('/domain/media/'),
+      ).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/media/__tests__/')).length,
+      routes: ['/home/content/:feedId'],
+      sourceKinds: ['local-mp4'],
+      playbackStates: ['idle', 'loading', 'paused', 'playing', 'buffering', 'ended', 'error'],
+    },
+    tests: { vitestFiles: 44, vitestTests: 168, e2eFiles: 1, e2eTests: 51 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),

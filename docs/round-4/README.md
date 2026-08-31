@@ -1,8 +1,8 @@
-# 第 4 轮进度：Round 4A Login + 4B Profile + 4C Message + 4D Feed
+# 第 4 轮进度：Round 4A Login + 4B Profile + 4C Message + 4D Feed + 4E Media
 
 > 更新日期：2026-08-31（Asia/Shanghai）
-> 状态：**Round 4A、4B、4C、4D 完成；Round 4 整体仍在进行中**
-> Git：4D 基线 HEAD 为 `bca5131`；4D 没有创建或暂存新提交
+> 状态：**Round 4A、4B、4C、4D、4E 完成；Round 4 整体仍在进行中**
+> Git：4E 基线 HEAD 为 `4146ffd`；4E 没有创建或暂存新提交
 
 ## 本批次范围
 
@@ -31,6 +31,11 @@
 - 独立 `VITE_FEED_DATA_SOURCE` 与 Health 可观察项。
 - 只复制两个本地封面，并拒绝任意外部 cover URL。
 - 旧 `/video-detail` 因没有内容身份安全回到 `/home`。
+- Feed Detail 的本地 H.264 MP4 播放器。
+- MediaSource runtime parser 和 idle/loading/paused/playing/buffering/ended/error 状态机。
+- 用户触发播放、暂停/重播、静音、range 进度和键盘控制。
+- Reduced Motion、CSP `media-src 'self'` 和 206 byte-range 验证。
+- 可重复 FFmpeg fixture 生成脚本和 0 page exception 媒体视觉证据。
 
 尚未迁移：
 
@@ -39,9 +44,9 @@
 - Help/协议页面。
 - 第三方社交登录。
 - 真实 token refresh/persistence。
-- 视频播放、Message 通知/媒体、直播、音乐等其他 Round-4 纵切。
+- 评论/分享交互、Message 通知/媒体、直播、音乐等其他 Round-4 纵切。
 
-因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4E Media Playback。
+因此本轮总路线不会被标记为全部完成；下一个建议批次是 Round 4F Content Interactions。
 
 ## 结果摘要
 
@@ -57,7 +62,8 @@
 | Profile | typed draft、dirty、validation、save、409 conflict、version increment |
 | Message | stable conversation ID、cursor、read/unread、send、typed lifecycle events |
 | Feed | stable FeedId、search query、cursor、refresh、local cover boundary |
-| Tests | 41 个 Vitest 文件、155 个测试；45 个 E2E |
+| Media | user-triggered MP4、playback state、keyboard、CSP、206 range |
+| Tests | 44 个 Vitest 文件、168 个测试；51 个 E2E |
 | 依赖 | 没有新增 npm dependency，继续复用 Axios 1.20.0 |
 | 类型债务 | 新 runtime/tests 继续保持 0 any、0 `$ref`、0 type suppression |
 
@@ -71,6 +77,8 @@
 - [Message 分页、未读与事件生命周期](message-pagination-and-events.md)
 - [Home / Search / Feed 纵切](feed-slice.md)
 - [Search、Cursor 与封面资源边界](feed-search-and-resource-boundary.md)
+- [Media Playback 纵切](media-playback-slice.md)
+- [媒体资源、CSP、Range 与测试](media-source-csp-and-range.md)
 - [迁移指标](metrics.md)
 - [验证证据](verification.md)
 
@@ -78,10 +86,10 @@
 
 ## Git 边界
 
-Round 4C 已在本批次开始前提交为：
+Round 4D 已在本批次开始前提交为：
 
 ```text
-bca5131 feat: implement round 4C of migration focusing on message features
+4146ffd feat: implement round 4D of migration focusing on feed features
 ```
 
 本批次没有创建 commit、没有暂存文件。
@@ -128,15 +136,26 @@ bca5131 feat: implement round 4C of migration focusing on message features
 - [x] Cover parser 拒绝外部 URL 和 dot segment。
 - [x] Feed 独立 fixture/http 数据源可从 Health 观察。
 - [x] 两个封面按消费者复制，哈希/大小/来源已记录。
-- [x] 详情明确不挂载播放器，不伪造媒体迁移完成度。
+- [x] Round 4D 详情曾明确不挂载播放器，Round 4E 再独立引入媒体状态机。
+- [x] MediaSource 和 FeedDetail 同时从 unknown parser 开始。
+- [x] Media parser 拒绝外部 URL、dot segment、非 MP4 和不安全 poster。
+- [x] 初始 paused/currentTime=0，页面不含 autoplay。
+- [x] 只有按钮或聚焦播放器后的 Space/K 触发播放。
+- [x] paused/playing/buffering/ended/error 状态可观察。
+- [x] mute、range、时间、aria-live 和键盘帮助可访问。
+- [x] error/ended 不被浏览器后续 pause 事件覆盖。
+- [x] Reduced Motion 下控制 transition 为 0s。
+- [x] CSP 限制 `media-src 'self'`，外部媒体请求数为 0。
+- [x] 本地 MP4 支持 206 byte range。
+- [x] FFmpeg fixture 重复生成 SHA-256 不变。
 
 ## 下一批次
 
-Round 4E Media Playback 建议迁移：
+Round 4F Content Interactions 建议迁移：
 
-1. 独立 MediaSource/PlaybackState Domain。
-2. 用户触发播放，禁止默认强制自动播放。
-3. paused/playing/buffering/ended/error 状态。
-4. mute、键盘操作、Reduced Motion 和可访问名称。
-5. HLS/MP4 来源、CSP、range request 和超时边界。
-6. 不同时迁移评论、分享、直播和复杂滑动手势。
+1. Comment DTO/parser、cursor 和 stable content association。
+2. Like/comment optimistic update 与 rollback。
+3. 未登录写操作的登录 redirect。
+4. 重复提交、冲突、401/409/429/503。
+5. 评论输入、字符限制和键盘/焦点恢复。
+6. 不同时迁移直播、音乐或复杂 Feed 滑动。

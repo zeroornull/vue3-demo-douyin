@@ -28,6 +28,13 @@ function feedPayload(
   }
 }
 
+const mediaSourceResponse = {
+  src: '/feed/media/field-demo.mp4',
+  mimeType: 'video/mp4',
+  posterUrl: '/feed/covers/field.jpg',
+  durationSeconds: 4,
+}
+
 async function main() {
   await mkdir(screenshotRoot, { recursive: true })
   const browser = await chromium.launch({ channel: 'chrome', headless: true })
@@ -172,13 +179,13 @@ async function main() {
       async (page) => {
         await page.route('**/api/feed/feed-e2e', (route) =>
           route.fulfill({
-            body: JSON.stringify({ item: feedPayload() }),
+            body: JSON.stringify({ item: feedPayload(), media: mediaSourceResponse }),
             contentType: 'application/json',
           }),
         )
         await page.goto(`${baseUrl}/home/content/feed-e2e`)
       },
-      (page) => page.getByRole('heading', { name: '本批次不挂载视频播放器' }).waitFor(),
+      (page) => page.getByRole('heading', { name: '播放器只接受用户操作' }).waitFor(),
     )
     await capture(
       'feed-not-found',

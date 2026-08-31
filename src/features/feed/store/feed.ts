@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { FeedId, FeedItem, FeedPage, FeedSearchQuery } from '@/domain/feed/feed'
+import type { FeedDetail, FeedId, FeedItem, FeedPage, FeedSearchQuery } from '@/domain/feed/feed'
+import type { MediaSource } from '@/domain/media/media'
 import type { FeedGateway, FeedRequestOptions } from '@/features/feed/api/feed-gateway'
 import { getDefaultFeedGateway } from '@/features/feed/api/feed-gateway-provider'
 import { validateFeedSearchQuery, type FeedSearchFieldErrors } from '@/features/feed/validation'
@@ -40,6 +41,7 @@ export const useFeedStore = defineStore('feed', () => {
   const searchFieldErrors = ref<FeedSearchFieldErrors>({})
 
   const activeItem = ref<FeedItem | null>(null)
+  const activeMedia = ref<MediaSource | null>(null)
   const detailStatus = ref<FeedDetailStatus>('idle')
   const detailError = ref<AppError | null>(null)
 
@@ -140,12 +142,13 @@ export const useFeedStore = defineStore('feed', () => {
   async function loadItem(
     feedId: FeedId,
     options: FeedActionOptions = {},
-  ): Promise<AppResult<FeedItem>> {
+  ): Promise<AppResult<FeedDetail>> {
     const requestId = ++detailRequestSequence
     activeItem.value = null
+    activeMedia.value = null
     detailStatus.value = 'loading'
     detailError.value = null
-    let result: AppResult<FeedItem>
+    let result: AppResult<FeedDetail>
     try {
       result = await (options.gateway ?? getDefaultFeedGateway()).getItem(
         feedId,
@@ -160,9 +163,10 @@ export const useFeedStore = defineStore('feed', () => {
     }
     if (requestId !== detailRequestSequence) return result
     if (result.ok) {
-      activeItem.value = result.data
+      activeItem.value = result.data.item
+      activeMedia.value = result.data.media
       detailStatus.value = 'ready'
-      appEventBus.emit('feed:item-viewed', { feedId: result.data.id })
+      appEventBus.emit('feed:item-viewed', { feedId: result.data.item.id })
     } else {
       detailError.value = result.error
       detailStatus.value = result.error.kind === 'aborted' ? 'idle' : 'error'
@@ -188,6 +192,7 @@ export const useFeedStore = defineStore('feed', () => {
     feedStatus.value = 'idle'
     feedError.value = null
     activeItem.value = null
+    activeMedia.value = null
     detailStatus.value = 'idle'
     detailError.value = null
     clearSearch()
@@ -205,6 +210,7 @@ export const useFeedStore = defineStore('feed', () => {
     searchError,
     searchFieldErrors,
     activeItem,
+    activeMedia,
     detailStatus,
     detailError,
     loadFeed,

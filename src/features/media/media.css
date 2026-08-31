@@ -1,0 +1,110 @@
+.media-player {
+  align-self: start;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #090908;
+}
+
+.media-player:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.media-player video {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: block;
+  object-fit: cover;
+  background: #000;
+}
+
+.media-controls {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto auto;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.8rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.media-controls button {
+  min-height: 40px;
+  padding: 0.55rem 0.75rem;
+  color: var(--accent-ink);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.media-controls button + button {
+  color: var(--accent);
+  border-color: var(--line);
+  background: transparent;
+}
+
+.media-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.media-controls label {
+  min-width: 110px;
+  display: grid;
+  gap: 0.25rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.media-controls input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.media-time,
+.media-controls output {
+  white-space: nowrap;
+  font-size: 0.72rem;
+}
+
+.media-controls output {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.media-error {
+  margin: 0;
+  padding: 0.8rem;
+  color: #ffb8b8;
+  border-top: 1px solid #8e4242;
+  background: #2a1717;
+}
+
+.media-keyboard-help {
+  margin: 0;
+  padding: 0 0.8rem 0.8rem;
+  color: var(--muted);
+  background: var(--surface);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 620px) {
+  .media-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-controls label,
+  .media-time,
+  .media-controls output {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media-player video,
+  .media-controls * {
+    transition: none !important;
+  }
+}

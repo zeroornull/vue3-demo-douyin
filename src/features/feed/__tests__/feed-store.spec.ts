@@ -95,6 +95,7 @@ describe('useFeedStore', () => {
     off()
 
     expect(store.activeItem?.id).toBe(FIXTURE_FEED_ID)
+    expect(store.activeMedia?.src).toBe('/feed/media/field-demo.mp4')
     expect(store.detailStatus).toBe('ready')
     expect(viewed).toEqual([FIXTURE_FEED_ID])
   })
@@ -122,6 +123,7 @@ describe('useFeedStore', () => {
     expect(store.items).toEqual([])
     expect(store.searchItems).toEqual([])
     expect(store.activeItem).toBeNull()
+    expect(store.activeMedia).toBeNull()
     expect(store.feedStatus).toBe('idle')
   })
 })

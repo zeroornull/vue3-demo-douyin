@@ -15,13 +15,22 @@ const feedItemResponse = {
 }
 
 const feedPageResponse = { items: [feedItemResponse], nextCursor: null }
+const mediaSourceResponse = {
+  src: '/feed/media/field-demo.mp4',
+  mimeType: 'video/mp4',
+  posterUrl: '/feed/covers/field.jpg',
+  durationSeconds: 4,
+}
 
 describe('feed response parsers', () => {
   it('parses and freezes valid pages and detail', () => {
     const page = parseFeedPage(feedPageResponse)
-    const detail = parseFeedDetail({ item: feedItemResponse })
+    const detail = parseFeedDetail({ item: feedItemResponse, media: mediaSourceResponse })
     expect(page).toMatchObject({ ok: true, data: { items: [{ id: 'feed-e2e' }] } })
-    expect(detail).toMatchObject({ ok: true, data: { id: 'feed-e2e' } })
+    expect(detail).toMatchObject({
+      ok: true,
+      data: { item: { id: 'feed-e2e' }, media: { mimeType: 'video/mp4' } },
+    })
     if (!page.ok) throw new Error(page.error.message)
     expect(Object.isFrozen(page.data)).toBe(true)
     expect(Object.isFrozen(page.data.items[0])).toBe(true)

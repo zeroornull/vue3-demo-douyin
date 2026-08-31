@@ -69,7 +69,7 @@ describe('Feed views', () => {
     const { wrapper } = await mountRoute(`/home/content/${FIXTURE_FEED_ID}`, FeedDetailView)
 
     expect(wrapper.get('#feed-detail-title').text()).toContain('老巷')
-    expect(wrapper.text()).toContain('本批次不挂载视频播放器')
-    expect(wrapper.get('img').attributes('src')).toBe('/feed/covers/alley.jpg')
+    expect(wrapper.text()).toContain('播放器只接受用户操作')
+    expect(wrapper.get('video').attributes('src')).toBe('/feed/media/field-demo.mp4')
   })
 })

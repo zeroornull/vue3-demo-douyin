@@ -48,7 +48,7 @@ export function createHttpFeedGateway(client: HttpClient): FeedGateway {
         options?.signal ? { signal: options.signal } : undefined,
       )
       const result = response.ok ? parseFeedDetail(response.data) : mapFeedHttpError(response)
-      if (result.ok && result.data.id !== feedId) {
+      if (result.ok && result.data.item.id !== feedId) {
         return failure({ kind: 'parse', message: '内容响应与请求 ID 不一致。' })
       }
       return result
