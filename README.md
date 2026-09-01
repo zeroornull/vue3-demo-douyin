@@ -13,9 +13,9 @@
 - 第 1 轮“Bun + Vue TypeScript 官方骨架”已执行完成。
 - 第 2 轮“严格 TypeScript 迁移通道与 Shop 样板”已执行并提交为 `b79b695`。
 - 第 3 轮“HTTP、环境、导航与事件核心基础设施”已执行并提交为 `f9704d5`。
-- 第 4 轮正在进行：Round 4A–4F 已完成（Login、Profile、Message、Feed、Media、Interactions），通知/媒体消息等纵切尚未开始。
+- 第 4 轮正在进行：Round 4A–4F 已完成；Round 4G-A 通知与附件基础边界已落地。
 - 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)、[`docs/round-2/README.md`](docs/round-2/README.md)、[`docs/round-3/README.md`](docs/round-3/README.md)、[`docs/round-4/README.md`](docs/round-4/README.md)。
-- 下一实施批次：Round 4G Notifications & Media Messages。
+- 下一实施批次：Round 4G-B Notification Gateway & Upload Progress。
 
 ## 从这里开始
 

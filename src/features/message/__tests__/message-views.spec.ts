@@ -18,6 +18,7 @@ import { ROUTE_NAMES } from '@/router'
 
 const EmptyView = { template: '<div>empty</div>' }
 const routes: RouteRecordRaw[] = [
+  { path: '/message/notifications', name: ROUTE_NAMES.notifications, component: EmptyView },
   {
     path: '/login/password',
     name: ROUTE_NAMES.authPassword,

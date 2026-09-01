@@ -18,6 +18,7 @@ export const ROUTE_NAMES = {
   profileEdit: 'profile-edit',
   message: 'message',
   messageChat: 'message-chat',
+  notifications: 'notifications',
   notFound: 'not-found',
 } as const
 
@@ -139,6 +140,17 @@ const routes: RouteRecordRaw[] = [
         }),
       },
     ],
+  },
+  {
+    path: '/message/notifications',
+    name: ROUTE_NAMES.notifications,
+    component: () => import('@/features/notification/views/NotificationView.vue'),
+    meta: defineRouteMeta({
+      migrationRound: 4,
+      title: '通知中心',
+      transition: 'forward',
+      requiresAuth: true,
+    }),
   },
   {
     path: '/shop',

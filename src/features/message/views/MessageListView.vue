@@ -45,6 +45,7 @@ onBeforeUnmount(() => controller?.abort())
         <span>条未读</span>
       </div>
     </header>
+    <RouterLink :to="{ name: ROUTE_NAMES.notifications }">查看通知中心</RouterLink>
 
     <div
       v-if="listStatus === 'idle' || (listStatus === 'loading' && conversations.length === 0)"

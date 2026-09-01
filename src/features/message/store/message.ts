@@ -10,7 +10,13 @@ import type {
 } from '@/domain/message/message'
 import type { MessageGateway, MessageRequestOptions } from '@/features/message/api/message-gateway'
 import { getDefaultMessageGateway } from '@/features/message/api/message-gateway-provider'
-import { validateMessageDraft, type MessageFieldErrors } from '@/features/message/validation'
+import type { AttachmentGateway } from '@/features/message/api/attachment-gateway'
+import { getDefaultAttachmentGateway } from '@/features/message/api/attachment-gateway-provider'
+import {
+  validateAttachmentFile,
+  validateMessageDraft,
+  type MessageFieldErrors,
+} from '@/features/message/validation'
 import { appEventBus } from '@/infrastructure/events/app-event-bus'
 import { failure, success, type AppError, type AppResult } from '@/shared/result'
 
@@ -41,6 +47,9 @@ export const useMessageStore = defineStore('message', () => {
   const threadStatus = ref<MessageThreadStatus>('idle')
   const threadError = ref<AppError | null>(null)
   const fieldErrors = ref<MessageFieldErrors>({})
+  const pendingAttachment = ref<ChatMessage['attachment'] | null>(null)
+  const uploadStatus = ref<'error' | 'idle' | 'uploading'>('idle')
+  const uploadError = ref<AppError | null>(null)
 
   let ownerUserId: string | null = null
   let listRequestSequence = 0
@@ -255,7 +264,10 @@ export const useMessageStore = defineStore('message', () => {
     if (!activeConversation.value) {
       return failure({ kind: 'unexpected', message: '尚未打开会话。' })
     }
-    const validation = validateMessageDraft({ body })
+    const validation = validateMessageDraft({
+      body,
+      ...(pendingAttachment.value ? { attachment: pendingAttachment.value } : {}),
+    })
     if (!validation.ok) {
       fieldErrors.value = validation.error.fields
       threadError.value = validation.error
@@ -300,9 +312,49 @@ export const useMessageStore = defineStore('message', () => {
         messageId: result.data.id,
       })
       publishUnreadTotal()
+      pendingAttachment.value = null
     } else {
       threadError.value = result.error
       threadStatus.value = result.error.kind === 'aborted' ? 'ready' : 'error'
+    }
+    return result
+  }
+
+  async function uploadAttachment(
+    session: AuthSession,
+    file: File,
+    options: { gateway?: AttachmentGateway; signal?: AbortSignal } = {},
+  ) {
+    if (!activeConversation.value) return failure({ kind: 'unexpected', message: '尚未打开会话。' })
+    const validation = validateAttachmentFile(file)
+    if (!validation.ok) {
+      uploadError.value = validation.error
+      uploadStatus.value = 'error'
+      return validation
+    }
+    uploadStatus.value = 'uploading'
+    uploadError.value = null
+    let result
+    try {
+      result = await (options.gateway ?? getDefaultAttachmentGateway()).upload(
+        session,
+        activeConversation.value.id,
+        file,
+        options.signal,
+      )
+    } catch (cause: unknown) {
+      result = failure({
+        kind: 'unexpected',
+        message: '附件上传失败。',
+        details: [cause instanceof Error ? cause.message : String(cause)],
+      })
+    }
+    if (result.ok) {
+      pendingAttachment.value = result.data
+      uploadStatus.value = 'idle'
+    } else {
+      uploadError.value = result.error
+      uploadStatus.value = result.error.kind === 'aborted' ? 'idle' : 'error'
     }
     return result
   }
@@ -339,6 +391,9 @@ export const useMessageStore = defineStore('message', () => {
     threadStatus.value = 'idle'
     threadError.value = null
     fieldErrors.value = {}
+    pendingAttachment.value = null
+    uploadStatus.value = 'idle'
+    uploadError.value = null
     publishUnreadTotal()
   }
 
@@ -353,11 +408,15 @@ export const useMessageStore = defineStore('message', () => {
     threadStatus,
     threadError,
     fieldErrors,
+    pendingAttachment,
+    uploadStatus,
+    uploadError,
     unreadTotal,
     loadConversations,
     openConversation,
     loadOlderMessages,
     sendMessage,
+    uploadAttachment,
     receiveIncomingMessage,
     reset,
   }

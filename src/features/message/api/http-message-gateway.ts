@@ -69,7 +69,7 @@ export function createHttpMessageGateway(client: HttpClient): MessageGateway {
     async sendMessage(session, conversationId, draft, options) {
       const response = await client.post(
         pathFor(conversationId, '/messages'),
-        draft,
+        { body: draft.body, ...(draft.attachment ? { attachmentId: draft.attachment.id } : {}) },
         requestOptions(session, options),
       )
       return response.ok

@@ -207,6 +207,7 @@ export function createFixtureMessageGateway(pageSize = 2): MessageGateway {
         conversationId: id,
         senderId: session.userId,
         body: draft.body,
+        ...(draft.attachment ? { attachment: draft.attachment } : {}),
         sentAt,
         delivery: 'sent',
       }

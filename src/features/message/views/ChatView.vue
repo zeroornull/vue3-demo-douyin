@@ -16,6 +16,7 @@ const messageStore = useMessageStore()
 const { session } = storeToRefs(auth)
 const { activeConversation, fieldErrors, messages, nextMessageCursor, threadError, threadStatus } =
   storeToRefs(messageStore)
+const { pendingAttachment, uploadError, uploadStatus } = storeToRefs(messageStore)
 const composer = ref('')
 const routeError = ref<string | null>(null)
 let controller: AbortController | undefined
@@ -66,6 +67,18 @@ async function send() {
   })
   if (result.ok) composer.value = ''
   else if (result.error.kind === 'unauthorized') auth.signOut()
+}
+
+async function chooseAttachment(event: Event) {
+  const input = event.currentTarget
+  if (!(input instanceof HTMLInputElement) || !input.files?.[0] || !session.value) return
+  controller?.abort()
+  controller = new AbortController()
+  const result = await messageStore.uploadAttachment(session.value, input.files[0], {
+    signal: controller.signal,
+  })
+  if (!result.ok && result.error.kind === 'unauthorized') auth.signOut()
+  input.value = ''
 }
 
 watch(
@@ -141,6 +154,19 @@ onBeforeUnmount(() => controller?.abort())
           :class="{ 'chat-message-self': message.senderId === session?.userId }"
         >
           <article>
+            <img
+              v-if="message.attachment?.kind === 'image'"
+              class="chat-attachment"
+              :src="message.attachment.url"
+              alt="聊天图片附件"
+            />
+            <video
+              v-else-if="message.attachment?.kind === 'video'"
+              class="chat-attachment"
+              :src="message.attachment.url"
+              controls
+              preload="metadata"
+            ></video>
             <p>{{ message.body }}</p>
             <footer>
               <time :datetime="message.sentAt">{{ formatMessageTime(message.sentAt) }}</time>
@@ -167,6 +193,22 @@ onBeforeUnmount(() => controller?.abort())
           <small v-if="fieldErrors.body" role="alert">{{ fieldErrors.body }}</small>
           <span>{{ composer.length }}/500</span>
         </div>
+        <label class="message-attachment-picker">
+          <span>{{ uploadStatus === 'uploading' ? '上传中…' : '添加图片或 MP4' }}</span>
+          <input
+            aria-label="选择附件"
+            type="file"
+            accept="image/jpeg,image/png,video/mp4"
+            :disabled="uploadStatus === 'uploading'"
+            @change="chooseAttachment"
+          />
+        </label>
+        <p v-if="pendingAttachment" class="message-attachment-ready">
+          附件已就绪：{{ pendingAttachment.mimeType }}
+        </p>
+        <p v-if="uploadError" class="message-inline-error" role="alert">
+          {{ uploadError.message }}
+        </p>
         <button type="submit" :disabled="threadStatus === 'sending'">
           {{ threadStatus === 'sending' ? '发送中…' : '发送' }}
         </button>

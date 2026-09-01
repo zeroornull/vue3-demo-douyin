@@ -1,0 +1,46 @@
+.notification-page > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+.notification-page h1 {
+  margin: 0.4rem 0;
+  font-size: clamp(2.8rem, 7vw, 5rem);
+}
+.notification-page button {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+.notification-page ol {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  border: 1px solid var(--line);
+}
+.notification-page li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.notification-page li:first-child {
+  border-top: 0;
+}
+.notification-page li.unread {
+  border-left: 4px solid var(--accent);
+}
+.notification-page p {
+  color: var(--muted);
+}
+.notification-page time,
+.notification-page li > span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}

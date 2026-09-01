@@ -5,6 +5,15 @@ export type ConversationId = string & {
 }
 
 export type MessageDelivery = 'delivered' | 'read' | 'sent'
+export type MessageAttachmentKind = 'image' | 'video'
+
+export interface MessageAttachment {
+  readonly id: string
+  readonly kind: MessageAttachmentKind
+  readonly mimeType: 'image/jpeg' | 'image/png' | 'video/mp4'
+  readonly sizeBytes: number
+  readonly url: string
+}
 
 export interface ConversationParticipant {
   readonly displayName: string
@@ -14,6 +23,7 @@ export interface ConversationParticipant {
 }
 
 export interface ChatMessage {
+  readonly attachment?: MessageAttachment
   readonly body: string
   readonly conversationId: ConversationId
   readonly delivery: MessageDelivery
@@ -42,6 +52,7 @@ export interface MessagePage {
 }
 
 export interface MessageDraft {
+  readonly attachment?: MessageAttachment
   readonly body: string
 }
 

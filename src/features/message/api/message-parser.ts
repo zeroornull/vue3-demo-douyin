@@ -7,6 +7,7 @@ import {
   type ConversationSummary,
   type MessageDelivery,
   type MessagePage,
+  type MessageAttachment,
   type ReadReceipt,
 } from '@/domain/message/message'
 import { failure, success, type AppResult } from '@/shared/result'
@@ -43,6 +44,34 @@ function parseParticipant(input: unknown): AppResult<ConversationParticipant> {
   })
 }
 
+export function parseMessageAttachment(input: unknown): AppResult<MessageAttachment> {
+  if (!isRecord(input)) return failure({ kind: 'parse', message: '附件格式无效。' })
+  const mime = input.mimeType
+  const kind =
+    mime === 'video/mp4' ? 'video' : mime === 'image/jpeg' || mime === 'image/png' ? 'image' : null
+  const url = typeof input.url === 'string' ? input.url : null
+  const safeUrl =
+    url !== null && /^\/message\/attachments\/[A-Za-z0-9_-]+\.(?:jpe?g|png|mp4)$/.test(url)
+  if (
+    typeof input.id !== 'string' ||
+    !input.id ||
+    !kind ||
+    !safeUrl ||
+    !Number.isInteger(input.sizeBytes) ||
+    typeof input.sizeBytes !== 'number' ||
+    input.sizeBytes <= 0
+  ) {
+    return failure({ kind: 'parse', message: '附件字段无效。' })
+  }
+  return success({
+    id: input.id,
+    kind,
+    mimeType: mime as MessageAttachment['mimeType'],
+    url: url!,
+    sizeBytes: input.sizeBytes,
+  })
+}
+
 export function parseChatMessage(
   input: unknown,
   expectedConversationId?: ConversationId,
@@ -58,11 +87,19 @@ export function parseChatMessage(
     errors.push('conversationId:mismatch')
   }
   if (typeof input.senderId !== 'string' || !input.senderId) errors.push('senderId')
-  if (typeof input.body !== 'string' || !input.body.trim() || input.body.length > 500) {
+  const body = typeof input.body === 'string' ? input.body : null
+  if (body === null || body.length > 500) {
     errors.push('body')
   }
   if (!isTimestamp(input.sentAt)) errors.push('sentAt')
   if (!isDelivery(input.delivery)) errors.push('delivery')
+  let attachment: MessageAttachment | undefined
+  if (input.attachment !== undefined && input.attachment !== null) {
+    const parsed = parseMessageAttachment(input.attachment)
+    if (!parsed.ok) errors.push('attachment')
+    else attachment = parsed.data
+  }
+  if ((!body || !body.trim()) && !attachment) errors.push('content')
   if (errors.length || !conversationId) {
     return failure({ kind: 'parse', message: '消息响应字段无效。', details: errors })
   }
@@ -73,6 +110,7 @@ export function parseChatMessage(
     body: input.body as string,
     sentAt: input.sentAt as string,
     delivery: input.delivery as MessageDelivery,
+    ...(attachment ? { attachment } : {}),
   })
 }
 
