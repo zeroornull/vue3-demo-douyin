@@ -61,7 +61,7 @@
 - [Round 4E 媒体资源、CSP、Range 与测试](round-4/media-source-csp-and-range.md)
 - [Round 4F 点赞与评论纵切](round-4/content-interactions-slice.md)
 - [Round 4F Optimistic update、回滚与登录意图](round-4/interaction-optimistic-auth.md)
-- [Round 4G 通知与消息附件边界](round-4/notifications-and-attachments.md)
+- [Round 4G 通知与消息附件](round-4/notifications-and-attachments.md)
 
 ## 2. 必须遵守的迁移原则
 

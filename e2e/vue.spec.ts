@@ -1168,3 +1168,87 @@ test('renders a parser error for invalid comment payload', async ({ page }) => {
   await page.goto('/home/content/feed-e2e')
   await expect(page.getByRole('alert')).toContainText('评论列表字段无效')
 })
+
+test('loads paginated notifications and marks all read', async ({ page }) => {
+  let reads = 0
+  await page.route('**/api/notifications**', async (route) => {
+    if (route.request().method() === 'POST') {
+      reads += 1
+      await route.fulfill({
+        body: JSON.stringify({ ids: ['notice-1', 'notice-2'], readAt: '2026-09-01T02:00:00Z' }),
+        contentType: 'application/json',
+      })
+      return
+    }
+    const cursor = new URL(route.request().url()).searchParams.get('cursor')
+    await route.fulfill({
+      body: JSON.stringify(
+        cursor
+          ? {
+              notifications: [
+                {
+                  id: 'notice-2',
+                  kind: 'task',
+                  title: '任务通知',
+                  body: '第二页',
+                  createdAt: '2026-09-01T01:00:00Z',
+                  read: false,
+                },
+              ],
+              nextCursor: null,
+            }
+          : {
+              notifications: [
+                {
+                  id: 'notice-1',
+                  kind: 'system',
+                  title: '系统通知',
+                  body: '第一页',
+                  createdAt: '2026-09-01T01:00:00Z',
+                  read: false,
+                },
+              ],
+              nextCursor: 'p2',
+            },
+      ),
+      contentType: 'application/json',
+    })
+  })
+  await signInViaHttp(page, '/message/notifications')
+  await page.getByRole('button', { name: '加载更多通知' }).click()
+  await expect(page.getByText('第二页')).toBeVisible()
+  await page.getByRole('button', { name: '全部已读' }).click()
+  await expect(page.getByText('0 条未读')).toBeVisible()
+  expect(reads).toBe(1)
+})
+
+test('renders notification 503 without losing the route', async ({ page }) => {
+  await page.route('**/api/notifications**', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 503 }),
+  )
+  await signInViaHttp(page, '/message/notifications')
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（503）')
+})
+
+test('validates attachment MIME before upload', async ({ page }) => {
+  let uploads = 0
+  await page.route('**/api/messages/conversations/**/attachments', (route) => {
+    uploads += 1
+    return route.abort()
+  })
+  await page.route('**/api/messages/conversations/conv-e2e/messages', (route) =>
+    route.fulfill({ body: JSON.stringify(messageThreadResponse), contentType: 'application/json' }),
+  )
+  await page.route('**/api/messages/conversations/conv-e2e/read', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ conversationId: 'conv-e2e', readAt: '2026-09-01T01:00:00Z' }),
+      contentType: 'application/json',
+    }),
+  )
+  await signInViaHttp(page, '/message/chat/conv-e2e')
+  await page
+    .getByLabel('选择附件')
+    .setInputFiles({ name: 'bad.gif', mimeType: 'image/gif', buffer: Buffer.from('x') })
+  await expect(page.getByRole('alert')).toContainText('只支持 JPEG、PNG 或 MP4')
+  expect(uploads).toBe(0)
+})

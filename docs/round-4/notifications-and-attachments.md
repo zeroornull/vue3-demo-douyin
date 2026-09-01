@@ -1,7 +1,16 @@
-# Round 4G-A：通知与消息附件基础边界
+# Round 4G：通知与消息附件
 
 本批次建立 `/message/notifications` typed UI，以及聊天 JPEG/PNG/MP4 附件基础边界。
-通知 Gateway/cursor 持久化和上传进度留到 4G-B，因此 Round 4G 尚未整体完成。
+4G-B 已把通知页接到 Fixture/HTTP Gateway，并补上 cursor、单条/批量已读、401、503
+和 parser。上传仍不提供百分比进度；产品只展示 uploading/ready/error，因为当前 HttpClient
+没有稳定的上传进度接口，文档不伪造一个假百分比。
+
+这一轮最先碰到的不是网络，而是测试路由。MessageList 新增通知入口后，memory router
+没有 `notifications` route，完整 Unit 直接失败。补齐测试路由比 stub 掉 RouterLink 更合理，
+因为它继续验证真实 named route。
+
+附件上传保持两段式：先上传并解析本地附件 URL，再把 attachmentId 放进消息发送请求。
+JPEG/PNG 上限 5 MB，MP4 上限 25 MB；401、413、429、503 和 AbortSignal 分开处理。
 
 ## Legacy 差异
 

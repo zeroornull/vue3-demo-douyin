@@ -133,7 +133,17 @@ async function main() {
         'aborted',
       ],
     },
-    tests: { vitestFiles: 51, vitestTests: 192, e2eFiles: 1, e2eTests: 61 },
+    notificationSlice: {
+      productionFiles: productionFiles.filter(
+        (path) =>
+          path.includes('/features/notification/') || path.includes('/domain/notification/'),
+      ).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/notification/__tests__/'))
+        .length,
+      routes: ['/message/notifications'],
+      resultKinds: ['unauthorized', 'http', 'parse', 'aborted'],
+    },
+    tests: { vitestFiles: 53, vitestTests: 197, e2eFiles: 1, e2eTests: 64 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),
