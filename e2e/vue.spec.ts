@@ -1252,3 +1252,136 @@ test('validates attachment MIME before upload', async ({ page }) => {
   await expect(page.getByRole('alert')).toContainText('只支持 JPEG、PNG 或 MP4')
   expect(uploads).toBe(0)
 })
+
+test('copies the stable same-origin feed URL', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  await mockFeedDetail(page)
+  await page.goto('/home/content/feed-e2e')
+  await page.getByRole('button', { name: '复制内容链接' }).click()
+  await expect(page.getByText('链接已复制')).toBeVisible()
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+    'http://127.0.0.1:4173/home/content/feed-e2e',
+  )
+})
+
+test('requires login before reporting content', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.goto('/home/content/feed-e2e')
+  await page.getByRole('button', { name: '提交举报' }).click()
+  await expect(page.getByRole('alert')).toContainText('请先登录')
+})
+
+test('submits a structured report after login', async ({ page }) => {
+  let body: { reason?: string; description?: string } = {}
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/reports', async (route) => {
+    body = route.request().postDataJSON()
+    await route.fulfill({
+      body: JSON.stringify({ feedId: 'feed-e2e', reportId: 'report-1', status: 'accepted' }),
+      contentType: 'application/json',
+    })
+  })
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  await page.getByLabel('举报原因').selectOption('spam')
+  await page.getByLabel('补充说明').fill('重复广告')
+  await page.getByRole('button', { name: '提交举报' }).click()
+  await expect(page.getByText('举报已受理。', { exact: true })).toBeVisible()
+  expect(body).toEqual({ reason: 'spam', description: '重复广告' })
+})
+
+test('keeps report form visible on HTTP 409', async ({ page }) => {
+  await mockFeedDetail(page)
+  await page.route('**/api/feed/feed-e2e/reports', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 409 }),
+  )
+  await signInViaHttp(page, '/home/content/feed-e2e')
+  await page.getByLabel('举报原因').selectOption('fraud')
+  await page.getByRole('button', { name: '提交举报' }).click()
+  await expect(page.getByRole('alert')).toContainText('已经举报过')
+})
+
+test('signs in through a typed SMS challenge', async ({ page }) => {
+  await page.route('**/api/auth/code/request', (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        id: 'challenge-e2e',
+        phone: '13800138000',
+        expiresAt: '2026-09-01T12:10:00Z',
+        retryAt: '2026-09-01T12:01:00Z',
+      }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.route('**/api/auth/code/verify', (route) =>
+    route.fulfill({ body: JSON.stringify(authSessionResponse), contentType: 'application/json' }),
+  )
+  await page.route('**/api/feed', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ items: [], nextCursor: null }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/login/code')
+  await page.getByRole('button', { name: '发送验证码' }).click()
+  await page.getByLabel('验证码').fill('2468')
+  await page.getByRole('button', { name: '登录', exact: true }).click()
+  await expect(page).toHaveURL(/\/home$/)
+  await expect(page.getByText('E2E 用户')).toBeVisible()
+})
+
+test('renders SMS challenge rate limiting', async ({ page }) => {
+  await page.route('**/api/auth/code/request', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 429 }),
+  )
+  await page.goto('/login/code')
+  await page.getByRole('button', { name: '发送验证码' }).click()
+  await expect(page.getByRole('alert')).toContainText('请求过于频繁')
+})
+
+test('renders an unauthorized verification code', async ({ page }) => {
+  await page.route('**/api/auth/code/request', (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        id: 'challenge-e2e',
+        phone: '13800138000',
+        expiresAt: '2026-09-01T12:10:00Z',
+        retryAt: '2026-09-01T12:01:00Z',
+      }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.route('**/api/auth/code/verify', (route) =>
+    route.fulfill({ body: '{}', contentType: 'application/json', status: 401 }),
+  )
+  await page.goto('/login/code')
+  await page.getByRole('button', { name: '发送验证码' }).click()
+  await page.getByLabel('验证码').fill('0000')
+  await page.getByRole('button', { name: '登录', exact: true }).click()
+  await expect(page.getByRole('alert')).toContainText('HTTP 请求失败（401）')
+})
+
+test('requests and confirms a password reset', async ({ page }) => {
+  await page.route('**/api/auth/password/request-reset', (route) =>
+    route.fulfill({
+      body: JSON.stringify({
+        id: 'reset-e2e',
+        phone: '13800138000',
+        expiresAt: '2026-09-01T12:10:00Z',
+        retryAt: '2026-09-01T12:01:00Z',
+      }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.route('**/api/auth/password/reset', (route) =>
+    route.fulfill({
+      body: JSON.stringify({ userId: 'e2e-user', resetAt: '2026-09-01T12:02:00Z' }),
+      contentType: 'application/json',
+    }),
+  )
+  await page.goto('/login/recover')
+  await page.getByRole('button', { name: '发送重置验证码' }).click()
+  await page.getByLabel('验证码').fill('2468')
+  await page.getByLabel('新密码').fill('new-password')
+  await page.getByRole('button', { name: '确认重置' }).click()
+  await expect(page.getByRole('status')).toContainText('密码已重置')
+})

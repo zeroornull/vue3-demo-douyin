@@ -9,6 +9,8 @@ import { ROUTE_NAMES } from '@/router'
 
 const EmptyView = { template: '<div>target</div>' }
 const routes: RouteRecordRaw[] = [
+  { path: '/login/code', name: ROUTE_NAMES.authCode, component: EmptyView },
+  { path: '/login/recover', name: ROUTE_NAMES.authRecover, component: EmptyView },
   {
     path: '/login',
     name: ROUTE_NAMES.authLogin,

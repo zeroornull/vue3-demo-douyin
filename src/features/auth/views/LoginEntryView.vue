@@ -14,7 +14,7 @@ defineOptions({ name: 'LoginEntryView' })
       <h1 id="login-title">登录看朋友内容</h1>
       <p>
         本纵切迁移旧登录入口和密码登录，同时移除未勾选协议时永不完成的
-        Promise。验证码、找回密码和社交登录将在后续批次迁移。
+        Promise。验证码登录和找回密码已迁移；社交登录仍不在当前范围。
       </p>
     </div>
 
@@ -41,6 +41,12 @@ defineOptions({ name: 'LoginEntryView' })
       >
         使用手机号和密码登录
       </RouterLink>
+      <RouterLink class="auth-primary-action" :to="{ name: ROUTE_NAMES.authCode }"
+        >使用短信验证码登录</RouterLink
+      >
+      <RouterLink class="auth-primary-action" :to="{ name: ROUTE_NAMES.authRecover }"
+        >找回密码</RouterLink
+      >
 
       <p class="auth-footnote">
         默认开发使用内存 fixture；E2E 构建使用 Axios HTTP Gateway。两种 adapter 共享同一

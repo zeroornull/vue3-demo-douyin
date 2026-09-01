@@ -143,7 +143,31 @@ async function main() {
       routes: ['/message/notifications'],
       resultKinds: ['unauthorized', 'http', 'parse', 'aborted'],
     },
-    tests: { vitestFiles: 53, vitestTests: 197, e2eFiles: 1, e2eTests: 64 },
+    moderationSlice: {
+      productionFiles: productionFiles.filter(
+        (path) => path.includes('/features/moderation/') || path.includes('/domain/moderation/'),
+      ).length,
+      testFiles: sourceFiles.filter((path) => path.includes('/features/moderation/__tests__/'))
+        .length,
+      routes: ['/home/content/:feedId'],
+      resultKinds: [
+        'validation',
+        'unauthorized',
+        'conflict',
+        'rate-limit',
+        'http',
+        'parse',
+        'aborted',
+      ],
+    },
+    authCompletionSlice: {
+      productionFiles: productionFiles.filter(
+        (path) => path.includes('/features/auth/') || path.includes('/domain/auth/'),
+      ).length,
+      routes: ['/login/code', '/login/recover'],
+      resultKinds: ['validation', 'unauthorized', 'rate-limit', 'http', 'parse', 'aborted'],
+    },
+    tests: { vitestFiles: 55, vitestTests: 204, e2eFiles: 1, e2eTests: 72 },
     build: {
       files: buildFiles.length,
       bytes: buildFiles.reduce((total, file) => total + file.bytes, 0),

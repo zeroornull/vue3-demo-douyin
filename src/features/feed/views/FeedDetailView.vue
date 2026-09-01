@@ -6,6 +6,7 @@ import { formatFeedCount, formatFeedPublishedAt, parseFeedId } from '@/domain/fe
 import { useFeedStore } from '@/features/feed/store/feed'
 import MediaPlayer from '@/features/media/components/MediaPlayer.vue'
 import FeedInteractions from '@/features/interaction/components/FeedInteractions.vue'
+import ShareReportPanel from '@/features/moderation/components/ShareReportPanel.vue'
 import { ROUTE_NAMES } from '@/router'
 import '@/features/feed/feed.css'
 
@@ -103,6 +104,7 @@ onBeforeUnmount(() => controller?.abort())
       </ul>
 
       <FeedInteractions :item="activeItem" />
+      <ShareReportPanel :feed-id="activeItem.id" />
     </article>
   </section>
 </template>

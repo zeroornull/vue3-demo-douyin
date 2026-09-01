@@ -14,6 +14,8 @@ export const ROUTE_NAMES = {
   shopDetail: 'shop-detail',
   authLogin: 'auth-login',
   authPassword: 'auth-password',
+  authCode: 'auth-code',
+  authRecover: 'auth-recover',
   profile: 'profile',
   profileEdit: 'profile-edit',
   message: 'message',
@@ -74,6 +76,18 @@ const routes: RouteRecordRaw[] = [
     path: '/login/other',
     redirect: { name: ROUTE_NAMES.authPassword },
     meta: defineRouteMeta({ migrationRound: 4, title: '登录方式重定向', transition: 'forward' }),
+  },
+  {
+    path: '/login/code',
+    name: ROUTE_NAMES.authCode,
+    component: () => import('@/features/auth/views/CodeLoginView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '验证码登录', transition: 'forward' }),
+  },
+  {
+    path: '/login/recover',
+    name: ROUTE_NAMES.authRecover,
+    component: () => import('@/features/auth/views/RecoverPasswordView.vue'),
+    meta: defineRouteMeta({ migrationRound: 4, title: '重置密码', transition: 'forward' }),
   },
   {
     path: '/me',

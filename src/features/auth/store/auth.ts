@@ -79,6 +79,13 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
     fieldErrors.value = {}
   }
+  function acceptSession(value: AuthSession) {
+    session.value = value
+    status.value = 'authenticated'
+    error.value = null
+    fieldErrors.value = {}
+    appEventBus.emit('auth:signed-in', { userId: value.userId })
+  }
 
   return {
     status,
@@ -88,5 +95,6 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     signIn,
     signOut,
+    acceptSession,
   }
 })

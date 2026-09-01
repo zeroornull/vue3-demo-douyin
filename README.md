@@ -13,9 +13,9 @@
 - 第 1 轮“Bun + Vue TypeScript 官方骨架”已执行完成。
 - 第 2 轮“严格 TypeScript 迁移通道与 Shop 样板”已执行并提交为 `b79b695`。
 - 第 3 轮“HTTP、环境、导航与事件核心基础设施”已执行并提交为 `f9704d5`。
-- 第 4 轮正在进行：Round 4A–4G 已完成；通知已接入 Gateway，附件采用上传状态而非伪造百分比。
+- 第 4 轮正在进行：Round 4A–4I 已完成；验证码登录和密码重置已接入 typed challenge。
 - 报告：[`docs/round-0/README.md`](docs/round-0/README.md)、[`docs/round-1/README.md`](docs/round-1/README.md)、[`docs/round-2/README.md`](docs/round-2/README.md)、[`docs/round-3/README.md`](docs/round-3/README.md)、[`docs/round-4/README.md`](docs/round-4/README.md)。
-- 下一实施批次：Round 4H Share & Moderation。
+- 下一实施批次：Round 4J Session Security Decision。
 
 ## 从这里开始
 

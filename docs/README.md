@@ -62,6 +62,8 @@
 - [Round 4F 点赞与评论纵切](round-4/content-interactions-slice.md)
 - [Round 4F Optimistic update、回滚与登录意图](round-4/interaction-optimistic-auth.md)
 - [Round 4G 通知与消息附件](round-4/notifications-and-attachments.md)
+- [Round 4H 分享与举报](round-4/share-and-moderation.md)
+- [Round 4I 验证码登录与密码重置](round-4/auth-completion.md)
 
 ## 2. 必须遵守的迁移原则
 
